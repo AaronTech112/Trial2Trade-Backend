@@ -1,0 +1,227 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trial2Trade - Payouts</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard-nav.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="{% static 'images/logo.JPG' %}" type="image/svg+xml">
+    <link rel="stylesheet" href="{% static 'css/mobile-nav.css' %}">
+</head>
+<body>
+    <!-- Mobile Navigation Toggle -->
+    <button class="mobile-nav-toggle">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <!-- Mobile Navigation Overlay -->
+    <div class="mobile-nav-overlay"></div>
+<!-- Dashboard Navigation -->
+    <nav class="dashboard-nav">
+        <div class="nav-logo">
+            <img src="{% static 'images/logob.png' %}" alt="Trial2Trade Logo" style="width: 130px; height: 75px;">
+        </div>
+            <div class="user-info">
+                <img src="{% static 'images/avatar-placeholder.png' %}" alt="User Avatar" class="avatar">
+                <div class="user-details">
+                    <h4 class="user-name">{{ request.user.first_name|default:request.user.username }}</h4>
+                    <span class="user-status">{% if user_accounts %}Active Trader{% else %}New User{% endif %}</span>
+                </div>
+            </div>
+        <div class="nav-menu">
+            <a href="{% url 'index' %}" class="nav-item ">
+                <i class="fas fa-chart-line"></i>
+                <span>Overview</span>
+            </a>
+            <a href="{% url 'dashboard_accounts' %}" class="nav-item">
+                <i class="fas fa-wallet"></i>
+                <span>My Accounts</span>
+            </a>
+            <a href="{% url 'dashboard_purchase' %}" class="nav-item">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Purchase Account</span>
+            </a>
+            <a href="{% url 'dashboard_next_phase' %}" class="nav-item">
+                <i class="fas fa-arrow-right"></i>
+                <span>Next Phase</span>
+            </a>
+            <a href="{% url 'dashboard_rules' %}" class="nav-item">
+                <i class="fas fa-book"></i>
+                <span>Trading Rules</span>
+            </a>
+            <a href="{% url 'dashboard_referral' %}" class="nav-item">
+                <i class="fas fa-users"></i>
+                <span>Refer & Earn</span>
+            </a>
+            <a href="{% url 'dashboard_payouts' %}" class="nav-item active">
+                <i class="fas fa-money-bill-wave"></i>
+                <span>Payouts</span>
+            </a>
+            <a href="{% url 'dashboard_transactions' %}" class="nav-item">
+                <i class="fas fa-history"></i>
+                <span>Transactions</span>
+            </a>
+            <a href="{% url 'dashboard_certificates' %}" class="nav-item">
+                <i class="fas fa-certificate"></i>
+                <span>Certificates</span>
+            </a>
+           
+
+            <a href="{% url 'logout_user' %}" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+
+
+    </nav>
+
+    <!-- Main Dashboard Content -->
+    <main class="dashboard-content">
+        <header class="dashboard-header">
+            <div class="header-search">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search...">
+            </div>
+            <div class="header-actions">
+                <button class="notification-btn">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </button>
+                <button class="support-btn">
+                    <i class="fas fa-headset"></i>
+                    <span>Support</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Payout History Section -->
+        <section class="dashboard-section active">
+            <div class="section-header">
+                <h2>Payout <span class="highlight">History</span></h2>
+                <p>Track your trading profits and withdrawals</p>
+            </div>
+
+            <div class="payouts-container">
+                <div class="payouts-filters">
+                    <div class="filter-group">
+                        <label>Date Range</label>
+                        <select>
+                            <option>Last 30 Days</option>
+                            <option>Last 3 Months</option>
+                            <option>Last 6 Months</option>
+                            <option>This Year</option>
+                            <option>All Time</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Status</label>
+                        <select>
+                            <option>All</option>
+                            <option>Completed</option>
+                            <option>Pending</option>
+                            <option>Failed</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="payouts-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Account</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if payouts %}
+                                {% for payout in payouts %}
+                                <tr>
+                                    <td>{{ payout.created_at|date:"M d, Y" }}</td>
+                                    <td>${{ payout.account.account_size }} Account</td>
+                                    <td>${{ payout.amount|floatformat:2 }}</td>
+                                    <td><span class="status {{ payout.status }}">{{ payout.get_status_display }}</span></td>
+                                    <td>
+                                        {% if payout.status == 'completed' %}
+                                        <button class="btn icon-btn">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                        {% else %}
+                                        <button class="btn icon-btn">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="5" class="no-data">No payout history available</td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="payouts-summary">
+                    <div class="summary-card">
+                        <h4>Total Payouts</h4>
+                        <p class="amount">${{ total_payouts|floatformat:2|default:"0.00" }}</p>
+                    </div>
+                    <div class="summary-card">
+                        <h4>Pending Payouts</h4>
+                        <p class="amount">${{ pending_payouts|floatformat:2|default:"0.00" }}</p>
+                    </div>
+                    <div class="summary-card">
+                        <h4>Next Payout Date</h4>
+                        <p class="date">{% if next_payout_date %}{{ next_payout_date|date:"M d, Y" }}{% else %}N/A{% endif %}</p>
+                    </div>
+                </div>
+                
+                <!-- Payout Request Form -->
+                <div class="payout-request-form">
+                    <h3>Request a Payout</h3>
+                    <form method="post" action="{% url 'request_payout' %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="account">Select Account</label>
+                            <select name="account" id="account" required>
+                                <option value="">-- Select Account --</option>
+                                {% for account in eligible_accounts %}
+                                    <option value="{{ account.id }}">{{ account.mt5_login }} - ${{ account.account_size }} (Profit: ${{ account.profit|floatformat:2 }})</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="amount">Amount ($)</label>
+                            <input type="number" name="amount" id="amount" step="0.01" min="100" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="payment_method">Payment Method</label>
+                            <select name="payment_method" id="payment_method" required>
+                                <option value="bank_transfer">Bank Transfer</option>
+                                <option value="paypal">PayPal</option>
+                                <option value="crypto">Cryptocurrency</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="payment_details">Payment Details</label>
+                            <textarea name="payment_details" id="payment_details" rows="3" placeholder="Enter your payment details (account number, email, wallet address, etc.)" required></textarea>
+                        </div>
+                        <button type="submit" class="btn primary-btn">Submit Payout Request</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="{% static 'js/mobile-nav.js' %}"></script>
+</body>
+</html>

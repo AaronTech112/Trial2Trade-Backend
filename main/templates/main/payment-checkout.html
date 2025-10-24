@@ -1,0 +1,181 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Checkout - Trial2Trade</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard-nav.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="{% static 'images/logo.JPG' %}" type="image/svg+xml">
+</head>
+<body>
+    <!-- Mobile Navigation Toggle -->
+    <button class="mobile-nav-toggle">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <!-- Mobile Navigation Overlay -->
+    <div class="mobile-nav-overlay"></div>
+
+    <!-- Dashboard Navigation -->
+    <nav class="dashboard-nav">
+        <div class="nav-logo">
+            <img src="{% static 'images/logob.png' %}" alt="Trial2Trade Logo" style="width: 130px; height: 75px;">
+        </div>
+        <div class="user-info">
+            <img src="{% static 'images/avatar-placeholder.svg' %}" alt="User Avatar" class="avatar">
+            <div class="user-details">
+                <h4 class="user-name">{{ request.user.username }}</h4>
+                <span class="user-status">{% if user_has_accounts %}Active Trader{% else %}New User{% endif %}</span>
+            </div>
+        </div>
+        <div class="nav-menu">
+            <a href="{% url 'index' %}" class="nav-item">
+                <i class="fas fa-chart-line"></i>
+                <span>Overview</span>
+            </a>
+            <a href="{% url 'dashboard_accounts' %}" class="nav-item">
+                <i class="fas fa-wallet"></i>
+                <span>My Accounts</span>
+            </a>
+            <a href="{% url 'dashboard_purchase' %}" class="nav-item active">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Purchase Account</span>
+            </a>
+            <a href="{% url 'dashboard_next_phase' %}" class="nav-item">
+                <i class="fas fa-arrow-right"></i>
+                <span>Next Phase</span>
+            </a>
+            <a href="{% url 'dashboard_rules' %}" class="nav-item">
+                <i class="fas fa-book"></i>
+                <span>Trading Rules</span>
+            </a>
+            <a href="{% url 'dashboard_referral' %}" class="nav-item">
+                <i class="fas fa-users"></i>
+                <span>Refer & Earn</span>
+            </a>
+            <a href="{% url 'dashboard_payouts' %}" class="nav-item">
+                <i class="fas fa-money-bill-wave"></i>
+                <span>Payouts</span>
+            </a>
+            <a href="{% url 'dashboard_transactions' %}" class="nav-item">
+                <i class="fas fa-history"></i>
+                <span>Transactions</span>
+            </a>
+            <a href="{% url 'dashboard_certificates' %}" class="nav-item">
+                <i class="fas fa-certificate"></i>
+                <span>Certificates</span>
+            </a>
+
+            <a href="{% url 'logout_user' %}" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Dashboard Content -->
+    <main class="dashboard-content">
+        <header class="dashboard-header">
+            <div class="header-search">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search...">
+            </div>
+            <div class="header-actions">
+                <button class="notification-btn">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </button>
+                <button class="support-btn">
+                    <i class="fas fa-headset"></i>
+                    <span>Support</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Payment Checkout Section -->
+        <section class="dashboard-section active">
+            <div class="section-header">
+                <h2>Payment <span class="highlight">Checkout</span></h2>
+                <p>Complete your purchase securely</p>
+            </div>
+
+            <div class="section-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Order Summary</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="order-details">
+                            <div class="detail-row">
+                                <span class="label">Account Size:</span>
+                                <span class="value">${{ account_size }}</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="label">Amount:</span>
+                                <span class="value">₦{{ amount }} {{ currency }}</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="label">Reference:</span>
+                                <span class="value">{{ tx_ref }}</span>
+                            </div>
+                        </div>
+
+                        <form id="hosted-payment-form" method="POST" action="https://checkout.flutterwave.com/v3/hosted/pay">
+                            <input type="hidden" name="public_key" value="{{ public_key }}" />
+                            <input type="hidden" name="tx_ref" value="{{ tx_ref }}" />
+                            <input type="hidden" name="amount" value="{{ amount }}" />
+                            <input type="hidden" name="currency" value="{{ currency }}" />
+                             <input type="hidden" name="payment_options" value="card,banktransfer,ussd" />
+                             <input type="hidden" name="country" value="NG" />
+                              <input type="hidden" name="redirect_url" value="{{ redirect_url }}" />
+                            <input type="hidden" name="meta[account_size]" value="{{ account_size }}" />
+                            <input type="hidden" name="customer[name]" value="{{ request.user.get_full_name|default:request.user.username }}" />
+                            <input type="hidden" name="customer[email]" value="{{ request.user.email }}" />
+                            <input type="hidden" name="customizations[title]" value="Trail2Fund Purchase" />
+                            <input type="hidden" name="customizations[description]" value="Purchase {{ account_size }} account" />
+                            <input type="hidden" name="customizations[logo]" value="{% static 'images/logo.png' %}" />
+
+                            <div class="payment-actions">
+                                <p class="redirect-message">Redirecting to secure Flutterwave checkout...</p>
+                                <button type="submit" class="primary-btn">Proceed to Payment</button>
+                                <a href="{% url 'dashboard_purchase' %}" class="secondary-btn">Back to Purchase</a>
+                            </div>
+                        </form>
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function() {
+                                // Auto-submit to Flutterwave hosted pay. If blocked, user can click the button.
+                                try {
+                                    document.getElementById('hosted-payment-form').submit();
+                                } catch (e) {
+                                    console.error('Auto-submit error:', e);
+                                    document.querySelector('.redirect-message').textContent = 'Click "Proceed to Payment" to continue.';
+                                }
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Mobile navigation toggle
+        document.querySelector('.mobile-nav-toggle').addEventListener('click', function() {
+            document.querySelector('.dashboard-nav').classList.toggle('active');
+            document.querySelector('.mobile-nav-overlay').classList.toggle('active');
+        });
+
+        document.querySelector('.mobile-nav-overlay').addEventListener('click', function() {
+            document.querySelector('.dashboard-nav').classList.remove('active');
+            document.querySelector('.mobile-nav-overlay').classList.remove('active');
+        });
+    </script>
+</body>
+</html>
+
+

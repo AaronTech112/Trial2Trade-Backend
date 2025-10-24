@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="80" height="40" viewBox="0 0 80 40">
+  <rect width="80" height="40" rx="5" fill="#000000" fill-opacity="0.1"/>
+  <text x="40" y="20" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#FFD700" text-anchor="middle">Match</text>
+  <text x="40" y="30" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#FFD700" text-anchor="middle">Trader</text>
+</svg>

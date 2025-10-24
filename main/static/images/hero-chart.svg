@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <!-- Background Grid -->
+  <defs>
+    <pattern id="smallGrid" width="10" height="10" patternUnits="userSpaceOnUse">
+      <path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,215,0,0.1)" stroke-width="0.5"/>
+    </pattern>
+    <pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse">
+      <rect width="100" height="100" fill="url(#smallGrid)"/>
+      <path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,215,0,0.2)" stroke-width="1"/>
+    </pattern>
+  </defs>
+  
+  <!-- Grid Background -->
+  <rect width="800" height="600" fill="url(#grid)" opacity="0.5"/>
+  
+  <!-- Main Chart Line -->
+  <path d="M 0,450 L 50,400 100,420 150,380 200,390 250,350 300,320 350,340 400,300 450,280 500,310 550,260 600,240 650,270 700,220 750,180 800,150" 
+        fill="none" stroke="#FFD700" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Chart Area Fill -->
+  <path d="M 0,450 L 50,400 100,420 150,380 200,390 250,350 300,320 350,340 400,300 450,280 500,310 550,260 600,240 650,270 700,220 750,180 800,150 L 800,600 0,600 Z" 
+        fill="url(#chartGradient)" opacity="0.3"/>
+  
+  <!-- Gradient for Chart Fill -->
+  <defs>
+    <linearGradient id="chartGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFD700" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#FFD700" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Secondary Chart Lines -->
+  <path d="M 0,500 L 50,480 100,490 150,470 200,480 250,460 300,450 350,460 400,440 450,430 500,450 550,420 600,410 650,430 700,400 750,380 800,370" 
+        fill="none" stroke="#FFD700" stroke-width="2" stroke-opacity="0.6" stroke-dasharray="5,5"/>
+  
+  <!-- Data Points -->
+  <circle cx="100" cy="420" r="5" fill="#FFD700"/>
+  <circle cx="200" cy="390" r="5" fill="#FFD700"/>
+  <circle cx="300" cy="320" r="5" fill="#FFD700"/>
+  <circle cx="400" cy="300" r="5" fill="#FFD700"/>
+  <circle cx="500" cy="310" r="5" fill="#FFD700"/>
+  <circle cx="600" cy="240" r="5" fill="#FFD700"/>
+  <circle cx="700" cy="220" r="5" fill="#FFD700"/>
+  
+  <!-- Highlight Points with Glow -->
+  <circle cx="400" cy="300" r="8" fill="none" stroke="#FFD700" stroke-width="2">
+    <animate attributeName="r" values="8;12;8" dur="2s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="1;0.6;1" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  
+  <circle cx="700" cy="220" r="8" fill="none" stroke="#FFD700" stroke-width="2">
+    <animate attributeName="r" values="8;12;8" dur="2s" repeatCount="indefinite" begin="0.5s"/>
+    <animate attributeName="opacity" values="1;0.6;1" dur="2s" repeatCount="indefinite" begin="0.5s"/>
+  </circle>
+  
+  <!-- Candlestick Chart Elements -->
+  <g transform="translate(50, 100) scale(0.8)">
+    <!-- Candlestick 1 (Bullish) -->
+    <line x1="50" y1="50" x2="50" y2="80" stroke="#FFD700" stroke-width="2"/>
+    <rect x="45" y="50" width="10" height="20" fill="#FFD700"/>
+    <line x1="50" y1="30" x2="50" y2="50" stroke="#FFD700" stroke-width="2"/>
+    
+    <!-- Candlestick 2 (Bearish) -->
+    <line x1="80" y1="40" x2="80" y2="70" stroke="#FFD700" stroke-width="2"/>
+    <rect x="75" y="40" width="10" height="20" fill="none" stroke="#FFD700" stroke-width="2"/>
+    <line x1="80" y1="20" x2="80" y2="40" stroke="#FFD700" stroke-width="2"/>
+    
+    <!-- Candlestick 3 (Bullish) -->
+    <line x1="110" y1="45" x2="110" y2="75" stroke="#FFD700" stroke-width="2"/>
+    <rect x="105" y="45" width="10" height="15" fill="#FFD700"/>
+    <line x1="110" y1="25" x2="110" y2="45" stroke="#FFD700" stroke-width="2"/>
+    
+    <!-- Candlestick 4 (Bearish) -->
+    <line x1="140" y1="35" x2="140" y2="65" stroke="#FFD700" stroke-width="2"/>
+    <rect x="135" y="35" width="10" height="25" fill="none" stroke="#FFD700" stroke-width="2"/>
+    <line x1="140" y1="15" x2="140" y2="35" stroke="#FFD700" stroke-width="2"/>
+    
+    <!-- Candlestick 5 (Bullish) -->
+    <line x1="170" y1="40" x2="170" y2="70" stroke="#FFD700" stroke-width="2"/>
+    <rect x="165" y="40" width="10" height="20" fill="#FFD700"/>
+    <line x1="170" y1="20" x2="170" y2="40" stroke="#FFD700" stroke-width="2"/>
+  </g>
+  
+  <!-- Technical Indicators -->
+  <path d="M 0,350 L 100,340 200,330 300,350 400,340 500,320 600,310 700,300 800,290" 
+        fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="1.5" stroke-dasharray="5,5"/>
+  
+  <path d="M 0,380 L 100,370 200,380 300,390 400,370 500,360 600,350 700,340 800,330" 
+        fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-dasharray="3,3"/>
+  
+  <!-- Futuristic Elements -->
+  <!-- Horizontal Lines with Animations -->
+  <line x1="0" y1="200" x2="800" y2="200" stroke="rgba(255,215,0,0.2)" stroke-width="1">
+    <animate attributeName="y1" values="200;205;200" dur="4s" repeatCount="indefinite"/>
+    <animate attributeName="y2" values="200;205;200" dur="4s" repeatCount="indefinite"/>
+  </line>
+  
+  <line x1="0" y1="300" x2="800" y2="300" stroke="rgba(255,215,0,0.2)" stroke-width="1">
+    <animate attributeName="y1" values="300;295;300" dur="5s" repeatCount="indefinite"/>
+    <animate attributeName="y2" values="300;295;300" dur="5s" repeatCount="indefinite"/>
+  </line>
+  
+  <line x1="0" y1="400" x2="800" y2="400" stroke="rgba(255,215,0,0.2)" stroke-width="1">
+    <animate attributeName="y1" values="400;405;400" dur="6s" repeatCount="indefinite"/>
+    <animate attributeName="y2" values="400;405;400" dur="6s" repeatCount="indefinite"/>
+  </line>
+  
+  <!-- Vertical Lines with Animations -->
+  <line x1="200" y1="0" x2="200" y2="600" stroke="rgba(255,215,0,0.2)" stroke-width="1">
+    <animate attributeName="x1" values="200;205;200" dur="7s" repeatCount="indefinite"/>
+    <animate attributeName="x2" values="200;205;200" dur="7s" repeatCount="indefinite"/>
+  </line>
+  
+  <line x1="400" y1="0" x2="400" y2="600" stroke="rgba(255,215,0,0.2)" stroke-width="1">
+    <animate attributeName="x1" values="400;395;400" dur="8s" repeatCount="indefinite"/>
+    <animate attributeName="x2" values="400;395;400" dur="8s" repeatCount="indefinite"/>
+  </line>
+  
+  <line x1="600" y1="0" x2="600" y2="600" stroke="rgba(255,215,0,0.2)" stroke-width="1">
+    <animate attributeName="x1" values="600;605;600" dur="9s" repeatCount="indefinite"/>
+    <animate attributeName="x2" values="600;605;600" dur="9s" repeatCount="indefinite"/>
+  </line>
+  
+  <!-- Data Labels -->
+  <text x="700" y="220" fill="#FFD700" font-family="Arial" font-size="12" font-weight="bold">$50,000</text>
+  <text x="400" y="300" fill="#FFD700" font-family="Arial" font-size="12" font-weight="bold">$25,000</text>
+  
+  <!-- Futuristic Circles -->
+  <circle cx="100" cy="100" r="20" fill="none" stroke="#FFD700" stroke-width="1" opacity="0.3">
+    <animate attributeName="r" values="20;25;20" dur="3s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.3;0.5;0.3" dur="3s" repeatCount="indefinite"/>
+  </circle>
+  
+  <circle cx="700" cy="500" r="30" fill="none" stroke="#FFD700" stroke-width="1" opacity="0.2">
+    <animate attributeName="r" values="30;35;30" dur="4s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.2;0.4;0.2" dur="4s" repeatCount="indefinite"/>
+  </circle>
+</svg>

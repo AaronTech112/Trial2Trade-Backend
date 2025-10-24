@@ -1,0 +1,591 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trial2Trade - Next Phase</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard-nav.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="{% static 'images/logo.JPG' %}" type="image/svg+xml">
+    <link rel="stylesheet" href="{% static 'css/mobile-nav.css' %}">
+</head>
+<body>
+    <!-- Mobile Navigation Toggle -->
+    <button class="mobile-nav-toggle">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <!-- Mobile Navigation Overlay -->
+    <div class="mobile-nav-overlay"></div>
+<!-- Dashboard Navigation -->
+    <nav class="dashboard-nav">
+        <div class="nav-logo">
+            <img src="{% static 'images/logob.png' %}" alt="Trial2Trade Logo" style="width: 130px; height: 75px;">
+        </div>
+            <div class="user-info">
+                <img src="{% static 'images/avatar-placeholder.png' %}" alt="User Avatar" class="avatar">
+                <div class="user-details">
+                    <h4 class="user-name">{{ request.user.first_name|default:request.user.username }}</h4>
+                    <span class="user-status">{% if user_accounts %}Active Trader{% else %}New User{% endif %}</span>
+                </div>
+            </div>
+        <div class="nav-menu">
+            <a href="{% url 'index' %}" class="nav-item">
+                <i class="fas fa-chart-line"></i>
+                <span>Overview</span>
+            </a>
+            <a href="{% url 'dashboard_accounts' %}" class="nav-item">
+                <i class="fas fa-wallet"></i>
+                <span>My Accounts</span>
+            </a>
+            <a href="{% url 'dashboard_purchase' %}" class="nav-item">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Purchase Account</span>
+            </a>
+            <a href="{% url 'dashboard_next_phase' %}" class="nav-item active">
+                <i class="fas fa-arrow-right"></i>
+                <span>Next Phase</span>
+            </a>
+            <a href="{% url 'dashboard_rules' %}" class="nav-item">
+                <i class="fas fa-book"></i>
+                <span>Trading Rules</span>
+            </a>
+            <a href="{% url 'dashboard_referral' %}" class="nav-item">
+                <i class="fas fa-users"></i>
+                <span>Refer & Earn</span>
+            </a>
+            <a href="{% url 'dashboard_payouts' %}" class="nav-item">
+                <i class="fas fa-money-bill-wave"></i>
+                <span>Payouts</span>
+            </a>
+            <a href="{% url 'dashboard_transactions' %}" class="nav-item">
+                <i class="fas fa-history"></i>
+                <span>Transactions</span>
+            </a>
+            <a href="{% url 'dashboard_certificates' %}" class="nav-item">
+                <i class="fas fa-certificate"></i>
+                <span>Certificates</span>
+            </a>
+           
+
+            <a href="{% url 'logout_user' %}" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+
+
+    </nav>
+
+    <!-- Main Dashboard Content -->
+    <main class="dashboard-content">
+        <header class="dashboard-header">
+            <div class="header-search">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search...">
+            </div>
+            <div class="header-actions">
+                <button class="notification-btn">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </button>
+                <button class="support-btn">
+                    <i class="fas fa-headset"></i>
+                    <span>Support</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Next Phase Section -->
+        <section class="dashboard-section active">
+            <div class="section-header">
+                <h2>Next <span class="highlight">Phase</span></h2>
+                <p>Track your progress towards the next trading phase</p>
+            </div>
+
+            <div class="progress-container" style="max-width: 800px; margin: 0 auto;">
+                {% if user_accounts %}
+                <div class="phase-timeline">
+                    {% for account in user_accounts %}
+                    {% if account.phase == 1 or account.status == 'demo' %}
+                    <div class="phase-step {% if account.status == 'active' %}current{% elif account.status == 'breached' %}completed{% endif %}">
+                        <div class="step-icon">
+                            {% if account.status == 'breached' %}
+                            <i class="fas fa-times"></i>
+                            {% elif account.status == 'active' %}
+                            <i class="fas fa-sync"></i>
+                            {% else %}
+                            <i class="fas fa-check"></i>
+                            {% endif %}
+                        </div>
+                        <h3>Phase 1: Demo Account</h3>
+                        <p>{% if account.status == 'active' %}Currently in demo trading period{% else %}Completed demo trading period{% endif %}</p>
+                        <ul class="phase-achievements">
+                            <li><i class="fas fa-check"></i> Account Size: {{ account.account_size }}</li>
+                            <li><i class="fas fa-check"></i> Balance: ${{ account.balance|floatformat:2 }}</li>
+                            <li><i class="fas fa-check"></i> Profit: ${{ account.profit|floatformat:2 }}</li>
+                        </ul>
+                    </div>
+                    {% endif %}
+
+                    {% if account.phase == 2 %}
+                    <div class="phase-step current">
+                        <div class="step-icon">
+                            <i class="fas fa-sync"></i>
+                        </div>
+                        <h3>Phase 2: Evaluation</h3>
+                        <p>Currently in evaluation phase</p>
+                        <div class="progress-details">
+                            <div class="progress-item">
+                                <span>Profit Target (15%)</span>
+                                <div class="progress-bar">
+                                    {% with profit_percentage=account.profit|floatformat:2|cut:'-'|stringformat:'s'|add:'0'|slice:':-2'|stringformat:'s'|add:'.00'|stringformat:'s'|add:'0'|slice:':-2' %}
+                                    {% with target=account.initial_balance|floatformat:2|stringformat:'s'|add:'0'|slice:':-2'|stringformat:'s'|add:'.00'|stringformat:'s'|add:'0'|slice:':-2'|floatformat:0|mul:0.15 %}
+                                    {% with progress=profit_percentage|floatformat:0|div:target|mul:100 %}
+                                    <div class="progress" style="width: {{ progress|floatformat:0 }}%"></div>
+                                    {% endwith %}
+                                    {% endwith %}
+                                    {% endwith %}
+                                </div>
+                                <span>{{ account.profit|floatformat:2 }} / {{ account.initial_balance|mul:0.15|floatformat:2 }}</span>
+                            </div>
+                            <div class="progress-item">
+                                <span>Trading Days (20)</span>
+                                <div class="progress-bar">
+                                    {% with days_passed=account.assigned_date|timesince|split:" "|first|add:0 %}
+                                    {% with progress=days_passed|div:20|mul:100 %}
+                                    <div class="progress" style="width: {% if progress > 100 %}100{% else %}{{ progress|floatformat:0 }}{% endif %}%"></div>
+                                    {% endwith %}
+                                    {% endwith %}
+                                </div>
+                                <span>{% with days_passed=account.assigned_date|timesince|split:" "|first|add:0 %}
+                                    {% if days_passed > 20 %}20{% else %}{{ days_passed }}{% endif %}/20 Days
+                                    {% endwith %}</span>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {% if account.phase == 3 %}
+                    <div class="phase-step completed">
+                        <div class="step-icon">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <h3>Phase 3: Live Account</h3>
+                        <p>Trading with real capital and earning real profits</p>
+                        <ul class="phase-achievements">
+                            <li><i class="fas fa-check"></i> Account Size: {{ account.account_size }}</li>
+                            <li><i class="fas fa-check"></i> Balance: ${{ account.balance|floatformat:2 }}</li>
+                            <li><i class="fas fa-check"></i> Profit: ${{ account.profit|floatformat:2 }}</li>
+                        </ul>
+                    </div>
+                    {% elif not account.phase == 3 %}
+                    <div class="phase-step">
+                        <div class="step-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <h3>Phase 3: Live Account</h3>
+                        <p>Trade with real capital and earn real profits</p>
+                        <ul class="phase-requirements">
+                            <li><i class="fas fa-arrow-right"></i> Complete evaluation phase</li>
+                            <li><i class="fas fa-arrow-right"></i> Maintain risk parameters</li>
+                            <li><i class="fas fa-arrow-right"></i> Ready for increased capital</li>
+                        </ul>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="no-accounts-message">
+                    <div class="message-icon">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                    <h3>No Trading Accounts Found</h3>
+                    <p>You don't have any trading accounts yet. Purchase an account to start your trading journey.</p>
+                    <a href="{% url 'dashboard_purchase' %}" class="btn btn-primary">Purchase Account</a>
+                </div>
+                {% endif %}
+
+                <div class="phase-summary">
+                    <div class="summary-card">
+                        <h4>Current Phase Progress</h4>
+                        {% if user_accounts %}
+                        {% with current_account=user_accounts|first %}
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <span>Maximum Drawdown</span>
+                                <p class="value {% if current_account.drawdown < 10 %}success{% else %}danger{% endif %}">{{ current_account.drawdown|floatformat:1 }}%</p>
+                                <small>Limit: -10%</small>
+                            </div>
+                            <div class="stat-item">
+                                <span>Profit/Loss</span>
+                                <p class="value {% if current_account.profit > 0 %}positive{% else %}negative{% endif %}">{% if current_account.profit > 0 %}+{% endif %}${{ current_account.profit|floatformat:2 }}</p>
+                                <small>Target: ${{ current_account.initial_balance|mul:0.15|floatformat:2 }}</small>
+                            </div>
+                            <div class="stat-item">
+                                <span>Trading Days Left</span>
+                                {% with days_passed=current_account.assigned_date|timesince|split:" "|first|add:0 %}
+                                {% with days_left=20|sub:days_passed %}
+                                <p class="value">{% if days_left < 0 %}0{% else %}{{ days_left }}{% endif %} Days</p>
+                                {% endwith %}
+                                {% endwith %}
+                                <small>Minimum: 20 Days</small>
+                            </div>
+                        </div>
+                        {% endwith %}
+                        {% else %}
+                        <div class="no-stats-message">
+                            <p>No account statistics available. Purchase an account to start tracking your progress.</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Prop Firm Request Section -->
+        <section class="dashboard-section">
+            <div class="section-header">
+                <h2>Prop Firm <span class="highlight">Requests</span></h2>
+                <p>Request real prop firm accounts when you're ready</p>
+            </div>
+
+            <div class="request-container">
+                {% if user_accounts %}
+                <div class="request-form-container">
+                    <form action="{% url 'submit_prop_request' %}" method="post" class="prop-request-form">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="account">Select Account</label>
+                            <select name="account" id="account" required>
+                                <option value="">-- Select Account --</option>
+                                {% for account in user_accounts %}
+                                {% if account.status == 'active' and account.profit >= account.initial_balance|mul:0.15 %}
+                                <option value="{{ account.id }}">{{ account.account_number }} ({{ account.account_size }})</option>
+                                {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="request_type">Request Type</label>
+                            <select name="request_type" id="request_type" required>
+                                <option value="">-- Select Request Type --</option>
+                                <option value="real_account">Real Account</option>
+                                <option value="phase_2">Phase 2 Account</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="notes">Additional Notes (Optional)</label>
+                            <textarea name="notes" id="notes" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit Request</button>
+                    </form>
+                </div>
+
+                <div class="request-history">
+                    <h3>Request History</h3>
+                    {% if prop_requests %}
+                    <div class="request-table-container">
+                        <table class="request-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Account</th>
+                                    <th>Type</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for request in prop_requests %}
+                                <tr>
+                                    <td>{{ request.created_at|date:"M d, Y" }}</td>
+                                    <td>{{ request.mt5_account.account_number }}</td>
+                                    <td>
+                                        {% if request.request_type == 'real_account' %}
+                                        Real Account
+                                        {% elif request.request_type == 'phase_2' %}
+                                        Phase 2
+                                        {% elif request.request_type == 'payout' %}
+                                        Payout
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <span class="status-badge 
+                                            {% if request.status == 'approved' %}success
+                                            {% elif request.status == 'rejected' %}danger
+                                            {% else %}pending{% endif %}">
+                                            {{ request.status|title }}
+                                        </span>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <div class="no-requests-message">
+                        <p>You haven't made any prop firm requests yet.</p>
+                    </div>
+                    {% endif %}
+                </div>
+                {% else %}
+                <div class="no-accounts-message">
+                    <div class="message-icon">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                    <h3>No Eligible Accounts</h3>
+                    <p>You need to purchase and successfully trade an account before you can request a real prop firm account.</p>
+                    <a href="{% url 'dashboard_purchase' %}" class="btn btn-primary">Purchase Account</a>
+                </div>
+                {% endif %}
+            </div>
+        </section>
+
+    </main>
+
+    <style>
+        .phase-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .phase-step {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            border: var(--card-border);
+            position: relative;
+        }
+
+        .phase-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 30px;
+            background: rgba(255, 215, 0, 0.2);
+        }
+
+        .step-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .completed .step-icon {
+            background: var(--success);
+            color: white;
+        }
+
+        .current .step-icon {
+            background: var(--primary-color);
+            color: var(--text-dark);
+        }
+
+        .phase-step h3 {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .phase-step p {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .phase-achievements, .phase-requirements {
+            list-style: none;
+        }
+
+        .phase-achievements li, .phase-requirements li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            color: var(--text-muted);
+        }
+
+        .completed .phase-achievements li i {
+            color: var(--success);
+        }
+
+        .progress-details {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .progress-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .phase-summary {
+            margin-top: 40px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-item span {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .stat-item .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 5px 0;
+        }
+
+        .stat-item .value.positive {
+            color: var(--success);
+        }
+
+        .stat-item small {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        /* Request Form Styles */
+        .request-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .prop-request-form {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-color);
+            background: var(--input-bg);
+            color: var(--text-color);
+        }
+
+        .request-history {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 30px;
+        }
+
+        .request-history h3 {
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .request-table-container {
+            overflow-x: auto;
+        }
+
+        .request-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .request-table th,
+        .request-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-badge.success {
+            background: rgba(46, 213, 115, 0.15);
+            color: #2ed573;
+        }
+
+        .status-badge.danger {
+            background: rgba(255, 71, 87, 0.15);
+            color: #ff4757;
+        }
+
+        .status-badge.pending {
+            background: rgba(255, 165, 2, 0.15);
+            color: #ffa502;
+        }
+
+        .no-accounts-message,
+        .no-requests-message,
+        .no-stats-message {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .message-icon {
+            font-size: 48px;
+            color: var(--muted-color);
+            margin-bottom: 20px;
+        }
+
+        .no-accounts-message h3 {
+            margin-top: 0;
+        }
+
+        .no-accounts-message p,
+        .no-requests-message p,
+        .no-stats-message p {
+            margin-bottom: 20px;
+            color: var(--muted-color);
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .request-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <script src="{% static 'js/mobile-nav.js' %}"></script>
+</body>
+</html>

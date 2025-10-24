@@ -1,0 +1,181 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trial2Trade - Trading Rules</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard-nav.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="{% static 'images/logo.JPG' %}" type="image/svg+xml">
+    <link rel="stylesheet" href="{% static 'css/mobile-nav.css' %}">
+</head>
+<body>
+    <!-- Mobile Navigation Toggle -->
+    <button class="mobile-nav-toggle">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <!-- Mobile Navigation Overlay -->
+    <div class="mobile-nav-overlay"></div>
+<!-- Dashboard Navigation -->
+    <nav class="dashboard-nav">
+        <div class="nav-logo">
+            <img src="{% static 'images/logob.png' %}" alt="Trial2Trade Logo" style="width: 130px; height: 75px;">
+        </div>
+            <div class="user-info">
+                <img src="{% static 'images/avatar-placeholder.png' %}" alt="User Avatar" class="avatar">
+                <div class="user-details">
+                    <h4 class="user-name">Aaron
+                        x
+                    </h4>
+                    <span class="user-status">Active Trader</span>
+                </div>
+            </div>
+        <div class="nav-menu">
+            <a href="{% url 'index' %}" class="nav-item">
+                <i class="fas fa-chart-line"></i>
+                <span>Overview</span>
+            </a>
+            <a href="{% url 'dashboard_accounts' %}" class="nav-item">
+                <i class="fas fa-wallet"></i>
+                <span>My Accounts</span>
+            </a>
+            <a href="{% url 'dashboard_purchase' %}" class="nav-item">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Purchase Account</span>
+            </a>
+            <a href="{% url 'dashboard_next_phase' %}" class="nav-item">
+                <i class="fas fa-arrow-right"></i>
+                <span>Next Phase</span>
+            </a>
+            <a href="{% url 'dashboard_rules' %}" class="nav-item active">
+                <i class="fas fa-book"></i>
+                <span>Trading Rules</span>
+            </a>
+            <a href="{% url 'dashboard_referral' %}" class="nav-item">
+                <i class="fas fa-users"></i>
+                <span>Refer & Earn</span>
+            </a>
+            <a href="{% url 'dashboard_payouts' %}" class="nav-item">
+                <i class="fas fa-money-bill-wave"></i>
+                <span>Payouts</span>
+            </a>
+            <a href="{% url 'dashboard_transactions' %}" class="nav-item">
+                <i class="fas fa-history"></i>
+                <span>Transactions</span>
+            </a>
+            <a href="{% url 'dashboard_certificates' %}" class="nav-item">
+                <i class="fas fa-certificate"></i>
+                <span>Certificates</span>
+            </a>
+           
+
+            <a href="{% url 'logout_user' %}" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+
+
+    </nav>
+
+    <!-- Main Dashboard Content -->
+    <main class="dashboard-content">
+        <header class="dashboard-header">
+            <div class="header-search">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search...">
+            </div>
+            <div class="header-actions">
+                <button class="notification-btn">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </button>
+                <button class="support-btn">
+                    <i class="fas fa-headset"></i>
+                    <span>Support</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Trading Rules Section -->
+        <section class="dashboard-section active">
+            <div class="section-header">
+                <h2>Trading <span class="highlight">Rules</span></h2>
+                <p>Follow these rules to maintain your trading accounts</p>
+            </div>
+
+            <div class="rules-grid">
+                <div class="rule-card">
+                    <div class="rule-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Profit Target</h3>
+                    <p>Achieve 15% profit on your account balance</p>
+                    <div class="rule-details">
+                        <ul>
+                            <li>$5,000 Account: $750 target</li>
+                            <li>$10,000 Account: $1,500 target</li>
+                            <li>$25,000 Account: $3,750 target</li>
+                            <li>$50,000 Account: $7,500 target</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="rule-card">
+                    <div class="rule-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h3>Maximum Drawdown</h3>
+                    <p>Stay within the allowed drawdown limits</p>
+                    <div class="rule-details">
+                        <ul>
+                            <li>Daily Max: 4% of initial balance</li>
+                            <li>Overall Max: 10% of initial balance</li>
+                            <li>Calculated in real-time</li>
+                            <li>Reset daily at 00:00 GMT</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="rule-card">
+                    <div class="rule-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <h3>Trading Period</h3>
+                    <p>Complete the challenge within the specified time</p>
+                    <div class="rule-details">
+                        <ul>
+                            <li>Minimum trading days: 20</li>
+                            <li>No maximum time limit</li>
+                            <li>Weekend holding allowed</li>
+                            <li>Trade during Forex market hours</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="rule-card">
+                    <div class="rule-icon">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <h3>Trading Settings</h3>
+                    <p>Maintain these trading parameters</p>
+                    <div class="rule-details">
+                        <ul>
+                            <li>Leverage: Up to 1:100</li>
+                            <li>News trading allowed</li>
+                            <li>EA trading allowed</li>
+                            <li>No consistency rules</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="{% static 'js/mobile-nav.js' %}"></script>
+</body>
+</html>

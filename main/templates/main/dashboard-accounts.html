@@ -1,0 +1,219 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trial2Trade - My Accounts</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard-nav.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="{% static 'images/logo.JPG' %}" type="image/svg+xml">
+    <link rel="stylesheet" href="{% static 'css/mobile-nav.css' %}">
+</head>
+<body>
+    <!-- Mobile Navigation Toggle -->
+    <button class="mobile-nav-toggle">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <!-- Mobile Navigation Overlay -->
+    <div class="mobile-nav-overlay"></div>
+    <!-- Dashboard Navigation -->
+    <nav class="dashboard-nav">
+        <div class="nav-logo">
+            <img src="{% static 'images/logob.png' %}" alt="Trial2Trade Logo" style="width: 130px; height: 75px;">
+        </div>
+            <div class="user-info">
+                <img src="{% static 'images/avatar-placeholder.png' %}" alt="User Avatar" class="avatar">
+                <div class="user-details">
+                    <h4 class="user-name">{{ request.user.first_name|default:request.user.username }}</h4>
+                    <span class="user-status">{% if user_accounts %}Active Trader{% else %}New User{% endif %}</span>
+                </div>
+            </div>
+        <div class="nav-menu">
+            <a href="{% url 'index' %}" class="nav-item ">
+                <i class="fas fa-chart-line"></i>
+                <span>Overview</span>
+            </a>
+            <a href="{% url 'dashboard_accounts' %}" class="nav-item active">
+                <i class="fas fa-wallet"></i>
+                <span>My Accounts</span>
+            </a>
+            <a href="{% url 'dashboard_purchase' %}" class="nav-item">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Purchase Account</span>
+            </a>
+            <a href="{% url 'dashboard_next_phase' %}" class="nav-item">
+                <i class="fas fa-arrow-right"></i>
+                <span>Next Phase</span>
+            </a>
+            <a href="{% url 'dashboard_rules' %}" class="nav-item">
+                <i class="fas fa-book"></i>
+                <span>Trading Rules</span>
+            </a>
+            <a href="{% url 'dashboard_referral' %}" class="nav-item">
+                <i class="fas fa-users"></i>
+                <span>Refer & Earn</span>
+            </a>
+            <a href="{% url 'dashboard_payouts' %}" class="nav-item">
+                <i class="fas fa-money-bill-wave"></i>
+                <span>Payouts</span>
+            </a>
+            <a href="{% url 'dashboard_transactions' %}" class="nav-item">
+                <i class="fas fa-history"></i>
+                <span>Transactions</span>
+            </a>
+            <a href="{% url 'dashboard_certificates' %}" class="nav-item">
+                <i class="fas fa-certificate"></i>
+                <span>Certificates</span>
+            </a>
+           
+
+            <a href="{% url 'logout_user' %}" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+
+
+    </nav>
+
+    <!-- Main Dashboard Content -->
+    <main class="dashboard-content">
+        <header class="dashboard-header">
+            <div class="header-search">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search...">
+            </div>
+            <div class="header-actions">
+                <button class="notification-btn">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </button>
+                <button class="support-btn">
+                    <i class="fas fa-headset"></i>
+                    <span>Support</span>
+                </button>
+            </div>
+        </header>
+
+        {% if messages %}
+        <div class="messages-container">
+            {% for message in messages %}
+            <div class="alert {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- My Accounts Section -->
+        <section class="dashboard-section active">
+            <div class="section-header">
+                <h2>My Trading <span class="highlight">Accounts</span></h2>
+                <p>Manage your demo and live trading accounts</p>
+            </div>
+
+            <div class="accounts-grid">
+                {% if user_accounts %}
+                    {% for account in user_accounts %}
+                    <div class="account-card">
+                        <div class="account-header">
+                            <div class="account-type {% if account.status == 'active' %}live{% else %}demo{% endif %}">
+                                <i class="fas {% if account.status == 'active' %}fa-broadcast-tower{% else %}fa-flask{% endif %}"></i>
+                                {% if account.status == 'active' %}Live Account{% else %}Demo Account{% endif %}
+                            </div>
+                            <div class="account-status {% if account.status == 'active' %}active{% elif account.status == 'breached' %}danger{% else %}inactive{% endif %}">
+                                {{ account.get_status_display }}
+                            </div>
+                        </div>
+                        <div class="account-body">
+                            <h3>{{ account.account_size }} Trading Account</h3>
+                            <div class="account-stats">
+                                <!-- Core trading stats -->
+                                <div class="stat">
+                                    <span class="label">Balance</span>
+                                    <span class="value">${{ account.balance|default_if_none:0|floatformat:2 }}</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="label">Equity</span>
+                                    <span class="value">${{ account.equity|default_if_none:0|floatformat:2 }}</span>
+                                </div>
+                                {% with dd=account.drawdown|default_if_none:0 %}
+                                <div class="stat">
+                                    <span class="label">Drawdown</span>
+                                    <span class="value {% if dd < 5 %}success{% elif dd < 8 %}warning{% else %}danger{% endif %}">
+                                        {{ dd|floatformat:1 }}%
+                                    </span>
+                                </div>
+                                {% endwith %}
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-label">
+                                    <span>Profit Target Progress</span>
+                                    <span>{{ account.profit_percentage|default:0|floatformat:1 }}%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: {{ account.profit_percentage|default:0 }}%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Embedded credentials block -->
+                            <div class="account-stats" style="margin-top: 12px;">
+                                <div class="stat">
+                                    <span class="label">Login</span>
+                                    <span class="value">{{ account.login }}</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="label">Server</span>
+                                    <span class="value">{{ account.server }}</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="label">Password</span>
+                                    <span class="value">
+                                        <span class="masked" data-pw="{{ account.password }}">••••••••</span>
+                                        <button class="btn secondary-btn" type="button" onclick="togglePw(this)">Show</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="account-footer">
+                            <!-- Removed broken 'account_detail' link; keeping Trade Now -->
+                            <button class="btn primary-btn" onclick="window.open('{{ account.myfxbook_url|default:'#' }}', '_blank')">Trade Now</button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="no-accounts-message">
+                        <i class="fas fa-info-circle"></i>
+                        <h3>No Trading Accounts Found</h3>
+                        <p>You don't have any trading accounts yet. Purchase your first account to start trading.</p>
+                        <a href="{% url 'dashboard_purchase' %}" class="btn primary-btn">Purchase Account</a>
+                    </div>
+                {% endif %}
+            </div>
+        </section>
+    </main>
+
+    <script src="{% static 'js/mobile-nav.js' %}"></script>
+    <!-- Add tiny helper script to toggle password visibility -->
+    <script>
+    function togglePw(btn){
+      try {
+        const stat = btn.closest('.stat');
+        const masked = stat.querySelector('.masked');
+        if(!masked) return;
+        const hidden = masked.textContent.includes('•');
+        if(hidden){
+          masked.textContent = masked.getAttribute('data-pw') || '';
+          btn.textContent = 'Hide';
+        } else {
+          masked.textContent = '••••••••';
+          btn.textContent = 'Show';
+        }
+      } catch(e){ console.error(e); }
+    }
+    </script>
+</body>
+</html>

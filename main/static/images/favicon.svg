@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <!-- Background -->
+  <rect width="32" height="32" rx="4" fill="#0A0A0A"/>
+  
+  <!-- Crown Icon -->
+  <path d="M6,20 L10,12 L16,16 L22,12 L26,20 L6,20 Z" 
+        fill="none" stroke="#FFD700" stroke-width="2" stroke-linejoin="round"/>
+  <rect x="8" y="22" width="16" height="2" rx="1" fill="#FFD700"/>
+  
+  <!-- T2F Monogram -->
+  <text x="16" y="17" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#FFD700" text-anchor="middle">T2F</text>
+  
+  <!-- Shine Effect -->
+  <circle cx="10" cy="10" r="6" fill="url(#shineGradient)" opacity="0.2"/>
+  
+  <defs>
+    <linearGradient id="shineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+</svg>

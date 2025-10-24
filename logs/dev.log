@@ -1,0 +1,1298 @@
+[INFO] 2025-10-23 02:36:24,476 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-23 02:36:26,238 main.views: MyFXBook login successful.
+[ERROR] 2025-10-23 02:36:27,723 main.views: Failed to get MyFXBook accounts: Invalid session.
+[WARNING] 2025-10-23 02:36:27,723 main.views: MyFXBook session invalid; retrying login and accounts fetch.
+[INFO] 2025-10-23 02:36:29,100 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-23 02:36:30,484 main.views: MyFXBook login successful.
+[ERROR] 2025-10-23 02:36:31,885 main.views: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-23 02:36:31,885 main.views: Error updating account data for login 211062785: Failed to get MyFXBook accounts: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 96, in update_account_data_from_myfxbook
+    accounts = myfxbook_get_my_accounts(session)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 81, in myfxbook_get_my_accounts
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 105, in update_account_data_from_myfxbook
+    accounts = myfxbook_get_my_accounts(session)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 81, in myfxbook_get_my_accounts
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+[INFO] 2025-10-23 02:37:41,844 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-23 02:37:46,460 main.views: MyFXBook login successful.
+[ERROR] 2025-10-23 02:37:48,502 main.views: Failed to get MyFXBook accounts: Invalid session.
+[WARNING] 2025-10-23 02:37:48,502 main.views: MyFXBook session invalid; retrying login and accounts fetch.
+[INFO] 2025-10-23 02:37:50,148 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-23 02:37:51,577 main.views: MyFXBook login successful.
+[ERROR] 2025-10-23 02:37:53,945 main.views: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-23 02:37:53,946 main.views: Error updating account data for login 211062785: Failed to get MyFXBook accounts: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 96, in update_account_data_from_myfxbook
+    accounts = myfxbook_get_my_accounts(session)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 81, in myfxbook_get_my_accounts
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 105, in update_account_data_from_myfxbook
+    accounts = myfxbook_get_my_accounts(session)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 81, in myfxbook_get_my_accounts
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+[INFO] 2025-10-23 02:57:24,124 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-23 02:57:24,126 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-23 02:57:28,510 main.views: MyFXBook login successful.
+[INFO] 2025-10-23 02:57:28,589 main.views: MyFXBook login successful.
+[ERROR] 2025-10-23 02:57:30,966 main.views: Failed to get MyFXBook accounts: Invalid session.
+[WARNING] 2025-10-23 02:57:30,969 main.views: MyFXBook session invalid; retrying login and accounts fetch.
+[ERROR] 2025-10-23 02:57:30,977 main.views: Failed to get MyFXBook accounts: Invalid session.
+[WARNING] 2025-10-23 02:57:30,980 main.views: MyFXBook session invalid; retrying login and accounts fetch.
+[INFO] 2025-10-23 02:57:34,065 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-23 02:57:34,199 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-23 02:57:36,523 main.views: MyFXBook login successful.
+[INFO] 2025-10-23 02:57:36,727 main.views: MyFXBook login successful.
+[ERROR] 2025-10-23 02:57:39,169 main.views: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-23 02:57:39,180 main.views: Error fetching MyFXBook accounts: Failed to get MyFXBook accounts: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 94, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 82, in myfxbook_get_my_accounts
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 103, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 82, in myfxbook_get_my_accounts
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-23 02:57:39,332 main.views: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-23 02:57:39,339 main.views: Error fetching MyFXBook accounts: Failed to get MyFXBook accounts: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 94, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 82, in myfxbook_get_my_accounts
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 103, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 82, in myfxbook_get_my_accounts
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-23 02:57:40,955 main.views: Error fetching MyFXBook accounts list: Failed to get MyFXBook accounts: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 94, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 82, in myfxbook_get_my_accounts
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 551, in dashboard_accounts
+    accounts_list = myfxbook_fetch_accounts_with_retry()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 103, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 82, in myfxbook_get_my_accounts
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-23 02:57:40,976 main.views: Error updating account data for login 211062785: No MyFXBook accounts returned by API.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 140, in update_account_data_from_myfxbook
+    raise Exception("No MyFXBook accounts returned by API.")
+Exception: No MyFXBook accounts returned by API.
+[ERROR] 2025-10-23 02:57:41,093 main.views: Error fetching MyFXBook accounts list: Failed to get MyFXBook accounts: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 94, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 82, in myfxbook_get_my_accounts
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 551, in dashboard_accounts
+    accounts_list = myfxbook_fetch_accounts_with_retry()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 103, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 82, in myfxbook_get_my_accounts
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-23 02:57:41,225 main.views: Error updating account data for login 211062785: No MyFXBook accounts returned by API.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 140, in update_account_data_from_myfxbook
+    raise Exception("No MyFXBook accounts returned by API.")
+Exception: No MyFXBook accounts returned by API.
+[INFO] 2025-10-23 03:00:42,189 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-23 03:00:44,541 main.views: MyFXBook login successful.
+[ERROR] 2025-10-23 03:00:45,738 main.views: Failed to get MyFXBook accounts: Invalid session.
+[WARNING] 2025-10-23 03:00:45,738 main.views: MyFXBook session invalid; retrying login and accounts fetch.
+[INFO] 2025-10-23 03:00:47,025 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-23 03:00:48,806 main.views: MyFXBook login successful.
+[ERROR] 2025-10-23 03:00:50,533 main.views: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-23 03:00:50,535 main.views: Error fetching MyFXBook accounts: Failed to get MyFXBook accounts: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 94, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 82, in myfxbook_get_my_accounts
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 103, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 82, in myfxbook_get_my_accounts
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-23 03:00:52,464 main.views: Error fetching MyFXBook accounts list: Failed to get MyFXBook accounts: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 94, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 82, in myfxbook_get_my_accounts
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 213, in dashboard_overview
+    accounts_list = myfxbook_fetch_accounts_with_retry()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 103, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 82, in myfxbook_get_my_accounts
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-23 03:00:52,497 main.views: Error updating account data for login 211062785: No MyFXBook accounts returned by API.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 140, in update_account_data_from_myfxbook
+    raise Exception("No MyFXBook accounts returned by API.")
+Exception: No MyFXBook accounts returned by API.
+[INFO] 2025-10-23 03:01:11,410 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-23 03:01:13,172 main.views: MyFXBook login successful.
+[ERROR] 2025-10-23 03:01:14,891 main.views: Failed to get MyFXBook accounts: Invalid session.
+[WARNING] 2025-10-23 03:01:14,892 main.views: MyFXBook session invalid; retrying login and accounts fetch.
+[INFO] 2025-10-23 03:01:16,341 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-23 03:01:18,752 main.views: MyFXBook login successful.
+[ERROR] 2025-10-23 03:01:20,300 main.views: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-23 03:01:20,314 main.views: Error fetching MyFXBook accounts: Failed to get MyFXBook accounts: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 94, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 82, in myfxbook_get_my_accounts
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 103, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 82, in myfxbook_get_my_accounts
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-23 03:01:23,195 main.views: Error fetching MyFXBook accounts list: Failed to get MyFXBook accounts: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 94, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 82, in myfxbook_get_my_accounts
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 551, in dashboard_accounts
+    accounts_list = myfxbook_fetch_accounts_with_retry()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 103, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 82, in myfxbook_get_my_accounts
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-23 03:01:23,297 main.views: Error updating account data for login 211062785: No MyFXBook accounts returned by API.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 140, in update_account_data_from_myfxbook
+    raise Exception("No MyFXBook accounts returned by API.")
+Exception: No MyFXBook accounts returned by API.
+[INFO] 2025-10-23 23:20:30,867 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-23 23:20:32,684 main.views: MyFXBook login successful.
+[ERROR] 2025-10-23 23:20:34,331 main.views: Failed to get MyFXBook accounts: Invalid session.
+[WARNING] 2025-10-23 23:20:34,333 main.views: MyFXBook session invalid; retrying login and accounts fetch.
+[INFO] 2025-10-23 23:20:35,685 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-23 23:20:37,216 main.views: MyFXBook login successful.
+[ERROR] 2025-10-23 23:20:39,491 main.views: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-23 23:20:39,492 main.views: Error fetching MyFXBook accounts: Failed to get MyFXBook accounts: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 94, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 82, in myfxbook_get_my_accounts
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 103, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 82, in myfxbook_get_my_accounts
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-23 23:20:40,926 main.views: Error fetching MyFXBook accounts list: Failed to get MyFXBook accounts: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 94, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 82, in myfxbook_get_my_accounts
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 213, in dashboard_overview
+    accounts_list = myfxbook_fetch_accounts_with_retry()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 103, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 82, in myfxbook_get_my_accounts
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-23 23:20:40,953 main.views: Error updating account data for login 211062785: No MyFXBook accounts returned by API.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 140, in update_account_data_from_myfxbook
+    raise Exception("No MyFXBook accounts returned by API.")
+Exception: No MyFXBook accounts returned by API.
+[INFO] 2025-10-23 23:27:06,552 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-23 23:27:08,712 main.views: MyFXBook login successful.
+[ERROR] 2025-10-23 23:27:10,422 main.views: Failed to get MyFXBook accounts: Invalid session.
+[WARNING] 2025-10-23 23:27:10,422 main.views: MyFXBook session invalid; retrying login and accounts fetch.
+[INFO] 2025-10-23 23:27:12,281 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-23 23:27:13,903 main.views: MyFXBook login successful.
+[ERROR] 2025-10-23 23:27:16,412 main.views: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-23 23:27:16,413 main.views: Error fetching MyFXBook accounts: Failed to get MyFXBook accounts: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 94, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 82, in myfxbook_get_my_accounts
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 103, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 82, in myfxbook_get_my_accounts
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-23 23:27:18,830 main.views: Error fetching MyFXBook accounts list: Failed to get MyFXBook accounts: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 94, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 82, in myfxbook_get_my_accounts
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 213, in dashboard_overview
+    accounts_list = myfxbook_fetch_accounts_with_retry()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 103, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 82, in myfxbook_get_my_accounts
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-23 23:27:18,938 main.views: Error updating account data for login 211062785: No MyFXBook accounts returned by API.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 140, in update_account_data_from_myfxbook
+    raise Exception("No MyFXBook accounts returned by API.")
+Exception: No MyFXBook accounts returned by API.
+[INFO] 2025-10-23 23:39:03,349 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-23 23:39:06,769 main.views: MyFXBook login successful.
+[ERROR] 2025-10-23 23:39:07,648 main.views: Failed to get MyFXBook accounts: Invalid session.
+[WARNING] 2025-10-23 23:39:07,649 main.views: MyFXBook session invalid; retrying login and accounts fetch.
+[INFO] 2025-10-23 23:39:07,896 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-23 23:39:08,168 main.views: MyFXBook login successful.
+[ERROR] 2025-10-23 23:39:09,012 main.views: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-23 23:39:09,013 main.views: Error fetching MyFXBook accounts: Failed to get MyFXBook accounts: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 161, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts_http(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 137, in myfxbook_get_my_accounts_http
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 171, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts_http(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 137, in myfxbook_get_my_accounts_http
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-23 23:39:09,383 main.views: Error fetching MyFXBook accounts list: Failed to get MyFXBook accounts: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 161, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts_http(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 137, in myfxbook_get_my_accounts_http
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 281, in dashboard_overview
+    accounts_list = myfxbook_fetch_accounts_with_retry()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 171, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts_http(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 137, in myfxbook_get_my_accounts_http
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-23 23:39:09,411 main.views: Error updating account data for login 211062785: No MyFXBook accounts returned by API.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 208, in update_account_data_from_myfxbook
+    raise Exception("No MyFXBook accounts returned by API.")
+Exception: No MyFXBook accounts returned by API.
+[INFO] 2025-10-23 23:39:26,790 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-23 23:39:28,097 main.views: MyFXBook login successful.
+[ERROR] 2025-10-23 23:39:28,964 main.views: Failed to get MyFXBook accounts: Invalid session.
+[WARNING] 2025-10-23 23:39:28,965 main.views: MyFXBook session invalid; retrying login and accounts fetch.
+[INFO] 2025-10-23 23:39:29,212 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-23 23:39:29,490 main.views: MyFXBook login successful.
+[ERROR] 2025-10-23 23:39:30,418 main.views: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-23 23:39:30,418 main.views: Error fetching MyFXBook accounts: Failed to get MyFXBook accounts: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 161, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts_http(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 137, in myfxbook_get_my_accounts_http
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 171, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts_http(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 137, in myfxbook_get_my_accounts_http
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-23 23:39:30,646 main.views: Error fetching MyFXBook accounts list: Failed to get MyFXBook accounts: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 161, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts_http(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 137, in myfxbook_get_my_accounts_http
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 281, in dashboard_overview
+    accounts_list = myfxbook_fetch_accounts_with_retry()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 171, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts_http(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 137, in myfxbook_get_my_accounts_http
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-23 23:39:30,646 main.views: Error updating account data for login 211062785: No MyFXBook accounts returned by API.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 208, in update_account_data_from_myfxbook
+    raise Exception("No MyFXBook accounts returned by API.")
+Exception: No MyFXBook accounts returned by API.
+[INFO] 2025-10-23 23:39:47,908 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-23 23:39:49,444 main.views: MyFXBook login successful.
+[INFO] 2025-10-23 23:39:49,547 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[ERROR] 2025-10-23 23:39:50,359 main.views: Failed to get MyFXBook accounts: Invalid session.
+[WARNING] 2025-10-23 23:39:50,359 main.views: MyFXBook session invalid; retrying login and accounts fetch.
+[INFO] 2025-10-23 23:39:50,692 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-23 23:39:51,010 main.views: MyFXBook login successful.
+[INFO] 2025-10-23 23:39:51,143 main.views: MyFXBook login successful.
+[ERROR] 2025-10-23 23:39:51,924 main.views: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-23 23:39:51,924 main.views: Error fetching MyFXBook accounts: Failed to get MyFXBook accounts: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 161, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts_http(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 137, in myfxbook_get_my_accounts_http
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 171, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts_http(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 137, in myfxbook_get_my_accounts_http
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-23 23:39:52,005 main.views: Failed to get MyFXBook accounts: Invalid session.
+[WARNING] 2025-10-23 23:39:52,005 main.views: MyFXBook session invalid; retrying login and accounts fetch.
+[ERROR] 2025-10-23 23:39:52,246 main.views: Error fetching MyFXBook accounts list: Failed to get MyFXBook accounts: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 161, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts_http(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 137, in myfxbook_get_my_accounts_http
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 619, in dashboard_accounts
+    accounts_list = myfxbook_fetch_accounts_with_retry()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 171, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts_http(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 137, in myfxbook_get_my_accounts_http
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+[INFO] 2025-10-23 23:39:52,255 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[ERROR] 2025-10-23 23:39:52,273 main.views: Error updating account data for login 211062785: No MyFXBook accounts returned by API.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 208, in update_account_data_from_myfxbook
+    raise Exception("No MyFXBook accounts returned by API.")
+Exception: No MyFXBook accounts returned by API.
+[INFO] 2025-10-23 23:39:52,523 main.views: MyFXBook login successful.
+[ERROR] 2025-10-23 23:39:53,475 main.views: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-23 23:39:53,475 main.views: Error fetching MyFXBook accounts: Failed to get MyFXBook accounts: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 161, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts_http(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 137, in myfxbook_get_my_accounts_http
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 171, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts_http(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 137, in myfxbook_get_my_accounts_http
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-23 23:39:53,722 main.views: Error fetching MyFXBook accounts list: Failed to get MyFXBook accounts: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 161, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts_http(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 137, in myfxbook_get_my_accounts_http
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 619, in dashboard_accounts
+    accounts_list = myfxbook_fetch_accounts_with_retry()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 171, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts_http(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 137, in myfxbook_get_my_accounts_http
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-23 23:39:53,755 main.views: Error updating account data for login 211062785: No MyFXBook accounts returned by API.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 208, in update_account_data_from_myfxbook
+    raise Exception("No MyFXBook accounts returned by API.")
+Exception: No MyFXBook accounts returned by API.
+[INFO] 2025-10-24 00:08:49,114 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-24 00:08:49,499 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-24 00:08:57,077 main.views: MyFXBook login successful.
+[INFO] 2025-10-24 00:08:57,179 main.views: MyFXBook login successful.
+[ERROR] 2025-10-24 00:08:58,769 main.views: Failed to get MyFXBook accounts: Invalid session.
+[WARNING] 2025-10-24 00:08:58,769 main.views: MyFXBook session invalid; retrying login and accounts fetch.
+[ERROR] 2025-10-24 00:08:58,986 main.views: Failed to get MyFXBook accounts: Invalid session.
+[WARNING] 2025-10-24 00:08:58,987 main.views: MyFXBook session invalid; retrying login and accounts fetch.
+[INFO] 2025-10-24 00:08:59,249 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-24 00:08:59,549 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-24 00:08:59,748 main.views: MyFXBook login successful.
+[INFO] 2025-10-24 00:09:00,106 main.views: MyFXBook login successful.
+[ERROR] 2025-10-24 00:09:00,859 main.views: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-24 00:09:00,859 main.views: Error fetching MyFXBook accounts: Failed to get MyFXBook accounts: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 161, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts_http(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 137, in myfxbook_get_my_accounts_http
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 171, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts_http(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 137, in myfxbook_get_my_accounts_http
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-24 00:09:01,313 main.views: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-24 00:09:01,313 main.views: Error fetching MyFXBook accounts: Failed to get MyFXBook accounts: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 161, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts_http(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 137, in myfxbook_get_my_accounts_http
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 171, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts_http(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 137, in myfxbook_get_my_accounts_http
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-24 00:09:01,357 main.views: Error fetching MyFXBook accounts list: Failed to get MyFXBook accounts: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 161, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts_http(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 137, in myfxbook_get_my_accounts_http
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 619, in dashboard_accounts
+    accounts_list = myfxbook_fetch_accounts_with_retry()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 171, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts_http(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 137, in myfxbook_get_my_accounts_http
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-24 00:09:01,375 main.views: Error updating account data for login 211062785: No MyFXBook accounts returned by API.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 208, in update_account_data_from_myfxbook
+    raise Exception("No MyFXBook accounts returned by API.")
+Exception: No MyFXBook accounts returned by API.
+[ERROR] 2025-10-24 00:09:02,045 main.views: Error fetching MyFXBook accounts list: Failed to get MyFXBook accounts: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 161, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts_http(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 137, in myfxbook_get_my_accounts_http
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 619, in dashboard_accounts
+    accounts_list = myfxbook_fetch_accounts_with_retry()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 171, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts_http(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 137, in myfxbook_get_my_accounts_http
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-24 00:09:02,092 main.views: Error updating account data for login 211062785: No MyFXBook accounts returned by API.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 208, in update_account_data_from_myfxbook
+    raise Exception("No MyFXBook accounts returned by API.")
+Exception: No MyFXBook accounts returned by API.
+[INFO] 2025-10-24 00:11:30,753 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-24 00:11:36,253 main.views: MyFXBook login successful.
+[ERROR] 2025-10-24 00:11:38,021 main.views: Failed to get MyFXBook accounts: Invalid session.
+[WARNING] 2025-10-24 00:11:38,021 main.views: MyFXBook session invalid; retrying login and accounts fetch.
+[INFO] 2025-10-24 00:11:38,740 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-24 00:11:39,625 main.views: MyFXBook login successful.
+[ERROR] 2025-10-24 00:11:41,407 main.views: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-24 00:11:41,408 main.views: Error fetching MyFXBook accounts: Failed to get MyFXBook accounts: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 161, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts_http(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 137, in myfxbook_get_my_accounts_http
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 171, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts_http(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 137, in myfxbook_get_my_accounts_http
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-24 00:11:42,015 main.views: Error fetching MyFXBook accounts list: Failed to get MyFXBook accounts: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 161, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts_http(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 137, in myfxbook_get_my_accounts_http
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 619, in dashboard_accounts
+    accounts_list = myfxbook_fetch_accounts_with_retry()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 171, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts_http(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 137, in myfxbook_get_my_accounts_http
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-24 00:11:42,037 main.views: Error updating account data for login 211062785: No MyFXBook accounts returned by API.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 208, in update_account_data_from_myfxbook
+    raise Exception("No MyFXBook accounts returned by API.")
+Exception: No MyFXBook accounts returned by API.
+[INFO] 2025-10-24 00:13:38,923 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-24 00:13:38,937 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-24 00:13:41,340 main.views: MyFXBook login successful.
+[ERROR] 2025-10-24 00:13:42,777 main.views: Failed to get MyFXBook accounts: Invalid session.
+[WARNING] 2025-10-24 00:13:42,778 main.views: MyFXBook session invalid; retrying login and accounts fetch.
+[INFO] 2025-10-24 00:13:43,008 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-24 00:13:43,057 main.views: MyFXBook login successful.
+[INFO] 2025-10-24 00:13:43,255 main.views: MyFXBook login successful.
+[ERROR] 2025-10-24 00:13:44,690 main.views: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-24 00:13:44,690 main.views: Error fetching MyFXBook accounts: Failed to get MyFXBook accounts: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 161, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts_http(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 137, in myfxbook_get_my_accounts_http
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 171, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts_http(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 137, in myfxbook_get_my_accounts_http
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-24 00:13:44,800 main.views: Failed to get MyFXBook accounts: Invalid session.
+[WARNING] 2025-10-24 00:13:44,800 main.views: MyFXBook session invalid; retrying login and accounts fetch.
+[ERROR] 2025-10-24 00:13:44,916 main.views: Error fetching MyFXBook accounts list: Failed to get MyFXBook accounts: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 161, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts_http(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 137, in myfxbook_get_my_accounts_http
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 619, in dashboard_accounts
+    accounts_list = myfxbook_fetch_accounts_with_retry()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 171, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts_http(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 137, in myfxbook_get_my_accounts_http
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-24 00:13:44,932 main.views: Error updating account data for login 211062785: No MyFXBook accounts returned by API.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 208, in update_account_data_from_myfxbook
+    raise Exception("No MyFXBook accounts returned by API.")
+Exception: No MyFXBook accounts returned by API.
+[INFO] 2025-10-24 00:13:45,381 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-24 00:13:46,084 main.views: MyFXBook login successful.
+[ERROR] 2025-10-24 00:13:47,853 main.views: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-24 00:13:47,853 main.views: Error fetching MyFXBook accounts: Failed to get MyFXBook accounts: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 161, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts_http(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 137, in myfxbook_get_my_accounts_http
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 171, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts_http(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 137, in myfxbook_get_my_accounts_http
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-24 00:13:48,406 main.views: Error fetching MyFXBook accounts list: Failed to get MyFXBook accounts: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 161, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts_http(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 137, in myfxbook_get_my_accounts_http
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 619, in dashboard_accounts
+    accounts_list = myfxbook_fetch_accounts_with_retry()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 171, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts_http(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 137, in myfxbook_get_my_accounts_http
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-24 00:13:48,422 main.views: Error updating account data for login 211062785: No MyFXBook accounts returned by API.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 208, in update_account_data_from_myfxbook
+    raise Exception("No MyFXBook accounts returned by API.")
+Exception: No MyFXBook accounts returned by API.
+[INFO] 2025-10-24 00:15:35,196 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-24 00:15:39,775 main.views: MyFXBook login successful.
+[ERROR] 2025-10-24 00:15:41,525 main.views: Failed to get MyFXBook accounts: Invalid session.
+[WARNING] 2025-10-24 00:15:41,526 main.views: MyFXBook session invalid; retrying login and accounts fetch.
+[INFO] 2025-10-24 00:15:42,084 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-24 00:15:42,677 main.views: MyFXBook login successful.
+[ERROR] 2025-10-24 00:15:44,422 main.views: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-24 00:15:44,422 main.views: Error fetching MyFXBook accounts: Failed to get MyFXBook accounts: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 161, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts_http(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 137, in myfxbook_get_my_accounts_http
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 171, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts_http(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 137, in myfxbook_get_my_accounts_http
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-24 00:15:44,989 main.views: Error fetching MyFXBook accounts list: Failed to get MyFXBook accounts: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 161, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts_http(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 137, in myfxbook_get_my_accounts_http
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 619, in dashboard_accounts
+    accounts_list = myfxbook_fetch_accounts_with_retry()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 171, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts_http(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 137, in myfxbook_get_my_accounts_http
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-24 00:15:45,021 main.views: Error updating account data for login 211062785: No MyFXBook accounts returned by API.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 208, in update_account_data_from_myfxbook
+    raise Exception("No MyFXBook accounts returned by API.")
+Exception: No MyFXBook accounts returned by API.
+[INFO] 2025-10-24 20:29:05,321 main.views: --- ENTERING dashboard_accounts ---
+[INFO] 2025-10-24 20:29:05,326 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[ERROR] 2025-10-24 20:29:14,801 main.views: Error fetching MyFXBook accounts: HTTPSConnectionPool(host='myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000026205EC1690>: Failed to resolve 'myfxbook.com' ([Errno 11002] getaddrinfo failed)"))
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 962, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11002] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 704, in connect
+    self.sock = sock = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 205, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: <urllib3.connection.HTTPSConnection object at 0x0000026205EC1690>: Failed to resolve 'myfxbook.com' ([Errno 11002] getaddrinfo failed)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000026205EC1690>: Failed to resolve 'myfxbook.com' ([Errno 11002] getaddrinfo failed)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 97, in myfxbook_fetch_accounts_with_retry
+    session_token = myfxbook_login(http)
+                    ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 37, in myfxbook_login
+    resp = http.get(url, params={'email': email, 'password': password}, timeout=10)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000026205EC1690>: Failed to resolve 'myfxbook.com' ([Errno 11002] getaddrinfo failed)"))
+[ERROR] 2025-10-24 20:29:15,184 main.views: Error fetching MyFXBook accounts list: HTTPSConnectionPool(host='myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000026205EC1690>: Failed to resolve 'myfxbook.com' ([Errno 11002] getaddrinfo failed)"))
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 962, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11002] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 704, in connect
+    self.sock = sock = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 205, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: <urllib3.connection.HTTPSConnection object at 0x0000026205EC1690>: Failed to resolve 'myfxbook.com' ([Errno 11002] getaddrinfo failed)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000026205EC1690>: Failed to resolve 'myfxbook.com' ([Errno 11002] getaddrinfo failed)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 547, in dashboard_accounts
+    accounts_list = myfxbook_fetch_accounts_with_retry()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 97, in myfxbook_fetch_accounts_with_retry
+    session_token = myfxbook_login(http)
+                    ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 37, in myfxbook_login
+    resp = http.get(url, params={'email': email, 'password': password}, timeout=10)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000026205EC1690>: Failed to resolve 'myfxbook.com' ([Errno 11002] getaddrinfo failed)"))
+[ERROR] 2025-10-24 20:29:15,202 main.views: Error updating account data for login 211062785: No MyFXBook accounts returned by API.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 137, in update_account_data_from_myfxbook
+    raise Exception("No MyFXBook accounts returned by API.")
+Exception: No MyFXBook accounts returned by API.
+[INFO] 2025-10-24 20:34:45,500 main.views: --- ENTERING dashboard_accounts ---
+[INFO] 2025-10-24 20:34:45,611 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-24 20:34:45,884 main.views: --- ENTERING dashboard_accounts ---
+[INFO] 2025-10-24 20:34:46,063 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[ERROR] 2025-10-24 20:34:57,648 main.views: Error fetching MyFXBook accounts: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000022CD4A39290>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)"))
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 962, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 704, in connect
+    self.sock = sock = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 205, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: <urllib3.connection.HTTPSConnection object at 0x0000022CD4A39290>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000022CD4A39290>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 97, in myfxbook_fetch_accounts_with_retry
+    session_token = myfxbook_login(http)
+                    ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 37, in myfxbook_login
+    resp = http.get(url, params={'email': email, 'password': password}, timeout=10)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000022CD4A39290>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)"))
+[ERROR] 2025-10-24 20:34:57,648 main.views: Error fetching MyFXBook accounts: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000022CD5347F10>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)"))
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 962, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 704, in connect
+    self.sock = sock = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 205, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: <urllib3.connection.HTTPSConnection object at 0x0000022CD5347F10>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000022CD5347F10>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 97, in myfxbook_fetch_accounts_with_retry
+    session_token = myfxbook_login(http)
+                    ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 37, in myfxbook_login
+    resp = http.get(url, params={'email': email, 'password': password}, timeout=10)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000022CD5347F10>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)"))
+[ERROR] 2025-10-24 20:34:57,665 main.views: Error fetching MyFXBook accounts list: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000022CD4A39290>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)"))
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 962, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 704, in connect
+    self.sock = sock = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 205, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: <urllib3.connection.HTTPSConnection object at 0x0000022CD4A39290>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000022CD4A39290>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 547, in dashboard_accounts
+    accounts_list = myfxbook_fetch_accounts_with_retry()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 97, in myfxbook_fetch_accounts_with_retry
+    session_token = myfxbook_login(http)
+                    ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 37, in myfxbook_login
+    resp = http.get(url, params={'email': email, 'password': password}, timeout=10)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000022CD4A39290>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)"))
+[ERROR] 2025-10-24 20:34:57,680 main.views: Error fetching MyFXBook accounts list: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000022CD5347F10>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)"))
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 962, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 704, in connect
+    self.sock = sock = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 205, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: <urllib3.connection.HTTPSConnection object at 0x0000022CD5347F10>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000022CD5347F10>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 547, in dashboard_accounts
+    accounts_list = myfxbook_fetch_accounts_with_retry()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 97, in myfxbook_fetch_accounts_with_retry
+    session_token = myfxbook_login(http)
+                    ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 37, in myfxbook_login
+    resp = http.get(url, params={'email': email, 'password': password}, timeout=10)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000022CD5347F10>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)"))
+[ERROR] 2025-10-24 20:34:57,702 main.views: Error updating account data for login 211062785: No MyFXBook accounts returned by API.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 137, in update_account_data_from_myfxbook
+    raise Exception("No MyFXBook accounts returned by API.")
+Exception: No MyFXBook accounts returned by API.
+[ERROR] 2025-10-24 20:34:57,716 main.views: Error updating account data for login 211062785: No MyFXBook accounts returned by API.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 137, in update_account_data_from_myfxbook
+    raise Exception("No MyFXBook accounts returned by API.")
+Exception: No MyFXBook accounts returned by API.

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 150 150">
+  <!-- Badge Background -->
+  <circle cx="75" cy="75" r="70" fill="#0A0A0A" stroke="#FFD700" stroke-width="2"/>
+  
+  <!-- Inner Circle -->
+  <circle cx="75" cy="75" r="60" fill="none" stroke="#FFD700" stroke-width="1" stroke-dasharray="3,2"/>
+  
+  <!-- Trophy Shape -->
+  <path d="M60,40 h30 v5 h5 v20 h-5 l-5,15 h-20 l-5,-15 h-5 v-20 h5 z" fill="#FFD700" opacity="0.9"/>
+  <rect x="70" y="80" width="10" height="15" fill="#FFD700" opacity="0.9"/>
+  <rect x="60" y="95" width="30" height="5" rx="2" fill="#FFD700" opacity="0.9"/>
+  
+  <!-- Outer Ring with Text -->
+  <path id="textPath" d="M75,15 a60,60 0 1,1 -0.1,0" fill="none"/>
+  <text font-family="Arial, sans-serif" font-size="10" fill="#FFD700" letter-spacing="1">
+    <textPath href="#textPath" startOffset="5%">★ BEST FOREX INNOVATION STARTUP 2025 ★</textPath>
+  </text>
+  
+  <!-- Inner Text -->
+  <text x="75" y="110" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#FFD700" text-anchor="middle">TRIAL2FUND</text>
+  <text x="75" y="125" font-family="Arial, sans-serif" font-size="8" fill="#FFD700" text-anchor="middle">INNOVATION AWARD</text>
+  
+  <!-- Decorative Elements -->
+  <circle cx="75" cy="75" r="65" fill="none" stroke="#FFD700" stroke-width="0.5" opacity="0.5"/>
+  <circle cx="75" cy="75" r="55" fill="none" stroke="#FFD700" stroke-width="0.5" opacity="0.5"/>
+  
+  <!-- Shine Effect -->
+  <circle cx="50" cy="50" r="40" fill="url(#shineGradient)" opacity="0.2"/>
+  
+  <defs>
+    <linearGradient id="shineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+</svg>

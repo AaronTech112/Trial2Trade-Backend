@@ -1,0 +1,6 @@
+# robots.txt for Trial2Fund website
+
+User-agent: *
+Allow: /
+
+Sitemap: https://trial2fund.com/sitemap.xml

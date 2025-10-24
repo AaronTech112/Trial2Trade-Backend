@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+  <!-- Circle Background -->
+  <circle cx="20" cy="20" r="18" fill="#0A0A0A" stroke="#FFD700" stroke-width="1.5"/>
+  
+  <!-- Telegram Plane Icon -->
+  <path d="M28,12 L12,19 L16,21 L18,27 L20,22 L26,16 L28,12 Z" 
+        fill="none" stroke="#FFD700" stroke-width="1.5" stroke-linejoin="round"/>
+  <line x1="16" y1="21" x2="20" y2="22" stroke="#FFD700" stroke-width="1.5"/>
+  
+  <!-- Decorative Elements -->
+  <circle cx="20" cy="20" r="15" fill="none" stroke="#FFD700" stroke-width="0.5" opacity="0.5"/>
+  
+  <!-- Shine Effect -->
+  <circle cx="15" cy="15" r="8" fill="url(#shineGradient)" opacity="0.2"/>
+  
+  <defs>
+    <linearGradient id="shineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+</svg>
