@@ -94,3 +94,12 @@ class PayoutAdmin(admin.ModelAdmin):
     def mark_as_rejected(self, request, queryset):
         queryset.update(status='rejected')
     mark_as_rejected.short_description = "Mark selected payouts as rejected"
+
+from .models import Certificate
+
+@admin.register(Certificate)
+class CertificateAdmin(admin.ModelAdmin):
+    list_display = ('title', 'user', 'issued_at')
+    list_filter = ('issued_at',)
+    search_fields = ('title', 'user__username', 'user__email')
+    readonly_fields = ('issued_at',)

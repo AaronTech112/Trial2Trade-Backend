@@ -21,7 +21,7 @@ from .forms import RegisterForm
 from django.contrib import messages
 import logging
 
-from .models import MT5Account, Purchase, CustomUser, RealPropRequest, Payout
+from .models import MT5Account, Purchase, CustomUser, RealPropRequest, Payout, Certificate
 
 logger = logging.getLogger(__name__)
 MYFXBOOK_HTTP_HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36'}
@@ -752,7 +752,8 @@ def dashboard_referral(request):
 
 @login_required(login_url='/login_user')
 def dashboard_payouts(request):
-    user_accounts = MT5Account.objects.filter(user=request.user)
+    # Only allow payouts from funded/real accounts (active status)
+    eligible_accounts = MT5Account.objects.filter(user=request.user, status='active')
     
     if request.method == 'POST':
         account_id = request.POST.get('account_id')
@@ -764,7 +765,8 @@ def dashboard_payouts(request):
             return redirect('dashboard_payouts')
         
         try:
-            account = MT5Account.objects.get(id=account_id, user=request.user)
+            # Enforce selection of an active (funded) account only
+            account = MT5Account.objects.get(id=account_id, user=request.user, status='active')
             
             # Create payout request
             payout = Payout.objects.create(
@@ -774,8 +776,8 @@ def dashboard_payouts(request):
                 payment_method=payment_method
             )
             
-            # Create prop request for payout
-            prop_request = RealPropRequest.objects.create(
+            # Create prop request for payout (for admin tracking)
+            RealPropRequest.objects.create(
                 user=request.user,
                 request_type='payout',
                 mt5_account=account
@@ -783,7 +785,7 @@ def dashboard_payouts(request):
             
             messages.success(request, 'Your payout request has been submitted and is pending approval')
         except MT5Account.DoesNotExist:
-            messages.error(request, 'Invalid account selected')
+            messages.error(request, 'Invalid account selected or account not eligible for payout')
         except Exception as e:
             messages.error(request, f'Error processing request: {str(e)}')
         
@@ -793,7 +795,7 @@ def dashboard_payouts(request):
     payouts = Payout.objects.filter(user=request.user).order_by('-created_at')
     
     return render(request, 'main/dashboard-payouts.html', {
-        'accounts': user_accounts,
+        'accounts': eligible_accounts,
         'payouts': payouts
     })
 
@@ -806,7 +808,10 @@ def dashboard_transactions(request):
 
 @login_required(login_url='/login_user')
 def dashboard_certificates(request):
-    return render(request, 'main/dashboard-certificates.html')
+    certificates = Certificate.objects.filter(user=request.user).order_by('-issued_at')
+    return render(request, 'main/dashboard-certificates.html', {
+        'certificates': certificates,
+    })
 
 @login_required(login_url='/login_user')
 def process_purchase(request):

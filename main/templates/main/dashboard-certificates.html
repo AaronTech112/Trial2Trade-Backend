@@ -29,9 +29,7 @@
             <div class="user-info">
                 <img src="{% static 'images/avatar-placeholder.png' %}" alt="User Avatar" class="avatar">
                 <div class="user-details">
-                    <h4 class="user-name">Aaron
-                        x
-                    </h4>
+                    <h4 class="user-name">{{ request.user.first_name|default:request.user.username }}</h4>
                     <span class="user-status">Active Trader</span>
                 </div>
             </div>
@@ -95,10 +93,10 @@
                     <i class="fas fa-bell"></i>
                     <span class="notification-badge">3</span>
                 </button>
-                <button class="support-btn">
+                <a href="mailto:info@trial2trade.com" class="support-btn">
                     <i class="fas fa-headset"></i>
                     <span>Support</span>
-                </button>
+                </a>
             </div>
         </header>
 
@@ -109,41 +107,31 @@
                 <p>View and download your trading achievements</p>
             </div>
 
+            {% if certificates %}
             <div class="certificates-grid">
+                {% for cert in certificates %}
                 <div class="certificate-card">
                     <div class="certificate-preview">
-                        <img src="{% static 'images/certificate-preview.png' %}" alt="Certificate Preview">
+                        <img src="{{ cert.file.url }}" alt="{{ cert.title }}">
                         <div class="certificate-overlay">
-                            <button class="btn primary-btn">
+                            <a href="{{ cert.file.url }}" target="_blank" class="btn primary-btn">
                                 <i class="fas fa-download"></i>
-                                Download
-                            </button>
+                                View / Download
+                            </a>
                         </div>
                     </div>
                     <div class="certificate-info">
-                        <h3>FTMO Challenge Completion</h3>
-                        <p>$25,000 Account Certification</p>
-                        <span class="date">Issued: Oct 1, 2025</span>
+                        <h3>{{ cert.title }}</h3>
+                        <span class="date">Issued: {{ cert.issued_at|date:"M d, Y" }}</span>
                     </div>
                 </div>
-
-                <div class="certificate-card">
-                    <div class="certificate-preview">
-                        <img src="{% static 'images/certificate-preview2.png' %}" alt="Certificate Preview">
-                        <div class="certificate-overlay">
-                            <button class="btn primary-btn">
-                                <i class="fas fa-download"></i>
-                                Download
-                            </button>
-                        </div>
-                    </div>
-                    <div class="certificate-info">
-                        <h3>FundedNext Verification</h3>
-                        <p>$10,000 Account Verification</p>
-                        <span class="date">Issued: Sep 15, 2025</span>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
+            {% else %}
+            <div class="empty-state">
+                <p>No certificates awarded yet. Once an admin uploads your certificate, it will appear here.</p>
+            </div>
+            {% endif %}
         </section>
     </main>
     

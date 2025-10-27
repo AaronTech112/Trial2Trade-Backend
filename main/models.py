@@ -137,3 +137,12 @@ class Payout(models.Model):
 
     def __str__(self):
         return f"Payout {self.user.username} - {self.amount} - {self.status}"
+
+class Certificate(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='certificates')
+    title = models.CharField(max_length=200)
+    file = models.FileField(upload_to='certificates/')
+    issued_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.title} - {self.user.username}"
