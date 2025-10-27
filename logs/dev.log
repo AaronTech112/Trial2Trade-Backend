@@ -1296,3 +1296,1968 @@ Traceback (most recent call last):
   File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 137, in update_account_data_from_myfxbook
     raise Exception("No MyFXBook accounts returned by API.")
 Exception: No MyFXBook accounts returned by API.
+[INFO] 2025-10-25 03:56:32,083 main.views: --- ENTERING dashboard_accounts ---
+[ERROR] 2025-10-25 03:56:32,087 main.views: Error fetching MyFXBook accounts list: name 'myfxbook_fetch_accounts_with_retry' is not defined
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 511, in dashboard_accounts
+    accounts_list = myfxbook_fetch_accounts_with_retry()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NameError: name 'myfxbook_fetch_accounts_with_retry' is not defined
+[ERROR] 2025-10-25 03:56:32,182 main.views: Error updating account data for login 211578896: No MyFXBook accounts returned by API.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 123, in update_account_data_from_myfxbook
+    raise Exception("No MyFXBook accounts returned by API.")
+Exception: No MyFXBook accounts returned by API.
+[INFO] 2025-10-25 03:56:32,537 main.views: --- ENTERING dashboard_accounts ---
+[ERROR] 2025-10-25 03:56:32,548 main.views: Error fetching MyFXBook accounts list: name 'myfxbook_fetch_accounts_with_retry' is not defined
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 511, in dashboard_accounts
+    accounts_list = myfxbook_fetch_accounts_with_retry()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NameError: name 'myfxbook_fetch_accounts_with_retry' is not defined
+[ERROR] 2025-10-25 03:56:32,723 main.views: Error updating account data for login 211578896: No MyFXBook accounts returned by API.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 123, in update_account_data_from_myfxbook
+    raise Exception("No MyFXBook accounts returned by API.")
+Exception: No MyFXBook accounts returned by API.
+[INFO] 2025-10-25 04:19:14,637 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-25 04:19:16,898 main.views: MyFXBook login successful.
+[ERROR] 2025-10-25 04:19:18,337 main.views: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-25 04:19:18,338 main.views: MyFXBook get_my_accounts failed. Status: 200, Response: {"error":true,"message":"Invalid session.","accounts":[]}
+
+[WARNING] 2025-10-25 04:19:18,339 main.views: MyFXBook session invalid; retrying login and accounts fetch.
+[INFO] 2025-10-25 04:19:18,566 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-25 04:19:18,806 main.views: MyFXBook login successful.
+[ERROR] 2025-10-25 04:19:20,233 main.views: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-25 04:19:20,233 main.views: MyFXBook get_my_accounts failed. Status: 200, Response: {"error":true,"message":"Invalid session.","accounts":[]}
+
+[ERROR] 2025-10-25 04:19:20,234 main.views: Error fetching MyFXBook accounts: Failed to get MyFXBook accounts: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 120, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 79, in myfxbook_get_my_accounts
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-25 04:19:20,464 main.views: Error fetching MyFXBook accounts list: Failed to get MyFXBook accounts: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 218, in dashboard_overview
+    accounts_list = myfxbook_fetch_accounts_with_retry()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 120, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 79, in myfxbook_get_my_accounts
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-25 04:19:20,477 main.views: Error updating account data for login 211578896: No MyFXBook accounts returned by API.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 143, in update_account_data_from_myfxbook
+    raise Exception("No MyFXBook accounts returned by API.")
+Exception: No MyFXBook accounts returned by API.
+[INFO] 2025-10-25 04:19:29,179 main.views: --- ENTERING dashboard_accounts ---
+[INFO] 2025-10-25 04:19:29,188 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-25 04:19:30,852 main.views: MyFXBook login successful.
+[ERROR] 2025-10-25 04:19:32,290 main.views: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-25 04:19:32,292 main.views: MyFXBook get_my_accounts failed. Status: 200, Response: {"error":true,"message":"Invalid session.","accounts":[]}
+
+[WARNING] 2025-10-25 04:19:32,295 main.views: MyFXBook session invalid; retrying login and accounts fetch.
+[INFO] 2025-10-25 04:19:32,526 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-25 04:19:32,768 main.views: MyFXBook login successful.
+[ERROR] 2025-10-25 04:19:34,219 main.views: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-25 04:19:34,221 main.views: MyFXBook get_my_accounts failed. Status: 200, Response: {"error":true,"message":"Invalid session.","accounts":[]}
+
+[ERROR] 2025-10-25 04:19:34,223 main.views: Error fetching MyFXBook accounts: Failed to get MyFXBook accounts: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 120, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 79, in myfxbook_get_my_accounts
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-25 04:19:34,461 main.views: Error fetching MyFXBook accounts list: Failed to get MyFXBook accounts: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 557, in dashboard_accounts
+    accounts_list = myfxbook_fetch_accounts_with_retry()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 120, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 79, in myfxbook_get_my_accounts
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-25 04:19:34,470 main.views: Error updating account data for login 211578896: No MyFXBook accounts returned by API.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 143, in update_account_data_from_myfxbook
+    raise Exception("No MyFXBook accounts returned by API.")
+Exception: No MyFXBook accounts returned by API.
+[INFO] 2025-10-25 04:19:56,016 main.views: --- ENTERING dashboard_accounts ---
+[INFO] 2025-10-25 04:19:56,026 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-25 04:19:57,516 main.views: MyFXBook login successful.
+[ERROR] 2025-10-25 04:19:58,947 main.views: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-25 04:19:58,948 main.views: MyFXBook get_my_accounts failed. Status: 200, Response: {"error":true,"message":"Invalid session.","accounts":[]}
+
+[WARNING] 2025-10-25 04:19:58,948 main.views: MyFXBook session invalid; retrying login and accounts fetch.
+[INFO] 2025-10-25 04:19:59,171 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-25 04:19:59,417 main.views: MyFXBook login successful.
+[ERROR] 2025-10-25 04:20:00,845 main.views: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-25 04:20:00,846 main.views: MyFXBook get_my_accounts failed. Status: 200, Response: {"error":true,"message":"Invalid session.","accounts":[]}
+
+[ERROR] 2025-10-25 04:20:00,846 main.views: Error fetching MyFXBook accounts: Failed to get MyFXBook accounts: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 120, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 79, in myfxbook_get_my_accounts
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-25 04:20:01,068 main.views: Error fetching MyFXBook accounts list: Failed to get MyFXBook accounts: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 557, in dashboard_accounts
+    accounts_list = myfxbook_fetch_accounts_with_retry()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 120, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 79, in myfxbook_get_my_accounts
+    raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+ValueError: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-25 04:20:01,077 main.views: Error updating account data for login 211578896: No MyFXBook accounts returned by API.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 143, in update_account_data_from_myfxbook
+    raise Exception("No MyFXBook accounts returned by API.")
+Exception: No MyFXBook accounts returned by API.
+[INFO] 2025-10-25 04:25:18,510 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-25 04:25:20,139 main.views: MyFXBook login successful.
+[ERROR] 2025-10-25 04:25:21,570 main.views: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-25 04:25:21,570 main.views: MyFXBook get_my_accounts failed. Status: 200, Response: {"error":true,"message":"Invalid session.","accounts":[]}
+
+[WARNING] 2025-10-25 04:25:21,572 main.views: MyFXBook session invalid; retrying login and accounts fetch.
+[INFO] 2025-10-25 04:25:21,818 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-25 04:25:22,073 main.views: MyFXBook login successful.
+[ERROR] 2025-10-25 04:25:23,719 main.views: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-25 04:25:23,720 main.views: MyFXBook get_my_accounts failed. Status: 200, Response: {"error":true,"message":"Invalid session.","accounts":[]}
+
+[ERROR] 2025-10-25 04:25:23,720 main.views: Error fetching MyFXBook accounts: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 124, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 83, in myfxbook_get_my_accounts
+    raise MyFxBookInvalidSession(msg)
+main.views.MyFxBookInvalidSession: Invalid session.
+[INFO] 2025-10-25 04:30:25,446 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-25 04:30:27,715 main.views: MyFXBook login successful.
+[ERROR] 2025-10-25 04:30:29,171 main.views: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-25 04:30:29,187 main.views: MyFXBook get_my_accounts failed. Status: 200, Response: {"error":true,"message":"Invalid session.","accounts":[]}
+
+[WARNING] 2025-10-25 04:30:29,188 main.views: MyFXBook session invalid; retrying login and accounts fetch.
+[INFO] 2025-10-25 04:30:29,415 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-25 04:30:29,662 main.views: MyFXBook login successful.
+[ERROR] 2025-10-25 04:30:31,220 main.views: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-25 04:30:31,224 main.views: MyFXBook get_my_accounts failed. Status: 200, Response: {"error":true,"message":"Invalid session.","accounts":[]}
+
+[ERROR] 2025-10-25 04:30:31,229 main.views: Error fetching MyFXBook accounts: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 124, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(http, session_token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 83, in myfxbook_get_my_accounts
+    raise MyFxBookInvalidSession(msg)
+main.views.MyFxBookInvalidSession: Invalid session.
+[INFO] 2025-10-25 04:33:50,921 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-25 04:33:53,311 main.views: MyFXBook login successful.
+[ERROR] 2025-10-25 04:33:54,717 main.views: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-25 04:33:54,739 main.views: MyFXBook get_my_accounts failed. Status: 200, Response: {"error":true,"message":"Invalid session.","accounts":[]}
+
+[WARNING] 2025-10-25 04:33:54,755 main.views: MyFXBook session invalid on https/GET; retrying with new login.
+[INFO] 2025-10-25 04:33:55,116 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-25 04:33:55,500 main.views: MyFXBook login successful.
+[ERROR] 2025-10-25 04:33:56,755 main.views: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-25 04:33:56,756 main.views: MyFXBook get_my_accounts failed. Status: 200, Response: {"error":true,"message":"Invalid session.","accounts":[]}
+
+[WARNING] 2025-10-25 04:33:56,757 main.views: MyFXBook session invalid on https/POST; trying http base.
+[INFO] 2025-10-25 04:33:57,114 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-25 04:33:57,796 main.views: MyFXBook login successful.
+[ERROR] 2025-10-25 04:33:59,346 main.views: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-25 04:33:59,417 main.views: MyFXBook get_my_accounts failed. Status: 200, Response: {"error":true,"message":"Invalid session.","accounts":[]}
+
+[ERROR] 2025-10-25 04:33:59,523 main.views: Error fetching MyFXBook accounts: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 119, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(http, session_token, base_url=base1)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 88, in myfxbook_get_my_accounts
+    raise MyFxBookInvalidSession(msg)
+main.views.MyFxBookInvalidSession: Invalid session.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 130, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(http, session_token, base_url=base1)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 88, in myfxbook_get_my_accounts
+    raise MyFxBookInvalidSession(msg)
+main.views.MyFxBookInvalidSession: Invalid session.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 140, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(http, session_token, base_url=base2)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 88, in myfxbook_get_my_accounts
+    raise MyFxBookInvalidSession(msg)
+main.views.MyFxBookInvalidSession: Invalid session.
+[INFO] 2025-10-25 04:56:51,614 main.views: --- ENTERING dashboard_accounts ---
+[INFO] 2025-10-25 04:56:51,660 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-25 04:56:54,255 main.views: MyFXBook login successful.
+[ERROR] 2025-10-25 04:56:55,500 main.views: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-25 04:56:55,502 main.views: MyFXBook get_my_accounts failed. Status: 200, Response: {"error":true,"message":"Invalid session.","accounts":[]}
+
+[WARNING] 2025-10-25 04:56:55,503 main.views: MyFXBook session invalid on https/GET; retrying with new login.
+[INFO] 2025-10-25 04:56:55,723 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-25 04:56:55,970 main.views: MyFXBook login successful.
+[ERROR] 2025-10-25 04:56:57,013 main.views: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-25 04:56:57,013 main.views: MyFXBook get_my_accounts failed. Status: 200, Response: {"error":true,"message":"Invalid session.","accounts":[]}
+
+[WARNING] 2025-10-25 04:56:57,014 main.views: MyFXBook session invalid on https/POST; trying http base.
+[INFO] 2025-10-25 04:56:57,253 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-25 04:56:57,811 main.views: MyFXBook login successful.
+[ERROR] 2025-10-25 04:56:59,002 main.views: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-25 04:56:59,002 main.views: MyFXBook get_my_accounts failed. Status: 200, Response: {"error":true,"message":"Invalid session.","accounts":[]}
+
+[ERROR] 2025-10-25 04:56:59,003 main.views: Error fetching MyFXBook accounts: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 185, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(http, session_token, base_url=base1)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 154, in myfxbook_get_my_accounts
+    raise MyFxBookInvalidSession(msg)
+main.views.MyFxBookInvalidSession: Invalid session.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 196, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(http, session_token, base_url=base1)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 154, in myfxbook_get_my_accounts
+    raise MyFxBookInvalidSession(msg)
+main.views.MyFxBookInvalidSession: Invalid session.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 206, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(http, session_token, base_url=base2)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 154, in myfxbook_get_my_accounts
+    raise MyFxBookInvalidSession(msg)
+main.views.MyFxBookInvalidSession: Invalid session.
+[ERROR] 2025-10-25 04:56:59,242 main.views: Error fetching MyFXBook accounts list: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 185, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(http, session_token, base_url=base1)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 154, in myfxbook_get_my_accounts
+    raise MyFxBookInvalidSession(msg)
+main.views.MyFxBookInvalidSession: Invalid session.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 196, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(http, session_token, base_url=base1)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 154, in myfxbook_get_my_accounts
+    raise MyFxBookInvalidSession(msg)
+main.views.MyFxBookInvalidSession: Invalid session.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 654, in dashboard_accounts
+    accounts_list = myfxbook_fetch_accounts_with_retry()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 206, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(http, session_token, base_url=base2)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 154, in myfxbook_get_my_accounts
+    raise MyFxBookInvalidSession(msg)
+main.views.MyFxBookInvalidSession: Invalid session.
+[INFO] 2025-10-25 04:56:59,253 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-25 04:57:00,645 main.views: MyFXBook login successful.
+[ERROR] 2025-10-25 04:57:01,778 main.views: Failed to fetch MyFXBook account info: 404 Client Error: Not Found for url: https://www.myfxbook.com/api/get-account-information.json?session=wGI5aEH%252FGaRU3%252BtXBpzSttuqX5ajkwz1GvUpvj7FxLJ35E3K6nirNlJ7DsaCd6Pqi8%252Fm6CrvFC7kIzSYWg%252FtRA%253D%253D&id=211578896
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 73, in myfxbook_get_account_info
+    resp.raise_for_status()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://www.myfxbook.com/api/get-account-information.json?session=wGI5aEH%252FGaRU3%252BtXBpzSttuqX5ajkwz1GvUpvj7FxLJ35E3K6nirNlJ7DsaCd6Pqi8%252Fm6CrvFC7kIzSYWg%252FtRA%253D%253D&id=211578896
+[ERROR] 2025-10-25 04:57:01,782 main.views: Error fetching MyFXBook account info: Failed to fetch MyFXBook account info: 404 Client Error: Not Found for url: https://www.myfxbook.com/api/get-account-information.json?session=wGI5aEH%252FGaRU3%252BtXBpzSttuqX5ajkwz1GvUpvj7FxLJ35E3K6nirNlJ7DsaCd6Pqi8%252Fm6CrvFC7kIzSYWg%252FtRA%253D%253D&id=211578896
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 73, in myfxbook_get_account_info
+    resp.raise_for_status()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://www.myfxbook.com/api/get-account-information.json?session=wGI5aEH%252FGaRU3%252BtXBpzSttuqX5ajkwz1GvUpvj7FxLJ35E3K6nirNlJ7DsaCd6Pqi8%252Fm6CrvFC7kIzSYWg%252FtRA%253D%253D&id=211578896
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 107, in myfxbook_fetch_account_info_with_retry
+    return myfxbook_get_account_info(http, session_token, account_id, base_url=base1)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 76, in myfxbook_get_account_info
+    raise RuntimeError(f"Failed to fetch MyFXBook account info: {e}")
+RuntimeError: Failed to fetch MyFXBook account info: 404 Client Error: Not Found for url: https://www.myfxbook.com/api/get-account-information.json?session=wGI5aEH%252FGaRU3%252BtXBpzSttuqX5ajkwz1GvUpvj7FxLJ35E3K6nirNlJ7DsaCd6Pqi8%252Fm6CrvFC7kIzSYWg%252FtRA%253D%253D&id=211578896
+[ERROR] 2025-10-25 04:57:02,043 main.views: MyFXBook direct account info failed for login 211578896: Failed to fetch MyFXBook account info: 404 Client Error: Not Found for url: https://www.myfxbook.com/api/get-account-information.json?session=wGI5aEH%252FGaRU3%252BtXBpzSttuqX5ajkwz1GvUpvj7FxLJ35E3K6nirNlJ7DsaCd6Pqi8%252Fm6CrvFC7kIzSYWg%252FtRA%253D%253D&id=211578896
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 73, in myfxbook_get_account_info
+    resp.raise_for_status()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://www.myfxbook.com/api/get-account-information.json?session=wGI5aEH%252FGaRU3%252BtXBpzSttuqX5ajkwz1GvUpvj7FxLJ35E3K6nirNlJ7DsaCd6Pqi8%252Fm6CrvFC7kIzSYWg%252FtRA%253D%253D&id=211578896
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 260, in update_account_data_from_myfxbook
+    info = myfxbook_fetch_account_info_with_retry(str(account.login).strip())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 107, in myfxbook_fetch_account_info_with_retry
+    return myfxbook_get_account_info(http, session_token, account_id, base_url=base1)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 76, in myfxbook_get_account_info
+    raise RuntimeError(f"Failed to fetch MyFXBook account info: {e}")
+RuntimeError: Failed to fetch MyFXBook account info: 404 Client Error: Not Found for url: https://www.myfxbook.com/api/get-account-information.json?session=wGI5aEH%252FGaRU3%252BtXBpzSttuqX5ajkwz1GvUpvj7FxLJ35E3K6nirNlJ7DsaCd6Pqi8%252Fm6CrvFC7kIzSYWg%252FtRA%253D%253D&id=211578896
+[ERROR] 2025-10-25 04:57:02,066 main.views: Error updating account data for login 211578896: No matching MyFXBook account found for login 211578896
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 267, in update_account_data_from_myfxbook
+    raise Exception(f"No matching MyFXBook account found for login {account.login}")
+Exception: No matching MyFXBook account found for login 211578896
+[INFO] 2025-10-25 05:17:22,495 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[ERROR] 2025-10-25 05:17:28,541 main.views: Error fetching MyFXBook accounts: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x000001E0B42223D0>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)"))
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 962, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 704, in connect
+    self.sock = sock = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 205, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: <urllib3.connection.HTTPSConnection object at 0x000001E0B42223D0>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x000001E0B42223D0>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 182, in myfxbook_fetch_accounts_with_retry
+    session_token = myfxbook_login(http, base_url=base1, use_post=False)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 45, in myfxbook_login
+    resp = http.get(url, params={'email': email, 'password': password}, timeout=10)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x000001E0B42223D0>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)"))
+[INFO] 2025-10-25 05:31:41,854 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[ERROR] 2025-10-25 05:31:47,877 main.views: Error fetching MyFXBook accounts: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x000001C4982AA1D0>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)"))
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 962, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 704, in connect
+    self.sock = sock = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 205, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: <urllib3.connection.HTTPSConnection object at 0x000001C4982AA1D0>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x000001C4982AA1D0>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 182, in myfxbook_fetch_accounts_with_retry
+    session_token = myfxbook_login(http, base_url=base1, use_post=False)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 45, in myfxbook_login
+    resp = http.get(url, params={'email': email, 'password': password}, timeout=10)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x000001C4982AA1D0>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)"))
+[INFO] 2025-10-25 09:53:41,760 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-25 09:53:44,033 main.views: MyFXBook login successful.
+[ERROR] 2025-10-25 09:53:45,440 main.views: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-25 09:53:45,441 main.views: MyFXBook get_my_accounts failed. Status: 200, Response: {"error":true,"message":"Invalid session.","accounts":[]}
+
+[WARNING] 2025-10-25 09:53:45,442 main.views: MyFXBook session invalid on https/GET; retrying with new login.
+[INFO] 2025-10-25 09:53:45,820 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-25 09:53:46,196 main.views: MyFXBook login successful.
+[ERROR] 2025-10-25 09:53:47,391 main.views: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-25 09:53:47,392 main.views: MyFXBook get_my_accounts failed. Status: 200, Response: {"error":true,"message":"Invalid session.","accounts":[]}
+
+[WARNING] 2025-10-25 09:53:47,392 main.views: MyFXBook session invalid on https/POST; trying http base.
+[INFO] 2025-10-25 09:53:47,779 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-25 09:53:48,948 main.views: MyFXBook login successful.
+[ERROR] 2025-10-25 09:53:50,860 main.views: Failed to get MyFXBook accounts: Invalid session.
+[ERROR] 2025-10-25 09:53:50,862 main.views: MyFXBook get_my_accounts failed. Status: 200, Response: {"error":true,"message":"Invalid session.","accounts":[]}
+
+[ERROR] 2025-10-25 09:53:50,862 main.views: Error fetching MyFXBook accounts: Invalid session.
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 191, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(http, session_token, base_url=base1)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 157, in myfxbook_get_my_accounts
+    raise MyFxBookInvalidSession(msg)
+main.views.MyFxBookInvalidSession: Invalid session.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 202, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(http, session_token, base_url=base1)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 157, in myfxbook_get_my_accounts
+    raise MyFxBookInvalidSession(msg)
+main.views.MyFxBookInvalidSession: Invalid session.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 212, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(http, session_token, base_url=base2)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 157, in myfxbook_get_my_accounts
+    raise MyFxBookInvalidSession(msg)
+main.views.MyFxBookInvalidSession: Invalid session.
+[INFO] 2025-10-25 19:19:36,843 main.views: --- ENTERING dashboard_accounts ---
+[INFO] 2025-10-25 19:19:36,897 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[ERROR] 2025-10-25 19:20:35,941 main.views: Error fetching MyFXBook accounts: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000029D862FEB90>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)"))
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 962, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 704, in connect
+    self.sock = sock = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 205, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: <urllib3.connection.HTTPSConnection object at 0x0000029D862FEB90>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000029D862FEB90>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 188, in myfxbook_fetch_accounts_with_retry
+    session_token = myfxbook_login(http, base_url=base1, use_post=False)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 45, in myfxbook_login
+    resp = http.get(url, params={'email': email, 'password': password}, timeout=10)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000029D862FEB90>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)"))
+[ERROR] 2025-10-25 19:20:37,981 main.views: Error fetching MyFXBook accounts list: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000029D862FEB90>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)"))
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 962, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 704, in connect
+    self.sock = sock = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 205, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: <urllib3.connection.HTTPSConnection object at 0x0000029D862FEB90>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000029D862FEB90>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 660, in dashboard_accounts
+    accounts_list = myfxbook_fetch_accounts_with_retry()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 188, in myfxbook_fetch_accounts_with_retry
+    session_token = myfxbook_login(http, base_url=base1, use_post=False)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 45, in myfxbook_login
+    resp = http.get(url, params={'email': email, 'password': password}, timeout=10)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000029D862FEB90>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)"))
+[INFO] 2025-10-25 19:20:38,301 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[ERROR] 2025-10-25 19:20:44,396 main.views: Error fetching MyFXBook account info: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000029D863EEED0>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)"))
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 962, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 704, in connect
+    self.sock = sock = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 205, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: <urllib3.connection.HTTPSConnection object at 0x0000029D863EEED0>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000029D863EEED0>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 107, in myfxbook_fetch_account_info_with_retry
+    session_token = myfxbook_login(http, base_url=base1, use_post=False)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 45, in myfxbook_login
+    resp = http.get(url, params={'email': email, 'password': password}, timeout=10)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000029D863EEED0>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)"))
+[ERROR] 2025-10-25 19:20:44,456 main.views: MyFXBook direct account info failed for login 211578896: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000029D863EEED0>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)"))
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 962, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 704, in connect
+    self.sock = sock = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 205, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: <urllib3.connection.HTTPSConnection object at 0x0000029D863EEED0>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000029D863EEED0>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 266, in update_account_data_from_myfxbook
+    info = myfxbook_fetch_account_info_with_retry(str(account.login).strip())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 107, in myfxbook_fetch_account_info_with_retry
+    session_token = myfxbook_login(http, base_url=base1, use_post=False)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 45, in myfxbook_login
+    resp = http.get(url, params={'email': email, 'password': password}, timeout=10)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000029D863EEED0>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)"))
+[ERROR] 2025-10-25 19:20:44,566 main.views: Error updating account data for login 211578896: No matching MyFXBook account found for login 211578896
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 273, in update_account_data_from_myfxbook
+    raise Exception(f"No matching MyFXBook account found for login {account.login}")
+Exception: No matching MyFXBook account found for login 211578896
+[INFO] 2025-10-25 23:15:52,217 main.views: --- ENTERING dashboard_accounts ---
+[INFO] 2025-10-25 23:15:52,260 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-25 23:15:56,292 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-25 23:16:01,103 main.views: MyFXBook login successful.
+[INFO] 2025-10-25 23:16:01,127 main.views: MyFXBook login successful.
+[INFO] 2025-10-25 23:16:03,104 main.views: MyFXBook returned 7 accounts.
+[INFO] 2025-10-25 23:16:03,126 main.views: MyFXBook returned 7 accounts.
+[ERROR] 2025-10-25 23:16:03,817 main.views: Error updating account data for login 211578896: 'dict' object has no attribute 'strip'
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 247, in update_account_data_from_myfxbook
+    acc_server = (acc.get('server') or '').strip() if acc.get('server') is not None else None
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'strip'
+[ERROR] 2025-10-25 23:16:03,926 main.views: Error updating account data for login 211578896: 'dict' object has no attribute 'strip'
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 247, in update_account_data_from_myfxbook
+    acc_server = (acc.get('server') or '').strip() if acc.get('server') is not None else None
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'strip'
+[INFO] 2025-10-25 23:16:28,186 main.views: --- ENTERING dashboard_accounts ---
+[INFO] 2025-10-25 23:16:28,200 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-25 23:16:35,256 main.views: MyFXBook login successful.
+[INFO] 2025-10-25 23:16:37,320 main.views: MyFXBook returned 7 accounts.
+[ERROR] 2025-10-25 23:16:38,007 main.views: Error updating account data for login 211578896: 'dict' object has no attribute 'strip'
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 247, in update_account_data_from_myfxbook
+    acc_server = (acc.get('server') or '').strip() if acc.get('server') is not None else None
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'strip'
+[INFO] 2025-10-25 23:18:03,568 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-25 23:18:06,069 main.views: MyFXBook login successful.
+[INFO] 2025-10-25 23:18:07,428 main.views: MyFXBook returned 7 accounts.
+[INFO] 2025-10-25 23:22:57,207 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-25 23:23:00,437 main.views: MyFXBook login successful.
+[INFO] 2025-10-25 23:23:01,985 main.views: MyFXBook returned 7 accounts.
+[INFO] 2025-10-25 23:25:59,469 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-25 23:26:04,599 main.views: MyFXBook login successful.
+[INFO] 2025-10-25 23:26:06,505 main.views: MyFXBook returned 7 accounts.
+[INFO] 2025-10-25 23:28:06,458 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-25 23:28:10,846 main.views: MyFXBook login successful.
+[INFO] 2025-10-25 23:28:12,795 main.views: MyFXBook returned 7 accounts.
+[INFO] 2025-10-25 23:28:49,944 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-25 23:28:52,932 main.views: MyFXBook login successful.
+[INFO] 2025-10-25 23:28:54,865 main.views: MyFXBook returned 7 accounts.
+[INFO] 2025-10-25 23:30:06,138 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-25 23:30:11,333 main.views: MyFXBook login successful.
+[INFO] 2025-10-25 23:30:13,518 main.views: MyFXBook returned 7 accounts.
+[INFO] 2025-10-25 23:35:45,039 main.views: --- ENTERING dashboard_accounts ---
+[INFO] 2025-10-25 23:35:45,084 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-25 23:35:47,280 main.views: MyFXBook login successful.
+[INFO] 2025-10-25 23:35:48,684 main.views: MyFXBook returned 7 accounts.
+[INFO] 2025-10-25 23:35:49,105 main.views: Updated MyFXBook metrics for login 211578896: balance=500000 equity=487041.07 profit=-50167.66 drawdown=99.9
+[INFO] 2025-10-25 23:36:06,330 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-25 23:36:19,798 main.views: MyFXBook login successful.
+[INFO] 2025-10-25 23:36:21,177 main.views: MyFXBook returned 7 accounts.
+[INFO] 2025-10-25 23:36:21,518 main.views: Updated MyFXBook metrics for login 211578896: balance=500000 equity=487041.07 profit=-50167.66 drawdown=99.9
+[INFO] 2025-10-25 23:45:39,098 main.views: --- ENTERING dashboard_accounts ---
+[INFO] 2025-10-25 23:45:39,145 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-25 23:45:40,931 main.views: MyFXBook login successful.
+[INFO] 2025-10-25 23:45:42,211 main.views: MyFXBook returned 7 accounts.
+[INFO] 2025-10-25 23:45:42,547 main.views: Updated MyFXBook metrics for login 211578896: balance=500000 equity=487041.07 profit=-50167.66 drawdown=99.9
+[INFO] 2025-10-26 11:14:58,466 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[ERROR] 2025-10-26 11:15:28,251 main.views: Error fetching MyFXBook accounts: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000028C02BF8690>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)"))
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 962, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 704, in connect
+    self.sock = sock = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 205, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: <urllib3.connection.HTTPSConnection object at 0x0000028C02BF8690>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000028C02BF8690>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 199, in myfxbook_fetch_accounts_with_retry
+    session_token = myfxbook_login(http, base_url=base1, use_post=False)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 58, in myfxbook_login
+    resp = http.get(url, params={'email': email, 'password': password}, timeout=10)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000028C02BF8690>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)"))
+[ERROR] 2025-10-26 11:15:28,468 main.views: Error fetching MyFXBook accounts list: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000028C02BF8690>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)"))
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 962, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 704, in connect
+    self.sock = sock = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 205, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: <urllib3.connection.HTTPSConnection object at 0x0000028C02BF8690>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000028C02BF8690>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 338, in dashboard_overview
+    accounts_list = myfxbook_fetch_accounts_with_retry()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 199, in myfxbook_fetch_accounts_with_retry
+    session_token = myfxbook_login(http, base_url=base1, use_post=False)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 58, in myfxbook_login
+    resp = http.get(url, params={'email': email, 'password': password}, timeout=10)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000028C02BF8690>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)"))
+[INFO] 2025-10-26 11:15:28,612 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[ERROR] 2025-10-26 11:15:34,645 main.views: Error fetching MyFXBook account info: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000028C02C7F750>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)"))
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 962, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 704, in connect
+    self.sock = sock = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 205, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: <urllib3.connection.HTTPSConnection object at 0x0000028C02C7F750>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000028C02C7F750>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 119, in myfxbook_fetch_account_info_with_retry
+    session_token = myfxbook_login(http, base_url=base1, use_post=False)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 58, in myfxbook_login
+    resp = http.get(url, params={'email': email, 'password': password}, timeout=10)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000028C02C7F750>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)"))
+[ERROR] 2025-10-26 11:15:34,754 main.views: MyFXBook direct account info failed for login 211578896: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000028C02C7F750>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)"))
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 962, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 704, in connect
+    self.sock = sock = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 205, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: <urllib3.connection.HTTPSConnection object at 0x0000028C02C7F750>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000028C02C7F750>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 283, in update_account_data_from_myfxbook
+    info = myfxbook_fetch_account_info_with_retry(str(account.login).strip())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 119, in myfxbook_fetch_account_info_with_retry
+    session_token = myfxbook_login(http, base_url=base1, use_post=False)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 58, in myfxbook_login
+    resp = http.get(url, params={'email': email, 'password': password}, timeout=10)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000028C02C7F750>: Failed to resolve 'www.myfxbook.com' ([Errno 11001] getaddrinfo failed)"))
+[ERROR] 2025-10-26 11:15:34,789 main.views: Error updating account data for login 211578896: No matching MyFXBook account found for login 211578896
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 290, in update_account_data_from_myfxbook
+    raise Exception(f"No matching MyFXBook account found for login {account.login}")
+Exception: No matching MyFXBook account found for login 211578896
+[INFO] 2025-10-26 11:34:28,333 main.views: --- ENTERING dashboard_accounts ---
+[INFO] 2025-10-26 11:34:28,358 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[ERROR] 2025-10-26 11:34:34,623 main.views: Error fetching MyFXBook accounts: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000028C02B8A010>: Failed to resolve 'www.myfxbook.com' ([Errno 11002] getaddrinfo failed)"))
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 962, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11002] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 704, in connect
+    self.sock = sock = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 205, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: <urllib3.connection.HTTPSConnection object at 0x0000028C02B8A010>: Failed to resolve 'www.myfxbook.com' ([Errno 11002] getaddrinfo failed)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000028C02B8A010>: Failed to resolve 'www.myfxbook.com' ([Errno 11002] getaddrinfo failed)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 199, in myfxbook_fetch_accounts_with_retry
+    session_token = myfxbook_login(http, base_url=base1, use_post=False)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 58, in myfxbook_login
+    resp = http.get(url, params={'email': email, 'password': password}, timeout=10)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000028C02B8A010>: Failed to resolve 'www.myfxbook.com' ([Errno 11002] getaddrinfo failed)"))
+[ERROR] 2025-10-26 11:34:34,822 main.views: Error fetching MyFXBook accounts list: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000028C02B8A010>: Failed to resolve 'www.myfxbook.com' ([Errno 11002] getaddrinfo failed)"))
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 962, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11002] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 704, in connect
+    self.sock = sock = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 205, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: <urllib3.connection.HTTPSConnection object at 0x0000028C02B8A010>: Failed to resolve 'www.myfxbook.com' ([Errno 11002] getaddrinfo failed)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000028C02B8A010>: Failed to resolve 'www.myfxbook.com' ([Errno 11002] getaddrinfo failed)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 677, in dashboard_accounts
+    accounts_list = myfxbook_fetch_accounts_with_retry()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 199, in myfxbook_fetch_accounts_with_retry
+    session_token = myfxbook_login(http, base_url=base1, use_post=False)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 58, in myfxbook_login
+    resp = http.get(url, params={'email': email, 'password': password}, timeout=10)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000028C02B8A010>: Failed to resolve 'www.myfxbook.com' ([Errno 11002] getaddrinfo failed)"))
+[INFO] 2025-10-26 11:34:35,004 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[ERROR] 2025-10-26 11:34:41,896 main.views: Error fetching MyFXBook account info: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000028C02BBF650>: Failed to resolve 'www.myfxbook.com' ([Errno 11002] getaddrinfo failed)"))
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 962, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11002] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 704, in connect
+    self.sock = sock = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 205, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: <urllib3.connection.HTTPSConnection object at 0x0000028C02BBF650>: Failed to resolve 'www.myfxbook.com' ([Errno 11002] getaddrinfo failed)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000028C02BBF650>: Failed to resolve 'www.myfxbook.com' ([Errno 11002] getaddrinfo failed)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 119, in myfxbook_fetch_account_info_with_retry
+    session_token = myfxbook_login(http, base_url=base1, use_post=False)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 58, in myfxbook_login
+    resp = http.get(url, params={'email': email, 'password': password}, timeout=10)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000028C02BBF650>: Failed to resolve 'www.myfxbook.com' ([Errno 11002] getaddrinfo failed)"))
+[ERROR] 2025-10-26 11:34:42,108 main.views: MyFXBook direct account info failed for login 211578896: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000028C02BBF650>: Failed to resolve 'www.myfxbook.com' ([Errno 11002] getaddrinfo failed)"))
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 962, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11002] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 704, in connect
+    self.sock = sock = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 205, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: <urllib3.connection.HTTPSConnection object at 0x0000028C02BBF650>: Failed to resolve 'www.myfxbook.com' ([Errno 11002] getaddrinfo failed)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000028C02BBF650>: Failed to resolve 'www.myfxbook.com' ([Errno 11002] getaddrinfo failed)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 283, in update_account_data_from_myfxbook
+    info = myfxbook_fetch_account_info_with_retry(str(account.login).strip())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 119, in myfxbook_fetch_account_info_with_retry
+    session_token = myfxbook_login(http, base_url=base1, use_post=False)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 58, in myfxbook_login
+    resp = http.get(url, params={'email': email, 'password': password}, timeout=10)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000028C02BBF650>: Failed to resolve 'www.myfxbook.com' ([Errno 11002] getaddrinfo failed)"))
+[ERROR] 2025-10-26 11:34:42,515 main.views: Error updating account data for login 211578896: No matching MyFXBook account found for login 211578896
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 290, in update_account_data_from_myfxbook
+    raise Exception(f"No matching MyFXBook account found for login {account.login}")
+Exception: No matching MyFXBook account found for login 211578896
+[INFO] 2025-10-26 12:36:18,808 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[ERROR] 2025-10-26 12:36:25,891 main.views: Error fetching MyFXBook accounts: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000012F2B1C5090>: Failed to resolve 'www.myfxbook.com' ([Errno 11002] getaddrinfo failed)"))
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 962, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11002] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 704, in connect
+    self.sock = sock = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 205, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: <urllib3.connection.HTTPSConnection object at 0x0000012F2B1C5090>: Failed to resolve 'www.myfxbook.com' ([Errno 11002] getaddrinfo failed)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000012F2B1C5090>: Failed to resolve 'www.myfxbook.com' ([Errno 11002] getaddrinfo failed)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 199, in myfxbook_fetch_accounts_with_retry
+    session_token = myfxbook_login(http, base_url=base1, use_post=False)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 58, in myfxbook_login
+    resp = http.get(url, params={'email': email, 'password': password}, timeout=10)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000012F2B1C5090>: Failed to resolve 'www.myfxbook.com' ([Errno 11002] getaddrinfo failed)"))
+[ERROR] 2025-10-26 12:36:25,981 main.views: Error fetching MyFXBook accounts list: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000012F2B1C5090>: Failed to resolve 'www.myfxbook.com' ([Errno 11002] getaddrinfo failed)"))
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 962, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11002] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 704, in connect
+    self.sock = sock = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 205, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: <urllib3.connection.HTTPSConnection object at 0x0000012F2B1C5090>: Failed to resolve 'www.myfxbook.com' ([Errno 11002] getaddrinfo failed)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000012F2B1C5090>: Failed to resolve 'www.myfxbook.com' ([Errno 11002] getaddrinfo failed)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 338, in dashboard_overview
+    accounts_list = myfxbook_fetch_accounts_with_retry()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 199, in myfxbook_fetch_accounts_with_retry
+    session_token = myfxbook_login(http, base_url=base1, use_post=False)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 58, in myfxbook_login
+    resp = http.get(url, params={'email': email, 'password': password}, timeout=10)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000012F2B1C5090>: Failed to resolve 'www.myfxbook.com' ([Errno 11002] getaddrinfo failed)"))
+[INFO] 2025-10-26 12:36:26,035 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[ERROR] 2025-10-26 12:36:32,556 main.views: Error fetching MyFXBook account info: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000012F2B1ACC10>: Failed to resolve 'www.myfxbook.com' ([Errno 11002] getaddrinfo failed)"))
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 962, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11002] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 704, in connect
+    self.sock = sock = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 205, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: <urllib3.connection.HTTPSConnection object at 0x0000012F2B1ACC10>: Failed to resolve 'www.myfxbook.com' ([Errno 11002] getaddrinfo failed)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000012F2B1ACC10>: Failed to resolve 'www.myfxbook.com' ([Errno 11002] getaddrinfo failed)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 119, in myfxbook_fetch_account_info_with_retry
+    session_token = myfxbook_login(http, base_url=base1, use_post=False)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 58, in myfxbook_login
+    resp = http.get(url, params={'email': email, 'password': password}, timeout=10)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000012F2B1ACC10>: Failed to resolve 'www.myfxbook.com' ([Errno 11002] getaddrinfo failed)"))
+[ERROR] 2025-10-26 12:36:32,578 main.views: MyFXBook direct account info failed for login 211578896: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000012F2B1ACC10>: Failed to resolve 'www.myfxbook.com' ([Errno 11002] getaddrinfo failed)"))
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 962, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11002] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 704, in connect
+    self.sock = sock = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 205, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: <urllib3.connection.HTTPSConnection object at 0x0000012F2B1ACC10>: Failed to resolve 'www.myfxbook.com' ([Errno 11002] getaddrinfo failed)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000012F2B1ACC10>: Failed to resolve 'www.myfxbook.com' ([Errno 11002] getaddrinfo failed)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 283, in update_account_data_from_myfxbook
+    info = myfxbook_fetch_account_info_with_retry(str(account.login).strip())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 119, in myfxbook_fetch_account_info_with_retry
+    session_token = myfxbook_login(http, base_url=base1, use_post=False)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 58, in myfxbook_login
+    resp = http.get(url, params={'email': email, 'password': password}, timeout=10)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max retries exceeded with url: /api/login.json?email=abdullahiaaron112%40gmail.com&password=Aaronmosesdeboking1. (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000012F2B1ACC10>: Failed to resolve 'www.myfxbook.com' ([Errno 11002] getaddrinfo failed)"))
+[ERROR] 2025-10-26 12:36:32,615 main.views: Error updating account data for login 211578896: No matching MyFXBook account found for login 211578896
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 290, in update_account_data_from_myfxbook
+    raise Exception(f"No matching MyFXBook account found for login {account.login}")
+Exception: No matching MyFXBook account found for login 211578896
+[INFO] 2025-10-26 12:37:06,693 main.views: --- ENTERING dashboard_accounts ---
+[INFO] 2025-10-26 12:37:06,745 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-26 12:37:31,274 main.views: MyFXBook login successful.
+[INFO] 2025-10-26 12:37:32,671 main.views: MyFXBook returned 8 accounts.
+[INFO] 2025-10-26 12:37:33,137 main.views: Updated MyFXBook metrics for login 211578896: balance=500000 equity=487041.07 profit=-50167.66 drawdown=99.9
+[INFO] 2025-10-26 12:37:47,823 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-26 12:37:49,799 main.views: MyFXBook login successful.
+[INFO] 2025-10-26 12:37:51,078 main.views: MyFXBook returned 8 accounts.
+[INFO] 2025-10-26 12:37:51,419 main.views: Updated MyFXBook metrics for login 211578896: balance=500000 equity=487041.07 profit=-50167.66 drawdown=99.9
+[INFO] 2025-10-26 12:37:54,947 main.views: --- ENTERING dashboard_accounts ---
+[INFO] 2025-10-26 12:37:54,964 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-26 12:37:59,096 main.views: MyFXBook login successful.
+[INFO] 2025-10-26 12:38:00,422 main.views: MyFXBook returned 8 accounts.
+[INFO] 2025-10-26 12:38:00,740 main.views: Updated MyFXBook metrics for login 211578896: balance=500000 equity=487041.07 profit=-50167.66 drawdown=99.9
+[INFO] 2025-10-26 12:39:55,920 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-26 12:40:05,952 main.views: MyFXBook login successful.
+[INFO] 2025-10-26 12:40:07,402 main.views: MyFXBook returned 8 accounts.
+[INFO] 2025-10-26 12:40:07,859 main.views: Updated MyFXBook metrics for login 211578896: balance=500000 equity=487041.07 profit=-50167.66 drawdown=99.9
+[INFO] 2025-10-26 12:44:40,382 main.views: --- ENTERING dashboard_accounts ---
+[INFO] 2025-10-26 12:44:40,392 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-26 12:44:43,978 main.views: MyFXBook login successful.
+[INFO] 2025-10-26 12:44:45,458 main.views: MyFXBook returned 8 accounts.
+[INFO] 2025-10-26 12:44:45,945 main.views: Updated MyFXBook metrics for login 211838604: balance=10000 equity=10000 profit=0 drawdown=0
+[INFO] 2025-10-26 12:44:45,954 main.views: Updated MyFXBook metrics for login 211578896: balance=500000 equity=487041.07 profit=-50167.66 drawdown=99.9
+[INFO] 2025-10-26 12:45:40,569 main.views: --- ENTERING dashboard_accounts ---
+[INFO] 2025-10-26 12:45:40,613 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-26 12:45:43,632 main.views: MyFXBook login successful.
+[INFO] 2025-10-26 12:45:45,231 main.views: MyFXBook returned 8 accounts.
+[INFO] 2025-10-26 12:45:45,966 main.views: Updated MyFXBook metrics for login 211838604: balance=10000 equity=10000 profit=0 drawdown=0
+[INFO] 2025-10-26 12:45:46,006 main.views: Updated MyFXBook metrics for login 211578896: balance=500000 equity=487041.07 profit=-50167.66 drawdown=99.9
+[INFO] 2025-10-26 12:45:50,593 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-26 12:45:53,159 main.views: MyFXBook login successful.
+[INFO] 2025-10-26 12:45:54,880 main.views: MyFXBook returned 8 accounts.
+[INFO] 2025-10-26 12:45:55,212 main.views: Updated MyFXBook metrics for login 211838604: balance=10000 equity=10000 profit=0 drawdown=0
+[INFO] 2025-10-26 12:45:55,232 main.views: Updated MyFXBook metrics for login 211578896: balance=500000 equity=487041.07 profit=-50167.66 drawdown=99.9
+[INFO] 2025-10-27 16:14:39,039 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-27 16:14:42,751 main.views: MyFXBook login successful.
+[INFO] 2025-10-27 16:14:44,079 main.views: MyFXBook returned 8 accounts.
+[INFO] 2025-10-27 16:14:45,283 main.views: Updated MyFXBook metrics for login 211838604: balance=10000 equity=10000 profit=0 drawdown=0
+[INFO] 2025-10-27 16:14:45,316 main.views: Updated MyFXBook metrics for login 211578896: balance=475340.28 equity=475340.28 profit=-74827.38 drawdown=99.9
+[INFO] 2025-10-27 16:16:45,477 main.views: --- ENTERING dashboard_accounts ---
+[INFO] 2025-10-27 16:16:45,482 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-27 16:16:48,627 main.views: MyFXBook login successful.
+[INFO] 2025-10-27 16:16:50,907 main.views: MyFXBook returned 8 accounts.
+[INFO] 2025-10-27 16:16:51,315 main.views: Updated MyFXBook metrics for login 211838604: balance=10000 equity=10000 profit=0 drawdown=0
+[INFO] 2025-10-27 16:16:51,333 main.views: Updated MyFXBook metrics for login 211578896: balance=475340.28 equity=475340.28 profit=-74827.38 drawdown=99.9
+[INFO] 2025-10-27 16:53:49,184 main.views: --- ENTERING dashboard_accounts ---
+[INFO] 2025-10-27 16:53:49,225 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-27 16:53:51,337 main.views: MyFXBook login successful.
+[INFO] 2025-10-27 16:53:53,485 main.views: MyFXBook returned 8 accounts.
+[INFO] 2025-10-27 16:53:53,887 main.views: Updated MyFXBook metrics for login 211838604: balance=10000 equity=10000 profit=0 drawdown=0
+[INFO] 2025-10-27 16:53:53,912 main.views: Updated MyFXBook metrics for login 211578896: balance=475340.28 equity=475340.28 profit=-74827.38 drawdown=99.9
+[INFO] 2025-10-27 17:02:58,631 main.views: --- ENTERING dashboard_accounts ---
+[INFO] 2025-10-27 17:02:58,646 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-27 17:03:02,737 main.views: MyFXBook login successful.
+[INFO] 2025-10-27 17:03:04,140 main.views: MyFXBook returned 8 accounts.
+[INFO] 2025-10-27 17:03:04,542 main.views: Updated MyFXBook metrics for login 211838604: balance=10000 equity=10000 profit=0 drawdown=0
+[INFO] 2025-10-27 17:03:04,557 main.views: Updated MyFXBook metrics for login 211578896: balance=475340.28 equity=475340.28 profit=-74827.38 drawdown=99.9
+[INFO] 2025-10-27 17:07:53,925 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-27 17:07:57,017 main.views: MyFXBook login successful.
+[INFO] 2025-10-27 17:07:59,484 main.views: MyFXBook returned 8 accounts.
+[INFO] 2025-10-27 17:07:59,803 main.views: Updated MyFXBook metrics for login 211838604: balance=10000 equity=10000 profit=0 drawdown=0
+[INFO] 2025-10-27 17:07:59,821 main.views: Updated MyFXBook metrics for login 211578896: balance=475340.28 equity=475340.28 profit=-74827.38 drawdown=99.9
+[INFO] 2025-10-27 17:08:59,463 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-27 17:09:02,317 main.views: MyFXBook login successful.
+[INFO] 2025-10-27 17:09:03,949 main.views: MyFXBook returned 8 accounts.
+[INFO] 2025-10-27 17:09:04,736 main.views: Updated MyFXBook metrics for login 211838604: balance=10000 equity=10000 profit=0 drawdown=0
+[INFO] 2025-10-27 17:09:04,765 main.views: Updated MyFXBook metrics for login 211578896: balance=475340.28 equity=475340.28 profit=-74827.38 drawdown=99.9
+[INFO] 2025-10-27 17:11:23,017 main.views: --- ENTERING dashboard_accounts ---
+[INFO] 2025-10-27 17:11:23,033 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-27 17:11:27,333 main.views: MyFXBook login successful.
+[INFO] 2025-10-27 17:11:28,630 main.views: MyFXBook returned 8 accounts.
+[INFO] 2025-10-27 17:11:29,079 main.views: Updated MyFXBook metrics for login 211838604: balance=10000 equity=10000 profit=0 drawdown=0
+[INFO] 2025-10-27 17:11:29,081 main.views: Updated MyFXBook metrics for login 211578896: balance=475340.28 equity=475340.28 profit=-74827.38 drawdown=99.9
+[INFO] 2025-10-27 17:15:57,161 main.views: --- ENTERING dashboard_accounts ---
+[INFO] 2025-10-27 17:15:57,165 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-27 17:15:59,498 main.views: MyFXBook login successful.
+[INFO] 2025-10-27 17:16:00,832 main.views: MyFXBook returned 8 accounts.
+[INFO] 2025-10-27 17:16:01,194 main.views: Updated MyFXBook metrics for login 211838604: balance=10000 equity=10000 profit=0 drawdown=0
+[INFO] 2025-10-27 17:16:01,194 main.views: Updated MyFXBook metrics for login 211578896: balance=475340.28 equity=475340.28 profit=-74827.38 drawdown=99.9
+[INFO] 2025-10-27 17:45:05,456 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-27 17:45:13,845 main.views: MyFXBook login successful.
+[INFO] 2025-10-27 17:45:15,282 main.views: MyFXBook returned 8 accounts.
+[INFO] 2025-10-27 17:45:15,796 main.views: Updated MyFXBook metrics for login 211838604: balance=10000 equity=10000 profit=0 drawdown=0
+[INFO] 2025-10-27 18:43:49,351 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-27 18:43:52,681 main.views: MyFXBook login successful.
+[INFO] 2025-10-27 18:43:54,081 main.views: MyFXBook returned 8 accounts.
+[INFO] 2025-10-27 18:43:55,372 main.views: Updated MyFXBook metrics for login 211838604: balance=10000 equity=10000 profit=0 drawdown=0
+[INFO] 2025-10-27 18:44:21,097 main.views: --- ENTERING dashboard_accounts ---
+[INFO] 2025-10-27 18:44:21,326 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-27 18:44:26,889 main.views: MyFXBook login successful.
+[INFO] 2025-10-27 18:44:28,606 main.views: MyFXBook returned 8 accounts.
+[INFO] 2025-10-27 18:44:28,934 main.views: Updated MyFXBook metrics for login 211838604: balance=10000 equity=10000 profit=0 drawdown=0

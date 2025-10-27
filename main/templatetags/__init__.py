@@ -1,0 +1,1 @@
+# Register templatetags package for Django templates

@@ -189,14 +189,14 @@
                 <!-- Payout Request Form -->
                 <div class="payout-request-form">
                     <h3>Request a Payout</h3>
-                    <form method="post" action="{% url 'request_payout' %}">
+                    <form method="post" action="{% url 'dashboard_payouts' %}">
                         {% csrf_token %}
                         <div class="form-group">
-                            <label for="account">Select Account</label>
-                            <select name="account" id="account" required>
+                            <label for="account_id">Select Account</label>
+                            <select name="account_id" id="account_id" required>
                                 <option value="">-- Select Account --</option>
-                                {% for account in eligible_accounts %}
-                                    <option value="{{ account.id }}">{{ account.mt5_login }} - ${{ account.account_size }} (Profit: ${{ account.profit|floatformat:2 }})</option>
+                                {% for account in accounts %}
+                                    <option value="{{ account.id }}">{{ account.login }} - {{ account.account_size }} (Profit: ${{ account.profit|floatformat:2 }})</option>
                                 {% endfor %}
                             </select>
                         </div>

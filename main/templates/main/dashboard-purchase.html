@@ -111,24 +111,29 @@
                     <div class="card-header">
                         <h3>$5,000 Account</h3>
                         <div class="price">
-                            <span class="amount">₦99</span>
+                            <span class="amount">₦8,000</span>
                             <span class="local-price">One-time payment</span>
                         </div>
                     </div>
                     <div class="card-body">
                         <ul class="features-list">
                             <li><i class="fas fa-check"></i>$5,000 Trading Capital</li>
-                            <li><i class="fas fa-check"></i>15% Profit Target</li>
-                            <li><i class="fas fa-check"></i>10% Max Drawdown</li>
-                            <li><i class="fas fa-check"></i>Up to 1:100 Leverage</li>
-                            <li><i class="fas fa-check"></i>Unlimited Trading Time</li>
+                            <li><i class="fas fa-check"></i>Profit Target: 15% ($750)</li>
+                            <li><i class="fas fa-check"></i>Max Daily Drawdown: 4% ($200)</li>
+                            <li><i class="fas fa-check"></i>Max Overall Drawdown: 10% ($500)</li>
+                            <li><i class="fas fa-check"></i>Minimum Trading Days: 20</li>
+                            <li><i class="fas fa-check"></i>Phases: 1 Phase</li>
+                            <li><i class="fas fa-check"></i>News Trading Allowed</li>
+                            <li><i class="fas fa-check"></i>Weekend Holding Allowed</li>
+                            <li><i class="fas fa-check"></i>Leverage: 1:100</li>
+                            <li><i class="fas fa-check"></i>Trading Hours: 24/5 (Forex market hours)</li>
                         </ul>
                     </div>
                     <div class="card-footer">
                         <form action="{% url 'process_purchase' %}" method="post">
                             {% csrf_token %}
                             <input type="hidden" name="account_size" value="5000">
-                            <input type="hidden" name="amount" value="99">
+                            <input type="hidden" name="amount" value="8000">
                             <button type="submit" class="btn primary-btn">Purchase Now</button>
                         </form>
                     </div>
@@ -138,24 +143,29 @@
                     <div class="card-header">
                         <h3>$10,000 Account</h3>
                         <div class="price">
-                            <span class="amount">₦199</span>
+                            <span class="amount">₦12,800</span>
                             <span class="local-price">One-time payment</span>
                         </div>
                     </div>
                     <div class="card-body">
                         <ul class="features-list">
                             <li><i class="fas fa-check"></i>$10,000 Trading Capital</li>
-                            <li><i class="fas fa-check"></i>15% Profit Target</li>
-                            <li><i class="fas fa-check"></i>10% Max Drawdown</li>
-                            <li><i class="fas fa-check"></i>Up to 1:100 Leverage</li>
-                            <li><i class="fas fa-check"></i>Unlimited Trading Time</li>
+                            <li><i class="fas fa-check"></i>Profit Target: 15% ($1,500)</li>
+                            <li><i class="fas fa-check"></i>Max Daily Drawdown: 4% ($400)</li>
+                            <li><i class="fas fa-check"></i>Max Overall Drawdown: 10% ($1,000)</li>
+                            <li><i class="fas fa-check"></i>Minimum Trading Days: 20</li>
+                            <li><i class="fas fa-check"></i>Phases: 1 Phase</li>
+                            <li><i class="fas fa-check"></i>News Trading Allowed</li>
+                            <li><i class="fas fa-check"></i>Weekend Holding Allowed</li>
+                            <li><i class="fas fa-check"></i>Leverage: 1:100</li>
+                            <li><i class="fas fa-check"></i>Trading Hours: 24/5 (Forex market hours)</li>
                         </ul>
                     </div>
                     <div class="card-footer">
                         <form action="{% url 'process_purchase' %}" method="post">
                             {% csrf_token %}
                             <input type="hidden" name="account_size" value="10000">
-                            <input type="hidden" name="amount" value="199">
+                            <input type="hidden" name="amount" value="12800">
                             <button type="submit" class="btn primary-btn">Purchase Now</button>
                         </form>
                     </div>
@@ -165,24 +175,29 @@
                     <div class="card-header">
                         <h3>$25,000 Account</h3>
                         <div class="price">
-                            <span class="amount">₦399</span>
+                            <span class="amount">₦25,600</span>
                             <span class="local-price">One-time payment</span>
                         </div>
                     </div>
                     <div class="card-body">
                         <ul class="features-list">
                             <li><i class="fas fa-check"></i>$25,000 Trading Capital</li>
-                            <li><i class="fas fa-check"></i>15% Profit Target</li>
-                            <li><i class="fas fa-check"></i>10% Max Drawdown</li>
-                            <li><i class="fas fa-check"></i>Up to 1:100 Leverage</li>
-                            <li><i class="fas fa-check"></i>Unlimited Trading Time</li>
+                            <li><i class="fas fa-check"></i>Profit Target: 15% ($3,750)</li>
+                            <li><i class="fas fa-check"></i>Max Daily Drawdown: 4% ($1,000)</li>
+                            <li><i class="fas fa-check"></i>Max Overall Drawdown: 10% ($2,500)</li>
+                            <li><i class="fas fa-check"></i>Minimum Trading Days: 20</li>
+                            <li><i class="fas fa-check"></i>Phases: 1 Phase</li>
+                            <li><i class="fas fa-check"></i>News Trading Allowed</li>
+                            <li><i class="fas fa-check"></i>Weekend Holding Allowed</li>
+                            <li><i class="fas fa-check"></i>Leverage: 1:100</li>
+                            <li><i class="fas fa-check"></i>Trading Hours: 24/5 (Forex market hours)</li>
                         </ul>
                     </div>
                     <div class="card-footer">
                         <form action="{% url 'process_purchase' %}" method="post">
                             {% csrf_token %}
                             <input type="hidden" name="account_size" value="25000">
-                            <input type="hidden" name="amount" value="399">
+                            <input type="hidden" name="amount" value="25600">
                             <button type="submit" class="btn primary-btn">Purchase Now</button>
                         </form>
                     </div>
@@ -192,24 +207,29 @@
                     <div class="card-header">
                         <h3>$50,000 Account</h3>
                         <div class="price">
-                            <span class="amount">₦699</span>
+                            <span class="amount">₦51,200</span>
                             <span class="local-price">One-time payment</span>
                         </div>
                     </div>
                     <div class="card-body">
                         <ul class="features-list">
                             <li><i class="fas fa-check"></i>$50,000 Trading Capital</li>
-                            <li><i class="fas fa-check"></i>15% Profit Target</li>
-                            <li><i class="fas fa-check"></i>10% Max Drawdown</li>
-                            <li><i class="fas fa-check"></i>Up to 1:100 Leverage</li>
-                            <li><i class="fas fa-check"></i>Unlimited Trading Time</li>
+                            <li><i class="fas fa-check"></i>Profit Target: 15% ($7,500)</li>
+                            <li><i class="fas fa-check"></i>Max Daily Drawdown: 4% ($2,000)</li>
+                            <li><i class="fas fa-check"></i>Max Overall Drawdown: 10% ($5,000)</li>
+                            <li><i class="fas fa-check"></i>Minimum Trading Days: 20</li>
+                            <li><i class="fas fa-check"></i>Phases: 1 Phase</li>
+                            <li><i class="fas fa-check"></i>News Trading Allowed</li>
+                            <li><i class="fas fa-check"></i>Weekend Holding Allowed</li>
+                            <li><i class="fas fa-check"></i>Leverage: 1:100</li>
+                            <li><i class="fas fa-check"></i>Trading Hours: 24/5 (Forex market hours)</li>
                         </ul>
                     </div>
                     <div class="card-footer">
                         <form action="{% url 'process_purchase' %}" method="post">
                             {% csrf_token %}
                             <input type="hidden" name="account_size" value="50000">
-                            <input type="hidden" name="amount" value="699">
+                            <input type="hidden" name="amount" value="51200">
                             <button type="submit" class="btn primary-btn">Purchase Now</button>
                         </form>
                     </div>

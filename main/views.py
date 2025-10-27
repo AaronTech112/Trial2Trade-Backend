@@ -8,6 +8,8 @@ from django.http import JsonResponse, HttpResponse
 from django.urls import reverse
 from django.templatetags.static import static
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 import json
 import csv
 import os
@@ -22,19 +24,38 @@ import logging
 from .models import MT5Account, Purchase, CustomUser, RealPropRequest, Payout
 
 logger = logging.getLogger(__name__)
-MYFXBOOK_HTTP_HEADERS = {'User-Agent': 'Trail2FundClient/1.0'}
+MYFXBOOK_HTTP_HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36'}
 
+class MyFxBookInvalidSession(Exception):
+    pass
 
-def myfxbook_login(http: requests.Session) -> str:
+def server_matches(acc_server, server_name):
+    """Return True if server matches, allowing brand-only server names (e.g., 'EXNESS')."""
+    if not server_name:
+        return True
+    if acc_server is None:
+        return False
+    as_norm = str(acc_server).strip().lower()
+    s_norm = str(server_name).strip().lower()
+    if as_norm == s_norm:
+        return True
+    brand = s_norm.split('-', 1)[0]
+    return as_norm == brand
+
+def myfxbook_login(http: requests.Session, base_url: str | None = None, use_post: bool = False) -> str:
     """Login using a persistent HTTP session; return session token."""
     email = getattr(settings, 'MYFXBOOK_EMAIL', None)
     password = getattr(settings, 'MYFXBOOK_PASSWORD', None)
     if not email or not password:
         logger.error('MyFXBook credentials missing in settings. Configure MYFXBOOK_EMAIL and MYFXBOOK_PASSWORD.')
         raise ValueError('MyFXBook credentials not configured. Set MYFXBOOK_EMAIL and MYFXBOOK_PASSWORD.')
-    url = 'https://www.myfxbook.com/api/login.json'
+    base = base_url or getattr(settings, 'MYFXBOOK_BASE_URL', 'https://www.myfxbook.com')
+    url = f'{base}/api/login.json'
     logger.info('Attempting MyFXBook login for email %s', email)
-    resp = http.get(url, params={'email': email, 'password': password}, timeout=10)
+    if use_post:
+        resp = http.post(url, data={'email': email, 'password': password}, timeout=10)
+    else:
+        resp = http.get(url, params={'email': email, 'password': password}, timeout=10)
     try:
         resp.raise_for_status()
     except requests.RequestException as e:
@@ -55,12 +76,80 @@ def myfxbook_login(http: requests.Session) -> str:
     logger.info('MyFXBook login successful.')
     return session_token
 
+def myfxbook_get_account_info(http: requests.Session, session: str, account_id: str, base_url: str | None = None):
+    """Return single account information for given MyFXBook account id."""
+    base = base_url or getattr(settings, 'MYFXBOOK_BASE_URL', 'https://www.myfxbook.com')
+    url = f"{base}/api/get-account-information.json?session={session.strip()}&id={str(account_id).strip()}"
+    resp = http.get(url, timeout=10)
+    try:
+        resp.raise_for_status()
+    except requests.RequestException as e:
+        logger.exception('Failed to fetch MyFXBook account info: %s', e)
+        raise RuntimeError(f"Failed to fetch MyFXBook account info: {e}")
+    try:
+        data = resp.json()
+    except ValueError:
+        logger.error('MyFXBook account info response was not valid JSON. Body: %s', resp.text[:500])
+        raise RuntimeError('MyFXBook account info response was not valid JSON.')
+    if data.get('error') or (isinstance(data.get('status'), str) and data.get('status').lower() == 'error'):
+        msg = data.get('message', 'Unknown error')
+        logger.error('Failed to get MyFXBook account info: %s', msg)
+        logger.error(f"MyFXBook get_account_information failed. Status: {resp.status_code}, Response: {resp.text}")
+        if isinstance(msg, str) and 'invalid session' in msg.lower():
+            raise MyFxBookInvalidSession(msg)
+        raise ValueError(f"Failed to get MyFXBook account info: {msg}")
+    info = data.get('account') or {}
+    return info
 
-def myfxbook_get_my_accounts(http: requests.Session, session: str):
+
+def myfxbook_fetch_account_info_with_retry(account_id: str):
+    http = requests.Session()
+    # Disable environment proxies and system trust to avoid DNS/proxy issues
+    http.trust_env = False
+    http.proxies = {}
+    http.headers.update({'User-Agent': MYFXBOOK_HTTP_HEADERS.get('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/124.0 Safari/537.36'),
+                         'Accept': 'application/json'})
+    retries = Retry(total=3, backoff_factor=1.0, status_forcelist=[429, 502, 503, 504], allowed_methods=["GET","POST"])
+    http.mount("https://", HTTPAdapter(max_retries=retries))
+    http.mount("http://", HTTPAdapter(max_retries=retries))
+
+    session_token = None
+    try:
+        base1 = getattr(settings, 'MYFXBOOK_BASE_URL', 'https://www.myfxbook.com')
+        session_token = myfxbook_login(http, base_url=base1, use_post=False)
+        time.sleep(0.8)
+        try:
+            return myfxbook_get_account_info(http, session_token, account_id, base_url=base1)
+        except MyFxBookInvalidSession:
+            logger.warning('MyFXBook session invalid for account info; retrying with post/http.')
+            try:
+                myfxbook_logout(http, session_token, base_url=base1)
+            except Exception:
+                pass
+            session_token = myfxbook_login(http, base_url=base1, use_post=True)
+            time.sleep(0.6)
+            try:
+                return myfxbook_get_account_info(http, session_token, account_id, base_url=base1)
+            except MyFxBookInvalidSession:
+                base2 = 'http://www.myfxbook.com'
+                session_token = myfxbook_login(http, base_url=base2, use_post=False)
+                time.sleep(0.6)
+                return myfxbook_get_account_info(http, session_token, account_id, base_url=base2)
+    except Exception as e:
+        logger.exception('Error fetching MyFXBook account info: %s', e)
+        raise
+    finally:
+        if session_token:
+            try:
+                myfxbook_logout(http, session_token)
+            except Exception:
+                pass
+            
+def myfxbook_get_my_accounts(http: requests.Session, session: str, base_url: str | None = None):
     """Return accounts using a persistent HTTP session."""
-    url = 'https://www.myfxbook.com/api/get-my-accounts.json'
-    params = {'session': session.strip()}
-    resp = http.get(url, params=params, cookies={'PHPSESSID': params['session']}, timeout=10)
+    base = base_url or getattr(settings, 'MYFXBOOK_BASE_URL', 'https://www.myfxbook.com')
+    url = f'{base}/api/get-my-accounts.json?session={session.strip()}'
+    resp = http.get(url, timeout=10)
     try:
         resp.raise_for_status()
     except requests.RequestException as e:
@@ -71,19 +160,23 @@ def myfxbook_get_my_accounts(http: requests.Session, session: str):
     except ValueError:
         logger.error('MyFXBook accounts response was not valid JSON. Body: %s', resp.text[:500])
         raise RuntimeError('MyFXBook accounts response was not valid JSON.')
-    if data.get('error'):
-        logger.error('Failed to get MyFXBook accounts: %s', data.get('message', 'Unknown error'))
-        logger.error(f"MyFXBook get_my_accounts failed. Status: {response.status_code}, Response: {response.text}")
-        raise ValueError(f"Failed to get MyFXBook accounts: {data.get('message', 'Unknown error')}")
+    if data.get('error') or (isinstance(data.get('status'), str) and data.get('status').lower() == 'error'):
+        msg = data.get('message', 'Unknown error')
+        logger.error('Failed to get MyFXBook accounts: %s', msg)
+        logger.error(f"MyFXBook get_my_accounts failed. Status: {resp.status_code}, Response: {resp.text}")
+        if isinstance(msg, str) and 'invalid session' in msg.lower():
+            raise MyFxBookInvalidSession(msg)
+        raise ValueError(f"Failed to get MyFXBook accounts: {msg}")
     accounts = data.get('accounts', [])
     logger.info('MyFXBook returned %d accounts.', len(accounts))
     return accounts
 
 
-def myfxbook_logout(http: requests.Session, session: str):
+def myfxbook_logout(http: requests.Session, session: str, base_url: str | None = None):
     try:
-        url = 'https://www.myfxbook.com/api/logout.json'
-        http.get(url, params={'session': session}, timeout=5)
+        base = base_url or getattr(settings, 'MYFXBOOK_BASE_URL', 'https://www.myfxbook.com')
+        url = f'{base}/api/logout.json?session={session}'
+        http.get(url, timeout=5)
     except Exception:
         pass
 
@@ -91,34 +184,52 @@ def myfxbook_logout(http: requests.Session, session: str):
 def myfxbook_fetch_accounts_with_retry():
     """Login and fetch accounts once with cookie persistence; retry on invalid session."""
     http = requests.Session()
-    http.headers.update({'User-Agent': MYFXBOOK_HTTP_HEADERS.get('User-Agent', 'Trail2FundClient/1.0'), 'Accept': 'application/json'})
+    # Disable environment proxies and system trust to avoid DNS/proxy issues
+    http.trust_env = False
+    http.proxies = {}
+    http.headers.update({'User-Agent': MYFXBOOK_HTTP_HEADERS.get('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/124.0 Safari/537.36'), 'Accept': 'application/json'})
+    # Add robust retries for transient network errors
+    retries = Retry(total=3, backoff_factor=1.0, status_forcelist=[429, 502, 503, 504], allowed_methods=["GET","POST"])
+    http.mount("https://", HTTPAdapter(max_retries=retries))
+    http.mount("http://", HTTPAdapter(max_retries=retries))
     session_token = None
     try:
-        session_token = myfxbook_login(http)
-        time.sleep(1.2)
+        # First try with https and GET login
+        base1 = getattr(settings, 'MYFXBOOK_BASE_URL', 'https://www.myfxbook.com')
+        session_token = myfxbook_login(http, base_url=base1, use_post=False)
+        time.sleep(1.0)
         try:
-            return myfxbook_get_my_accounts(http, session_token)
-        except Exception as e:
-            if 'Invalid session' in str(e):
-                logger.warning('MyFXBook session invalid; retrying login and accounts fetch.')
+            return myfxbook_get_my_accounts(http, session_token, base_url=base1)
+        except MyFxBookInvalidSession:
+            logger.warning('MyFXBook session invalid on https/GET; retrying with new login.')
+            try:
+                myfxbook_logout(http, session_token, base_url=base1)
+            except Exception:
+                pass
+            # Retry login once; if still invalid, try POST login and HTTP base
+            session_token = myfxbook_login(http, base_url=base1, use_post=True)
+            time.sleep(0.8)
+            try:
+                return myfxbook_get_my_accounts(http, session_token, base_url=base1)
+            except MyFxBookInvalidSession:
+                logger.warning('MyFXBook session invalid on https/POST; trying http base.')
                 try:
-                    myfxbook_logout(http, session_token)
+                    myfxbook_logout(http, session_token, base_url=base1)
                 except Exception:
                     pass
-                session_token = myfxbook_login(http) # get new token
-            else:
-                raise # re-raise other exceptions
-
-        # This part is reached only if 'Invalid session' occurred.
-        time.sleep(1.2)
-        return myfxbook_get_my_accounts(http, session_token)
-
+                base2 = 'http://www.myfxbook.com'
+                session_token = myfxbook_login(http, base_url=base2, use_post=False)
+                time.sleep(0.8)
+                return myfxbook_get_my_accounts(http, session_token, base_url=base2)
+        except Exception as e:
+            raise
     except Exception as e:
         logger.exception('Error fetching MyFXBook accounts: %s', e)
         raise
     finally:
         if session_token:
             try:
+                # Attempt logout on whichever base was last used (best-effort)
                 myfxbook_logout(http, session_token)
             except Exception:
                 pass
@@ -132,70 +243,89 @@ def update_account_data_from_myfxbook(account, accounts=None):
     try:
         # If no accounts list provided, login and fetch once (with retry)
         if accounts is None:
-            accounts = myfxbook_fetch_accounts_with_retry()
-        if not accounts:
-            raise Exception("No MyFXBook accounts returned by API.")
-
-        # Match by accountId (MT5 login number) or by login string
-        login_str = str(account.login).strip()
-        matched = None
-        for acc in accounts:
-            acc_id = acc.get('accountId')
-            acc_login = acc.get('login')
-            # Try numeric accountId comparison
             try:
-                if acc_id is not None and int(acc_id) == int(login_str):
-                    matched = acc
-                    break
-            except (ValueError, TypeError):
-                pass
-            # Fallback: compare login string
-            if acc_login is not None and str(acc_login).strip() == login_str:
-                matched = acc
-                break
+                accounts = myfxbook_fetch_accounts_with_retry()
+            except Exception as e:
+                accounts = []
+                logger.warning('Falling back to single-account info due to list fetch error: %s', e)
 
+        # Attempt list-based match
+        matched = None
+        if accounts:
+            login_str = str(account.login).strip()
+            server_name = (account.server or '').strip() or None
+            for acc in accounts:
+                acc_id = acc.get('accountId')
+                acc_login = acc.get('login')
+                acc_server_raw = acc.get('server')
+                if acc_server_raw is None:
+                    acc_server = None
+                elif isinstance(acc_server_raw, dict):
+                    acc_server = (acc_server_raw.get('server') or acc_server_raw.get('name') or '').strip()
+                else:
+                    acc_server = str(acc_server_raw).strip()
+                try:
+                    if acc_id is not None and str(acc_id).strip() == login_str:
+                        if server_matches(acc_server, server_name):
+                            matched = acc
+                            break
+                except Exception:
+                    pass
+                if acc_login is not None and str(acc_login).strip() == login_str:
+                    if server_matches(acc_server, server_name):
+                        matched = acc
+                        break
+
+        # If not matched from list, try direct account info by login as id
+        info = None
         if not matched:
+            try:
+                info = myfxbook_fetch_account_info_with_retry(str(account.login).strip())
+            except Exception as e:
+                logger.exception('MyFXBook direct account info failed for login %s: %s', account.login, e)
+
+        # Choose source dict
+        source = matched or info or None
+        if not source:
             raise Exception(f"No matching MyFXBook account found for login {account.login}")
 
         from decimal import Decimal
-        balance = matched.get('balance')
-        equity = matched.get('equity')
-        profit = matched.get('profit')
-        drawdown = matched.get('drawdown')
+        balance = source.get('balance')
+        equity = source.get('equity')
+        profit = source.get('profit')
+        drawdown = source.get('drawdown')
 
-        # Initialize initial_balance once
         if account.initial_balance is None and balance is not None:
             try:
                 account.initial_balance = Decimal(str(balance))
             except Exception:
                 account.initial_balance = None
 
-        # Helper to convert values safely to Decimal
         def to_decimal(val, default):
             try:
                 return Decimal(str(val)) if val is not None else default
             except Exception:
                 return default
 
-        # Update fields
         account.balance = to_decimal(balance, account.balance)
         account.equity = to_decimal(equity, account.equity)
         account.profit = to_decimal(profit, account.profit)
         account.drawdown = to_decimal(drawdown, account.drawdown)
-
         account.last_updated = timezone.now()
         account.save()
+
         try:
             account.check_breach_status()
         except Exception:
             pass
-        logger.info('Updated MyFXBook metrics for login %s: balance=%s equity=%s profit=%s drawdown=%s', account.login, account.balance, account.equity, account.profit, account.drawdown)
+
+        logger.info('Updated MyFXBook metrics for login %s: balance=%s equity=%s profit=%s drawdown=%s',
+                    account.login, account.balance, account.equity, account.profit, account.drawdown)
         return True
     except Exception as e:
         logger.exception('Error updating account data for login %s: %s', getattr(account, 'login', 'unknown'), e)
         return False
-
-
+    
 @login_required(login_url='/login_user')
 def dashboard_overview(request):
     # Fetch assigned MT5 accounts for the current user
@@ -605,7 +735,7 @@ def dashboard_next_phase(request):
     prop_requests = RealPropRequest.objects.filter(user=request.user).order_by('-created_at')
     
     return render(request, 'main/dashboard-next-phase.html', {
-        'accounts': user_accounts,
+        'user_accounts': user_accounts,
         'prop_requests': prop_requests
     })
 

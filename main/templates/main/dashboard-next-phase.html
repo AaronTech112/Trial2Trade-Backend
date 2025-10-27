@@ -1,4 +1,5 @@
 {% load static %}
+{% load math_filters %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -257,15 +258,15 @@
             <div class="request-container">
                 {% if user_accounts %}
                 <div class="request-form-container">
-                    <form action="{% url 'submit_prop_request' %}" method="post" class="prop-request-form">
+                    <form action="{% url 'dashboard_next_phase' %}" method="post" class="prop-request-form">
                         {% csrf_token %}
                         <div class="form-group">
                             <label for="account">Select Account</label>
-                            <select name="account" id="account" required>
+                            <select name="account_id" id="account_id" required>
                                 <option value="">-- Select Account --</option>
                                 {% for account in user_accounts %}
                                 {% if account.status == 'active' and account.profit >= account.initial_balance|mul:0.15 %}
-                                <option value="{{ account.id }}">{{ account.account_number }} ({{ account.account_size }})</option>
+                                <option value="{{ account.id }}">{{ account.login }} ({{ account.account_size }})</option>
                                 {% endif %}
                                 {% endfor %}
                             </select>
@@ -303,7 +304,7 @@
                                 {% for request in prop_requests %}
                                 <tr>
                                     <td>{{ request.created_at|date:"M d, Y" }}</td>
-                                    <td>{{ request.mt5_account.account_number }}</td>
+                                    <td>{{ request.mt5_account.login }}</td>
                                     <td>
                                         {% if request.request_type == 'real_account' %}
                                         Real Account
