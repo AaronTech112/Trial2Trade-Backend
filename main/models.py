@@ -15,6 +15,10 @@ class CustomUser(AbstractUser):
     verification_code = models.CharField(max_length=6, null=True, blank=True)
     verification_code_expires = models.DateTimeField(null=True, blank=True)
 
+    # Password reset fields (code-based reset)
+    password_reset_code = models.CharField(max_length=6, blank=True, null=True)
+    password_reset_expires = models.DateTimeField(blank=True, null=True)
+
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
 

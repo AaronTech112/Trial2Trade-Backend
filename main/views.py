@@ -29,6 +29,7 @@ import secrets
 from datetime import timedelta
 from django.contrib.auth.hashers import make_password
 from django.utils.dateparse import parse_datetime
+from django.contrib.auth.hashers import check_password
 
 from .models import MT5Account, Purchase, CustomUser, RealPropRequest, Payout, Certificate
 
@@ -586,6 +587,104 @@ def get_available_mt5_account(account_size=None):
         'password': account.password,
         'server': account.server
     }
+
+
+def forgot_password(request):
+    if request.method == 'POST':
+        email = request.POST.get('email', '').strip()
+        if not email:
+            messages.error(request, 'Please enter your email.')
+            return render(request, 'main/forgot-password.html')
+
+        # Always set session email to proceed to reset page without revealing existence
+        request.session['pending_reset_email'] = email
+        try:
+            user = CustomUser.objects.get(email=email)
+        except CustomUser.DoesNotExist:
+            # Avoid enumeration: do not indicate whether email exists
+            messages.success(request, 'If that email exists, a reset code has been sent.')
+            return redirect('reset_password')
+
+        # Generate reset code and expiry
+        code = ''.join(secrets.choice('0123456789') for _ in range(6))
+        user.password_reset_code = code
+        user.password_reset_expires = timezone.now() + timedelta(minutes=15)
+        user.save()
+
+        # Send mail
+        try:
+            subject = 'Reset your Trial 2 Trade password'
+            message = (
+                f"Hi {user.username},\n\n"
+                f"Your password reset code is: {code}\n"
+                f"This code expires in 15 minutes.\n\n"
+                f"If you did not request this, please ignore this email."
+            )
+            send_mail(
+                subject,
+                message,
+                'Trial 2 Trade <info@trial2trade.com>',
+                [email],
+                fail_silently=False,
+            )
+            messages.success(request, 'Enter the 6-digit code sent to your email to reset your password.')
+        except Exception as e:
+            messages.error(request, f'Failed to send reset email: {str(e)}')
+            return render(request, 'main/forgot-password.html')
+
+        return redirect('reset_password')
+
+    return render(request, 'main/forgot-password.html')
+
+
+def reset_password(request):
+    email = request.session.get('pending_reset_email')
+    if not email:
+        messages.error(request, 'No reset request found. Please start again.')
+        return redirect('forgot_password')
+
+    if request.method == 'POST':
+        code = request.POST.get('code', '').strip()
+        password1 = request.POST.get('password1', '')
+        password2 = request.POST.get('password2', '')
+
+        if not code:
+            messages.error(request, 'Enter the 6-digit reset code.')
+            return render(request, 'main/reset-password.html', {'prefill_email': email})
+        if not password1 or not password2:
+            messages.error(request, 'Enter and confirm your new password.')
+            return render(request, 'main/reset-password.html', {'prefill_email': email})
+        if password1 != password2:
+            messages.error(request, 'Passwords do not match.')
+            return render(request, 'main/reset-password.html', {'prefill_email': email})
+
+        try:
+            user = CustomUser.objects.get(email=email)
+        except CustomUser.DoesNotExist:
+            # Avoid revealing existence; treat as invalid code
+            messages.error(request, 'Invalid reset code.')
+            return render(request, 'main/reset-password.html', {'prefill_email': email})
+
+        # Validate code and expiry
+        if user.password_reset_code != code:
+            messages.error(request, 'Invalid reset code.')
+            return render(request, 'main/reset-password.html', {'prefill_email': email})
+        if user.password_reset_expires and timezone.now() > user.password_reset_expires:
+            messages.error(request, 'Reset code expired. Please request a new one.')
+            return redirect('forgot_password')
+
+        # Set new password
+        user.set_password(password1)
+        user.password_reset_code = None
+        user.password_reset_expires = None
+        user.save()
+
+        # Clean session and redirect to login
+        request.session.pop('pending_reset_email', None)
+        messages.success(request, 'Password changed successfully. Please sign in.')
+        return redirect('login_user')
+
+    return render(request, 'main/reset-password.html', {'prefill_email': email})
 
 
 

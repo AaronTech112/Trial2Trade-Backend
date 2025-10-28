@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="icon" href="{% static 'images/logo.JPG' %}" type="image/svg+xml">
+      <link rel="stylesheet" href="{% static 'css/mobile-nav.css' %}">
     <!-- No Flutterwave script needed for hosted payment -->
 </head>
 <body>
@@ -29,12 +30,12 @@
             <div class="user-info">
                 <img src="{% static 'images/avatar-placeholder.png' %}" alt="User Avatar" class="avatar">
                 <div class="user-details">
-                    <h4 class="user-name">{{ request.user.username }}</h4>
-                    <span class="user-status">{% if user_has_accounts %}Active Trader{% else %}New User{% endif %}</span>
+                    <h4 class="user-name">{{ request.user.first_name|default:request.user.username }}</h4>
+                    <span class="user-status">{% if user_accounts %}Active Trader{% else %}New User{% endif %}</span>
                 </div>
             </div>
         <div class="nav-menu">
-            <a href="{% url 'index' %}" class="nav-item">
+            <a href="{% url 'index' %}" class="nav-item ">
                 <i class="fas fa-chart-line"></i>
                 <span>Overview</span>
             </a>
@@ -42,7 +43,7 @@
                 <i class="fas fa-wallet"></i>
                 <span>My Accounts</span>
             </a>
-            <a href="{% url 'dashboard_purchase' %}" class="nav-item active">
+            <a href="{% url 'dashboard_purchase' %}" class="nav-item  active">
                 <i class="fas fa-shopping-cart"></i>
                 <span>Purchase Account</span>
             </a>
@@ -80,6 +81,7 @@
 
 
     </nav>
+
     <!-- Main Dashboard Content -->
     <main class="dashboard-content">
         <header class="dashboard-header">
@@ -252,5 +254,6 @@
 
         // No inline payment integration needed - using server-side payment initiation
     </script>
+        <script src="{% static 'js/mobile-nav.js' %}"></script>
 </body>
 </html>
