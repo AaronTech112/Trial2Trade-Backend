@@ -6677,3 +6677,21 @@ Traceback (most recent call last):
   File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 300, in update_account_data_from_myfxbook
     raise Exception(f"No matching MyFXBook account found for login {account.login}")
 Exception: No matching MyFXBook account found for login 78656788
+[ERROR] 2025-10-28 22:17:25,635 main.views: Failed to send verification email to abdullahiaaron112@gmail.com: {'abdullahiaaron112@gmail.com': (554, b'5.7.1 <unknown[105.119.32.13]>: Client host rejected: Access denied')}
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 427, in register
+    send_mail(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\mail\__init__.py", line 92, in send_mail
+    return mail.send()
+           ^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\mail\message.py", line 307, in send
+    return self.get_connection(fail_silently).send_messages([self])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\mail\backends\smtp.py", line 136, in send_messages
+    sent = self._send(message)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\mail\backends\smtp.py", line 155, in _send
+    self.connection.sendmail(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\smtplib.py", line 901, in sendmail
+    raise SMTPRecipientsRefused(senderrs)
+smtplib.SMTPRecipientsRefused: {'abdullahiaaron112@gmail.com': (554, b'5.7.1 <unknown[105.119.32.13]>: Client host rejected: Access denied')}
