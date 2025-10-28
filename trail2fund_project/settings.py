@@ -134,9 +134,9 @@ AUTH_USER_MODEL = 'main.CustomUser'
 # Auth redirects
 LOGIN_URL = 'login_user'
 
-# Flutterwave keys from environment
-FLUTTERWAVE_PUBLIC_KEY = "FLWPUBK_TEST-bcdf22a790a59b61b4434142398d4975-X"
-FLUTTERWAVE_SECRET_KEY = "FLWSECK_TEST-732a1c10a2c6dbcff4fc8bf7da4942a3-X"
+# Flutterwave keys from environment (fallback to test keys for dev)
+FLUTTERWAVE_PUBLIC_KEY = os.getenv('FLUTTERWAVE_PUBLIC_KEY', "FLWPUBK_TEST-bcdf22a790a59b61b4434142398d4975-X")
+FLUTTERWAVE_SECRET_KEY = os.getenv('FLUTTERWAVE_SECRET_KEY', "FLWSECK_TEST-732a1c10a2c6dbcff4fc8bf7da4942a3-X")
 
 # MyFXBook credentials (simple in-settings configuration)
 MYFXBOOK_EMAIL = "abdullahiaaron112@gmail.com"
@@ -151,6 +151,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Ensure a logs directory exists for file logging
 LOG_DIR = os.path.join(BASE_DIR, 'logs')
 os.makedirs(LOG_DIR, exist_ok=True)
+EMAIL_FILE_PATH = os.path.join(LOG_DIR, 'emails')
+os.makedirs(EMAIL_FILE_PATH, exist_ok=True)
 
 LOGGING = {
     'version': 1,
@@ -193,11 +195,21 @@ LOGGING = {
     },
 }
 
-# Email configuration (simple defaults; override via environment for SMTP)
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.hostinger.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'info@trial2trade.com'
-EMAIL_HOST_PASSWORD = 'Josh2funny1@'
-DEFAULT_FROM_EMAIL = 'info@trial2trade.com'
+
+
+
+
+
+
+
+# Email configuration (override via environment; safe fallback in DEBUG)
+# Prefer env-driven backend; default to file-based in DEBUG to avoid DNS issues, SMTP in production.
+EMAIL_BACKEND = os.getenv('EMAIL_BACKEND') or (
+    'django.core.mail.backends.filebased.EmailBackend' if DEBUG else 'django.core.mail.backends.smtp.EmailBackend'
+)
+EMAIL_HOST = os.getenv('EMAIL_HOST', 'smtp.hostinger.com')
+EMAIL_PORT = int(os.getenv('EMAIL_PORT', '587'))
+EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'True').lower() == 'true'
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', 'info@trial2trade.com')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', 'Josh2funny1@')
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'info@trial2trade.com')

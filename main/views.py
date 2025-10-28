@@ -433,8 +433,10 @@ def register(request):
                     )
                     messages.success(request, 'Enter the verification code sent to your email to complete signup.')
                 except Exception as e:
-                    messages.error(request, f'Failed to send verification email: {str(e)}')
-                    return render(request, 'main/register.html', {'form': form})
+                    logger.exception('Failed to send verification email to %s: %s', email, e)
+                    messages.warning(request, 'Email delivery issue detected. Please check your inbox and enter the code; if not received, you can try again from the verification page.')
+                    # Proceed to verification page even if email failed; code is stored in session
+                    return redirect('verify_email')
 
                 return redirect('verify_email')
             else:
@@ -575,7 +577,11 @@ def get_available_mt5_account(account_size=None):
         normalized = normalize_account_size(account_size)
         if not normalized:
             return None
-        query = query.filter(account_size=normalized)
+        try:
+            logger.info("Requested MT5 account_size=%s normalized=%s", account_size, normalized)
+        except Exception:
+            pass
+        query = query.filter(account_size__iexact=normalized)
     
     account = query.first()
     if not account:
@@ -698,6 +704,15 @@ def dashboard_purchase(request):
 
         if not account_size or not amount:
             messages.error(request, 'Please select an account size and enter amount.')
+            return redirect('dashboard_purchase')
+
+        # Enforce inventory availability before initiating payment
+        normalized_size = normalize_account_size(account_size)
+        if not normalized_size:
+            messages.error(request, f'Invalid account size: {account_size}.')
+            return redirect('dashboard_purchase')
+        if not MT5Account.objects.filter(status='available', assigned=False, account_size=normalized_size).exists():
+            messages.error(request, f'No {normalized_size} accounts available at the moment. Please try another account size.')
             return redirect('dashboard_purchase')
 
         # Check if account size is available
@@ -831,7 +846,8 @@ def verify_payment(request):
     # Verify with Flutterwave
     secret = settings.FLUTTERWAVE_SECRET_KEY or 'FLWSECK_TEST-732a1c10a2c6dbcff4fc8bf7da4942a3-X'
     headers = {'Authorization': f'Bearer {secret}'}
-    resp = requests.get(f'https://api.flutterwave.com/v3/transactions/{tx_ref}/verify', headers=headers)
+    # Use verify_by_reference for tx_ref lookups
+    resp = requests.get(f'https://api.flutterwave.com/v3/transactions/verify_by_reference?tx_ref={tx_ref}', headers=headers)
     
     if resp.status_code != 200:
         return JsonResponse({'detail': 'verification failed', 'resp': resp.text}, status=400)
@@ -848,39 +864,40 @@ def verify_payment(request):
         except CustomUser.DoesNotExist:
             return JsonResponse({'detail': 'user not found for payment email'}, status=404)
 
-        # Create purchase record
-        purchase_obj = Purchase.objects.create(
-            user=user,
-            tx_ref=tx_ref,
-            amount=amount,
-            verified=True,
-            payment_status='successful',
-            flutterwave_reference=data['data'].get('flw_ref')
-        )
+        # Update existing purchase if present, else create
+        purchase_obj = Purchase.objects.filter(tx_ref=tx_ref).first()
+        if purchase_obj:
+            purchase_obj.amount = amount
+            purchase_obj.verified = True
+            purchase_obj.payment_status = 'successful'
+            purchase_obj.flutterwave_reference = data['data'].get('flw_ref')
+            purchase_obj.save()
+        else:
+            purchase_obj = Purchase.objects.create(
+                user=user,
+                tx_ref=tx_ref,
+                amount=amount,
+                verified=True,
+                payment_status='successful',
+                flutterwave_reference=data['data'].get('flw_ref')
+            )
 
-        # Get available MT5 account from CSV
+        # Get available MT5 account from DB
         account_data = get_available_mt5_account(account_size)
         if not account_data:
             return JsonResponse({'detail': 'No available accounts found'}, status=400)
 
-        # Create or update MT5Account in database
+        # Fetch MT5Account in database
         try:
             mt5_account = MT5Account.objects.get(login=account_data['login'])
         except MT5Account.DoesNotExist:
-            mt5_account = MT5Account(
-                login=account_data['login'],
-                password=account_data['password'],
-                server=account_data['server'],
-                account_size=account_data['account_size']
-            )
+            return JsonResponse({'detail': 'Account record missing in database'}, status=400)
         # Assign account to user
         mt5_account.assign_to_user(user)        
         # Link purchase to account
         purchase_obj.account = mt5_account
         purchase_obj.save()
         
-        # Mark account as used in CSV
-        mark_account_as_used(account_data['login'])
 
         messages.success(request._request, 'Payment successful! Your trading account has been assigned.')
         return JsonResponse({'detail': 'payment verified and account assigned', 'account': {
@@ -1087,6 +1104,7 @@ def payment_callback(request):
             tx_ref = transaction_data.get('tx_ref')
             transaction_id = transaction_data.get('id')
             status = transaction_data.get('status')
+            logger.info("Webhook callback received: event=%s status=%s tx_ref=%s txn_id=%s", event_type, status, tx_ref, transaction_id)
 
             try:
                 purchase = Purchase.objects.get(tx_ref=tx_ref)
@@ -1095,6 +1113,11 @@ def payment_callback(request):
 
             if event_type == 'charge.completed' and status in ['successful', 'completed']:
                 verification_response = verify_transaction(transaction_id)
+                logger.info("Webhook verification response: status=%s data_status=%s amount=%s currency=%s", 
+                            verification_response.get('status'),
+                            (verification_response.get('data', {}) or {}).get('status'),
+                            (verification_response.get('data', {}) or {}).get('amount'),
+                            (verification_response.get('data', {}) or {}).get('currency'))
                 if (verification_response.get('status') == 'success' and 
                     verification_response.get('data', {}).get('status') in ['successful', 'completed']):
                     amount = verification_response['data'].get('amount')
@@ -1104,8 +1127,15 @@ def payment_callback(request):
                     meta = verification_response['data'].get('meta', {})
                     account_size = meta.get('account_size')
 
-                    from decimal import Decimal
-                    if Decimal(str(amount)) == Decimal(str(purchase.amount)) and currency == 'NGN':
+                    from decimal import Decimal, InvalidOperation
+                    try:
+                        amt_verified = Decimal(str(amount)).quantize(Decimal('0.01'))
+                        amt_expected = Decimal(str(purchase.amount)).quantize(Decimal('0.01'))
+                    except InvalidOperation:
+                        amt_verified = Decimal('0')
+                        amt_expected = Decimal('-1')
+
+                    if amt_verified == amt_expected:
                         # Resolve user
                         try:
                             user = CustomUser.objects.get(email=email)
@@ -1144,6 +1174,7 @@ def payment_callback(request):
         status = request.GET.get('status')
         tx_ref = request.GET.get('tx_ref')
         transaction_id = request.GET.get('transaction_id')
+        logger.info("Payment return callback received: status=%s tx_ref=%s txn_id=%s", status, tx_ref, transaction_id)
 
         try:
             purchase = Purchase.objects.get(tx_ref=tx_ref)
@@ -1154,24 +1185,36 @@ def payment_callback(request):
         if status in ['successful', 'completed']:
             # Try verify by transaction_id first if available, else by reference
             verification_response = verify_transaction(transaction_id) if transaction_id else verify_transaction_by_reference(tx_ref)
+            logger.info("Return verification response initial: status=%s data_status=%s", 
+                        verification_response.get('status'),
+                        (verification_response.get('data', {}) or {}).get('status'))
             # Fallback: if verification by id fails, try by reference
             if not (
                 verification_response.get('status') == 'success' and 
                 verification_response.get('data', {}).get('status') in ['successful', 'completed']
             ) and transaction_id:
                 verification_response = verify_transaction_by_reference(tx_ref)
+                logger.info("Return verification response by reference: status=%s data_status=%s", 
+                            verification_response.get('status'),
+                            (verification_response.get('data', {}) or {}).get('status'))
 
             if (
                 verification_response.get('status') == 'success' and 
                 verification_response.get('data', {}).get('status') in ['successful', 'completed']
             ):
                 amount = verification_response['data'].get('amount')
-                currency = verification_response['data'].get('currency')
                 meta = verification_response['data'].get('meta', {})
                 account_size = meta.get('account_size')
 
-                from decimal import Decimal
-                if Decimal(str(amount)) == Decimal(str(purchase.amount)) and currency == 'NGN':
+                from decimal import Decimal, InvalidOperation
+                try:
+                    amt_verified = Decimal(str(amount)).quantize(Decimal('0.01'))
+                    amt_expected = Decimal(str(purchase.amount)).quantize(Decimal('0.01'))
+                except InvalidOperation:
+                    amt_verified = Decimal('0')
+                    amt_expected = Decimal('-1')
+
+                if amt_verified == amt_expected:
                     purchase.flutterwave_reference = verification_response['data'].get('flw_ref')
                     purchase.payment_status = 'successful'
                     purchase.verified = True
