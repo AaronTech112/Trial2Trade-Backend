@@ -192,3 +192,12 @@ LOGGING = {
         # },
     },
 }
+
+# Email configuration (simple defaults; override via environment for SMTP)
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.hostinger.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'info@trial2trade.com'
+EMAIL_HOST_PASSWORD = 'Josh2funny1@'
+DEFAULT_FROM_EMAIL = 'info@trial2trade.com'

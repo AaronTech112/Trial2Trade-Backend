@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Email - Trial2Trade</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="{% static 'images/logo.JPG' %}" type="image/svg+xml">
+    <style>
+        .code-input { letter-spacing: 0.3em; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="logo">
+                    <img src="{% static 'images/logob.png' %}" alt="Trial2Trade Logo">
+                </div>
+                <h2>Verify Your Email</h2>
+                <p>Enter the 6-digit code we sent to your email</p>
+            </div>
+            <form class="auth-form" method="POST">
+                {% csrf_token %}
+                {% if messages %}
+                    <ul class="messages" style="margin-bottom:10px;">
+                        {% for message in messages %}
+                            <li style="color:{% if message.tags == 'error' %}red{% else %}green{% endif %}; font-size:14px;">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <div class="form-group" style="margin-bottom:6px;">
+                    <small>Code sent to: <strong>{{ prefill_email }}</strong></small>
+                </div>
+                <div class="form-group">
+                    <label for="code">Verification Code</label>
+                    <input type="text" id="code" name="code"  required placeholder="Enter 6-digit code" class="code-input">
+                </div>
+                <button type="submit" class="submit-btn">Verify and Create Account</button>
+            </form>
+
+            <div class="auth-footer">
+                Already verified? <a href="{% url 'login_user' %}">Sign in</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Focus code input when page loads
+        const codeInput = document.getElementById('code');
+        if (codeInput) { codeInput.focus(); }
+    </script>
+</body>
+</html>

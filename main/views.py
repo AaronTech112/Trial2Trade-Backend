@@ -18,8 +18,17 @@ import time
 from datetime import datetime
 from django.utils import timezone
 from .forms import RegisterForm
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes, force_str
+from django.core.mail import send_mail
+from django.conf import settings
 from django.contrib import messages
 import logging
+import secrets
+from datetime import timedelta
+from django.contrib.auth.hashers import make_password
+from django.utils.dateparse import parse_datetime
 
 from .models import MT5Account, Purchase, CustomUser, RealPropRequest, Payout, Certificate
 
@@ -379,16 +388,134 @@ def register(request):
         if request.method == 'POST':
             form = RegisterForm(request.POST)
             if form.is_valid():
-                user = form.save(commit=False)
-                user.save()  # Save the user before authenticating
-                login(request, user)
-                messages.success(request, f'Welcome, {user.username}! Your account has been created.')
-                return redirect('index')
+                # Prepare pending registration; do NOT create user yet
+                cd = form.cleaned_data
+                email = cd.get('email')
+                username = cd.get('username')
+                first_name = cd.get('first_name')
+                last_name = cd.get('last_name')
+                phone_number = cd.get('phone_number')
+                raw_password = cd.get('password1')
+
+                # Generate 6-digit verification code and expiry (15 minutes)
+                code = ''.join(secrets.choice('0123456789') for _ in range(6))
+                expires_at = (timezone.now() + timedelta(minutes=15)).isoformat()
+
+                pending = {
+                    'email': email,
+                    'username': username,
+                    'first_name': first_name,
+                    'last_name': last_name,
+                    'phone_number': phone_number,
+                    'password_hashed': make_password(raw_password),
+                    'code': code,
+                    'expires_at': expires_at,
+                }
+                request.session['pending_registration'] = pending
+                request.session['pending_verification_email'] = email
+
+                # Send verification code email using provided from format
+                try:
+                    subject = 'Verify your Trial 2 Trade account'
+                    message = (
+                        f"Hi {username},\n\n"
+                        f"Your verification code is: {code}\n"
+                        f"This code expires in 15 minutes.\n\n"
+                        f"If you did not request this, please ignore this email."
+                    )
+                    send_mail(
+                        subject,
+                        message,
+                        'Trial 2 Trade <info@trial2trade.com>',
+                        [email],
+                        fail_silently=False,
+                    )
+                    messages.success(request, 'Enter the verification code sent to your email to complete signup.')
+                except Exception as e:
+                    messages.error(request, f'Failed to send verification email: {str(e)}')
+                    return render(request, 'main/register.html', {'form': form})
+
+                return redirect('verify_email')
             else:
                 messages.error(request, 'Error creating account. Please check the form.')
         else:
             form = RegisterForm()
     return render(request, 'main/register.html', {'form': form})       
+
+
+def verify_email(request):
+    pending = request.session.get('pending_registration')
+    if not pending:
+        messages.error(request, 'No pending registration found. Please register again.')
+        return redirect('register')
+
+    prefill_email = pending.get('email', '')
+    if request.method == 'POST':
+        code = request.POST.get('code', '').strip()
+        if not code:
+            messages.error(request, 'Please enter the verification code sent to your email.')
+            return render(request, 'main/verify-email.html', {'prefill_email': prefill_email})
+
+        # Validate code
+        if code != pending.get('code'):
+            messages.error(request, 'Invalid verification code.')
+            return render(request, 'main/verify-email.html', {'prefill_email': prefill_email})
+
+        # Validate expiry
+        exp = parse_datetime(pending.get('expires_at'))
+        if exp and timezone.now() > exp:
+            messages.error(request, 'Verification code has expired. Please register again.')
+            return redirect('register')
+
+        # Create the user account now (only after code verification)
+        email = pending.get('email')
+        username = pending.get('username')
+        first_name = pending.get('first_name')
+        last_name = pending.get('last_name')
+        phone_number = pending.get('phone_number')
+        password_hashed = pending.get('password_hashed')
+
+        # Safety: ensure no duplicate account exists
+        if CustomUser.objects.filter(email=email).exists():
+            messages.error(request, 'An account with this email already exists.')
+            return redirect('login_user')
+
+        user = CustomUser(
+            email=email,
+            username=username,
+            first_name=first_name,
+            last_name=last_name,
+            phone_number=phone_number,
+            is_active=True,
+        )
+        user.password = password_hashed
+        user.save()
+
+        # Login and cleanup
+        login(request, user)
+        messages.success(request, 'Email verified successfully! Your account has been created and you are now logged in.')
+        request.session.pop('pending_registration', None)
+        request.session.pop('pending_verification_email', None)
+        return redirect('index')
+
+    return render(request, 'main/verify-email.html', {'prefill_email': prefill_email})
+
+
+def activate(request, uidb64, token):
+    try:
+        uid = force_str(urlsafe_base64_decode(uidb64))
+        user = CustomUser.objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, CustomUser.DoesNotExist):
+        user = None
+
+    if user is not None and default_token_generator.check_token(user, token):
+        user.is_active = True
+        user.save()
+        messages.success(request, 'Email verified successfully. You can now log in.')
+        return redirect('login_user')
+    else:
+        messages.error(request, 'Invalid or expired verification link.')
+        return redirect('register')
 
 
 def login_user(request):

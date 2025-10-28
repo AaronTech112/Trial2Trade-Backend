@@ -9,6 +9,12 @@ class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
     phone_number = models.CharField(max_length=15, null=True, unique=True)
 
+    # Email verification fields (simple code-based verification)
+    email_verification_code = models.CharField(max_length=6, blank=True, null=True)
+    email_verification_expires = models.DateTimeField(blank=True, null=True)
+    verification_code = models.CharField(max_length=6, null=True, blank=True)
+    verification_code_expires = models.DateTimeField(null=True, blank=True)
+
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
 

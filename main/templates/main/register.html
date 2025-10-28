@@ -23,6 +23,13 @@
             </div>
             <form class="auth-form" method="post">
                 {% csrf_token %}
+                {% if messages %}
+                    <ul class="messages" style="margin-bottom:10px;">
+                        {% for message in messages %}
+                            <li style="color:{% if message.tags == 'error' %}red{% else %}green{% endif %}; font-size:14px;">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
                     {% if form.errors %}
                         <p style="color:red; font-size:14px; margin-bottom:-4px;">Invalid Details</p>
                         <ul class="error-message">
