@@ -427,14 +427,38 @@ def register(request):
                     send_mail(
                         subject,
                         message,
-                        'Trial 2 Trade <info@trial2trade.com>',
+                        settings.DEFAULT_FROM_EMAIL,
                         [email],
                         fail_silently=False,
                     )
                     messages.success(request, 'Enter the verification code sent to your email to complete signup.')
                 except Exception as e:
                     logger.exception('Failed to send verification email to %s: %s', email, e)
-                    messages.warning(request, 'Email delivery issue detected. Please check your inbox and enter the code; if not received, you can try again from the verification page.')
+                    # Try fallback via Resend API if configured
+                    api_key = getattr(settings, 'RESEND_API_KEY', None)
+                    if api_key:
+                        try:
+                            payload = {
+                                'from': settings.DEFAULT_FROM_EMAIL,
+                                'to': email,
+                                'subject': subject,
+                                'text': message,
+                            }
+                            headers = {
+                                'Authorization': f'Bearer {api_key}',
+                                'Content-Type': 'application/json',
+                            }
+                            resp = requests.post('https://api.resend.com/emails', json=payload, headers=headers, timeout=30)
+                            if resp.status_code in (200, 201):
+                                messages.success(request, 'Verification email sent via backup provider. Check your inbox.')
+                            else:
+                                logger.error('Resend fallback failed (%s): %s', resp.status_code, resp.text)
+                                messages.warning(request, 'Email delivery issue detected. Please check your inbox and enter the code; if not received, you can try again from the verification page.')
+                        except Exception as e2:
+                            logger.exception('Resend fallback error for %s: %s', email, e2)
+                            messages.warning(request, 'Email delivery issue detected. Please check your inbox and enter the code; if not received, you can try again from the verification page.')
+                    else:
+                        messages.warning(request, 'Email delivery issue detected. Please check your inbox and enter the code; if not received, you can try again from the verification page.')
                     # Proceed to verification page even if email failed; code is stored in session
                     return redirect('verify_email')
 

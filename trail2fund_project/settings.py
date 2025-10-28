@@ -202,14 +202,13 @@ LOGGING = {
 
 
 
-# Email configuration (override via environment; safe fallback in DEBUG)
-# Prefer env-driven backend; default to file-based in DEBUG to avoid DNS issues, SMTP in production.
-EMAIL_BACKEND = os.getenv('EMAIL_BACKEND') or (
-    'django.core.mail.backends.filebased.EmailBackend' if DEBUG else 'django.core.mail.backends.smtp.EmailBackend'
-)
+# Email configuration for real delivery (defaults to SMTP; override via environment)
+EMAIL_BACKEND = os.getenv('EMAIL_BACKEND', 'django.core.mail.backends.smtp.EmailBackend')
 EMAIL_HOST = os.getenv('EMAIL_HOST', 'smtp.hostinger.com')
 EMAIL_PORT = int(os.getenv('EMAIL_PORT', '587'))
 EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'True').lower() == 'true'
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', 'info@trial2trade.com')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', 'Josh2funny1@')
-DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'info@trial2trade.com')
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'Trial 2 Trade <info@trial2trade.com>')
+EMAIL_TIMEOUT = int(os.getenv('EMAIL_TIMEOUT', '30'))
+RESEND_API_KEY = os.getenv('RESEND_API_KEY')
