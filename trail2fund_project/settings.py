@@ -138,9 +138,9 @@ LOGIN_URL = 'login_user'
 FLUTTERWAVE_PUBLIC_KEY = os.getenv('FLUTTERWAVE_PUBLIC_KEY', "FLWPUBK_TEST-bcdf22a790a59b61b4434142398d4975-X")
 FLUTTERWAVE_SECRET_KEY = os.getenv('FLUTTERWAVE_SECRET_KEY', "FLWSECK_TEST-732a1c10a2c6dbcff4fc8bf7da4942a3-X")
 
-# MyFXBook credentials (simple in-settings configuration)
-MYFXBOOK_EMAIL = "abdullahiaaron112@gmail.com"
-MYFXBOOK_PASSWORD = "Aaronmosesdeboking1."
+# MyFXBook credentials (read from environment; never hardcode secrets)
+MYFXBOOK_EMAIL = os.getenv('MYFXBOOK_EMAIL')
+MYFXBOOK_PASSWORD = os.getenv('MYFXBOOK_PASSWORD')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -208,7 +208,7 @@ EMAIL_HOST = os.getenv('EMAIL_HOST', 'smtp.hostinger.com')
 EMAIL_PORT = int(os.getenv('EMAIL_PORT', '587'))
 EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'True').lower() == 'true'
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', 'info@trial2trade.com')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', 'Josh2funny1@')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'Trial 2 Trade <info@trial2trade.com>')
 EMAIL_TIMEOUT = int(os.getenv('EMAIL_TIMEOUT', '30'))
 RESEND_API_KEY = os.getenv('RESEND_API_KEY')
