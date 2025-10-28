@@ -177,9 +177,11 @@
                                     <p>{{ account.account_size }} Account - {{ account.status|title }}</p>
                                     <span class="activity-time">Last updated: {{ account.last_updated|date:"M d, Y H:i" }}</span>
                                 </div>
-                                <div class="activity-value {% if account.profit >= 0 %}positive{% else %}negative{% endif %}">
-                                    {{ account.profit|floatformat:2 }}%
+                                {% with dd=account.drawdown|default_if_none:0 %}
+                                <div class="activity-value {% if dd < 5 %}positive{% else %}negative{% endif %}">
+                                    {{ dd|floatformat:1 }}%
                                 </div>
+                                {% endwith %}
                             </div>
                         {% endfor %}
                     {% else %}

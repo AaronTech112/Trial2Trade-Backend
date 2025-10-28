@@ -6424,3 +6424,20 @@ Exception: No matching MyFXBook account found for login 211838604
 [INFO] 2025-10-28 14:20:07,360 main.views: MyFXBook returned 8 accounts.
 [INFO] 2025-10-28 14:20:07,677 main.views: Updated MyFXBook metrics for login 211838604: balance=9177.19 equity=9177.19 profit=-822.81 drawdown=8.28
 [INFO] 2025-10-28 14:26:43,830 main.views: --- ENTERING dashboard_accounts ---
+[INFO] 2025-10-28 14:34:34,212 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-28 14:34:35,804 main.views: MyFXBook login successful.
+[INFO] 2025-10-28 14:34:37,076 main.views: MyFXBook returned 8 accounts.
+[INFO] 2025-10-28 14:34:37,474 main.views: Updated MyFXBook metrics for login 211838604: balance=9177.19 equity=9177.19 profit=-822.81 drawdown=8.28
+[INFO] 2025-10-28 14:34:47,627 main.views: --- ENTERING dashboard_accounts ---
+[INFO] 2025-10-28 14:34:47,631 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-28 14:34:50,016 main.views: MyFXBook login successful.
+[INFO] 2025-10-28 14:34:51,336 main.views: MyFXBook returned 8 accounts.
+[INFO] 2025-10-28 14:34:51,621 main.views: Updated MyFXBook metrics for login 211838604: balance=9177.19 equity=9177.19 profit=-822.81 drawdown=8.28
+[INFO] 2025-10-28 14:35:12,634 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-28 14:35:14,511 main.views: MyFXBook login successful.
+[INFO] 2025-10-28 14:35:15,817 main.views: MyFXBook returned 8 accounts.
+[INFO] 2025-10-28 14:35:16,351 main.views: Updated MyFXBook metrics for login 211838604: balance=9177.19 equity=9177.19 profit=-822.81 drawdown=8.28
+[INFO] 2025-10-28 14:41:41,815 main.views: Attempting MyFXBook login for email abdullahiaaron112@gmail.com
+[INFO] 2025-10-28 14:41:43,434 main.views: MyFXBook login successful.
+[INFO] 2025-10-28 14:41:44,826 main.views: MyFXBook returned 8 accounts.
+[INFO] 2025-10-28 14:41:45,165 main.views: Updated MyFXBook metrics for login 211838604: balance=9177.19 equity=9177.19 profit=-822.81 drawdown=8.28
