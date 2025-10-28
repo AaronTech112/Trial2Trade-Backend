@@ -202,13 +202,14 @@ LOGGING = {
 
 
 
-# Email configuration for real delivery (defaults to SMTP; override via environment)
-EMAIL_BACKEND = os.getenv('EMAIL_BACKEND', 'django.core.mail.backends.smtp.EmailBackend')
-EMAIL_HOST = os.getenv('EMAIL_HOST', 'smtp.hostinger.com')
-EMAIL_PORT = int(os.getenv('EMAIL_PORT', '587'))
-EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'True').lower() == 'true'
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', 'info@trial2trade.com')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', 'Josh2funny1@')
-DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'Trial 2 Trade <info@trial2trade.com>')
-EMAIL_TIMEOUT = int(os.getenv('EMAIL_TIMEOUT', '30'))
-RESEND_API_KEY = os.getenv('RESEND_API_KEY')
+# Email configuration for real delivery (simple constants)
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.hostinger.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'info@trial2trade.com'
+EMAIL_HOST_PASSWORD = 'Josh2funny1@'
+DEFAULT_FROM_EMAIL = 'Trial 2 Trade <info@trial2trade.com>'
+EMAIL_TIMEOUT = 30
+# Optional HTTP email fallback provider (set key if you want to use it)
+RESEND_API_KEY = ''  # e.g., 're_XXXXXXXXXXXXXXXXXXXXXXXXXXX'

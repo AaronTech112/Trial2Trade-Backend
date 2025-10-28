@@ -21,7 +21,7 @@ from .forms import RegisterForm
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMessage, get_connection
 from django.conf import settings
 from django.contrib import messages
 import logging
@@ -434,6 +434,23 @@ def register(request):
                     messages.success(request, 'Enter the verification code sent to your email to complete signup.')
                 except Exception as e:
                     logger.exception('Failed to send verification email to %s: %s', email, e)
+                    # Attempt alternate SMTP (SSL on port 465)
+                    try:
+                        alt_conn = get_connection(
+                            host=settings.EMAIL_HOST,
+                            port=465,
+                            username=settings.EMAIL_HOST_USER,
+                            password=settings.EMAIL_HOST_PASSWORD,
+                            use_tls=False,
+                            use_ssl=True,
+                            timeout=getattr(settings, 'EMAIL_TIMEOUT', 30),
+                        )
+                        em = EmailMessage(subject, message, settings.DEFAULT_FROM_EMAIL, [email], connection=alt_conn)
+                        em.send(fail_silently=False)
+                        messages.success(request, 'Enter the verification code sent to your email to complete signup.')
+                        return redirect('verify_email')
+                    except Exception as e_ssl:
+                        logger.exception('Alternate SSL SMTP attempt failed for %s: %s', email, e_ssl)
                     # Try fallback via Resend API if configured
                     api_key = getattr(settings, 'RESEND_API_KEY', None)
                     if api_key:
