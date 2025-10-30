@@ -1,0 +1,10 @@
+# Ignore local SQLite database so production DB is never overwritten
+db.sqlite3
+*.sqlite3
+
+# Optional: ignore Python cache (safe defaults)
+__pycache__/
+*.pyc
+
+# Optional: local environment files
+.env
