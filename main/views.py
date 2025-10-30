@@ -456,7 +456,7 @@ def register(request):
                     if api_key:
                         try:
                             payload = {
-                                'from': settings.DEFAULT_FROM_EMAIL,
+                                'from': getattr(settings, 'RESEND_FROM_EMAIL', settings.DEFAULT_FROM_EMAIL),
                                 'to': email,
                                 'subject': subject,
                                 'text': message,

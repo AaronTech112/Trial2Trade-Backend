@@ -139,8 +139,8 @@ FLUTTERWAVE_PUBLIC_KEY = os.getenv('FLUTTERWAVE_PUBLIC_KEY', "FLWPUBK_TEST-bcdf2
 FLUTTERWAVE_SECRET_KEY = os.getenv('FLUTTERWAVE_SECRET_KEY', "FLWSECK_TEST-732a1c10a2c6dbcff4fc8bf7da4942a3-X")
 
 # MyFXBook credentials (simple in-settings configuration)
-MYFXBOOK_EMAIL = "abdullahiaaron112@gmail.com"
-MYFXBOOK_PASSWORD = "Aaronmosesdeboking1."
+MYFXBOOK_EMAIL = "trial2fund@gmail.com"
+MYFXBOOK_PASSWORD = "Josh2funny1@"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -212,4 +212,5 @@ EMAIL_HOST_PASSWORD = 'Josh2funny1@'
 DEFAULT_FROM_EMAIL = 'Trial 2 Trade <info@trial2trade.com>'
 EMAIL_TIMEOUT = 30
 # Optional HTTP email fallback provider (set key if you want to use it)
+RESEND_FROM_EMAIL = 'Trial 2 Trade <onboarding@resend.dev>'
 RESEND_API_KEY = 're_DACGvfFU_AvkANB8aMVZvX1ftp7cwVNtx'  # e.g., 're_XXXXXXXXXXXXXXXXXXXXXXXXXXX'
