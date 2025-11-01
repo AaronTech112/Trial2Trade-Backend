@@ -27,7 +27,7 @@
             <img src="{% static 'images/logob.png' %}" alt="Trial2Trade Logo" style="width: 130px; height: 75px;">
         </div>
             <div class="user-info">
-                <img src="{% static 'images/avatar-placeholder.png' %}" alt="User Avatar" class="avatar">
+                <img src="{% static 'images/avatar-placeholder.svg' %}" alt="User Avatar" class="avatar">
                 <div class="user-details">
                     <h4 class="user-name">{{ request.user.first_name|default:request.user.username }}</h4>
                     <span class="user-status">{% if user_accounts %}Active Trader{% else %}New User{% endif %}</span>
@@ -120,9 +120,17 @@
                     {% for account in user_accounts %}
                     <div class="account-card">
                         <div class="account-header">
-                            <div class="account-type {% if account.status == 'active' %}live{% else %}demo{% endif %}">
-                                <i class="fas {% if account.status == 'active' %}fa-broadcast-tower{% else %}fa-flask{% endif %}"></i>
-                                {% if account.status == 'active' %}Live Account{% else %}Demo Account{% endif %}
+                            <div class="account-type {% if account.account_type == 'trial' %}demo{% else %}live{% endif %}">
+                                <i class="fas {% if account.account_type == 'trial' %}fa-flask{% elif account.account_type == 'funded_phase_1' %}fa-arrow-right{% elif account.account_type == 'funded_phase_2' %}fa-arrow-right{% else %}fa-broadcast-tower{% endif %}"></i>
+                                {% if account.account_type == 'trial' %}
+                                    Trial Account
+                                {% elif account.account_type == 'funded_phase_1' %}
+                                    Funded Phase 1
+                                {% elif account.account_type == 'funded_phase_2' %}
+                                    Funded Phase 2
+                                {% else %}
+                                    Live Funded Account
+                                {% endif %}
                             </div>
                             <div class="account-status {% if account.status == 'active' %}active{% elif account.status == 'breached' %}danger{% else %}inactive{% endif %}">
                                 {{ account.get_status_display }}
@@ -137,6 +145,10 @@
                                     <span class="value">${{ account.balance|default_if_none:0|floatformat:2 }}</span>
                                 </div>
                                 <div class="stat">
+                                    <span class="label">Type</span>
+                                    <span class="value">{{ account.get_account_type_display }}</span>
+                                </div>
+                                <div class="stat">
                                     <span class="label">Equity</span>
                                     <span class="value">${{ account.equity|default_if_none:0|floatformat:2 }}</span>
                                 </div>
@@ -146,6 +158,20 @@
                                     <span class="value {% if dd < 5 %}success{% elif dd < 8 %}warning{% else %}danger{% endif %}">
                                         {{ dd|floatformat:1 }}%
                                     </span>
+                                </div>
+                                {% endwith %}
+                                {% with dmd=account.daily_max_drawdown|default_if_none:0 %}
+                                <div class="stat">
+                                    <span class="label">Daily Max Drawdown</span>
+                                    <span class="value {% if dmd < 2 %}success{% elif dmd < 4 %}warning{% else %}danger{% endif %}">
+                                        {{ dmd|floatformat:1 }}%
+                                    </span>
+                                </div>
+                                {% endwith %}
+                                {% with msl=account.max_single_trade_loss_pct|default_if_none:0 %}
+                                <div class="stat">
+                                    <span class="label">Max Loss Single Trade</span>
+                                    <span class="value {% if msl < 1 %}success{% elif msl < 2 %}warning{% else %}danger{% endif %}">{{ msl|floatformat:1 }}%</span>
                                 </div>
                                 {% endwith %}
                             </div>

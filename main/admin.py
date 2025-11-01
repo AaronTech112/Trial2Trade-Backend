@@ -31,8 +31,8 @@ class CustomUserAdmin(UserAdmin):
 
 @admin.register(MT5Account)
 class MT5AccountAdmin(admin.ModelAdmin):
-    list_display = ('login', 'account_size', 'user', 'server', 'status', 'balance', 'equity', 'profit', 'assigned_date')
-    list_filter = ('assigned', 'status', 'account_size')
+    list_display = ('login', 'account_size', 'account_type', 'user', 'server', 'status', 'balance', 'equity', 'profit', 'assigned_date')
+    list_filter = ('assigned', 'status', 'account_size', 'account_type')
     search_fields = ('login', 'user__username', 'user__email')
     readonly_fields = ('last_updated',)
     

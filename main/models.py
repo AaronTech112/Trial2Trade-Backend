@@ -45,6 +45,13 @@ class MT5Account(models.Model):
         ('$50k', '$50k'),
     )
     
+    ACCOUNT_TYPE_CHOICES = (
+        ('trial', 'Trial'),
+        ('funded_phase_1', 'Funded Phase 1'),
+        ('funded_phase_2', 'Funded Phase 2'),
+        ('funded_live', 'Live Funded'),
+    )
+    
     user = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, blank=True, related_name='mt5_accounts')
     account_size = models.CharField(max_length=10, choices=ACCOUNT_SIZE_CHOICES, default='$5k')
     login = models.CharField(max_length=100, unique=True)
@@ -52,6 +59,7 @@ class MT5Account(models.Model):
     server = models.CharField(max_length=200, blank=True)
     assigned = models.BooleanField(default=False)
     status = models.CharField(max_length=50, choices=ACCOUNT_STATUS_CHOICES, default='available')
+    account_type = models.CharField(max_length=20, choices=ACCOUNT_TYPE_CHOICES, default='trial')
     
     # MyFXBook data fields
     balance = models.DecimalField(max_digits=15, decimal_places=2, null=True, blank=True)
@@ -60,6 +68,10 @@ class MT5Account(models.Model):
     drawdown = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     initial_balance = models.DecimalField(max_digits=15, decimal_places=2, null=True, blank=True)
     last_updated = models.DateTimeField(null=True, blank=True)
+    # Daily drawdown tracking
+    daily_max_drawdown = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    equity_open_day = models.DecimalField(max_digits=15, decimal_places=2, null=True, blank=True)
+    equity_open_day_date = models.DateField(null=True, blank=True)
     
     assigned_date = models.DateTimeField(null=True, blank=True)
 
@@ -70,6 +82,9 @@ class MT5Account(models.Model):
         self.user = user
         self.assigned = True
         self.status = 'active'
+        # Ensure newly assigned accounts start as trial type
+        if not self.account_type:
+            self.account_type = 'trial'
         self.assigned_date = timezone.now()
         self.save()
     
@@ -144,6 +159,8 @@ class Payout(models.Model):
     mt5_account = models.ForeignKey(MT5Account, on_delete=models.SET_NULL, null=True, related_name='payouts')
     transaction_reference = models.CharField(max_length=200, blank=True, null=True)
     payment_method = models.CharField(max_length=100, blank=True, null=True)
+    bank_details = models.TextField(blank=True, null=True)
+    wallet_address = models.CharField(max_length=200, blank=True, null=True)
 
     def __str__(self):
         return f"Payout {self.user.username} - {self.amount} - {self.status}"

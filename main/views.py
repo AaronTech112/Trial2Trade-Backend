@@ -107,7 +107,7 @@ def myfxbook_get_account_info(http: requests.Session, session: str, account_id: 
         logger.error(f"MyFXBook get_account_information failed. Status: {resp.status_code}, Response: {resp.text}")
         if isinstance(msg, str) and 'invalid session' in msg.lower():
             raise MyFxBookInvalidSession(msg)
-        raise ValueError(f"Failed to get MyFXBook account info: {msg}")
+    raise ValueError(f"Failed to get MyFXBook account info: {msg}")
     info = data.get('account') or {}
     return info
 
@@ -154,6 +154,75 @@ def myfxbook_fetch_account_info_with_retry(account_id: str):
                 myfxbook_logout(http, session_token)
             except Exception:
                 pass
+
+def myfxbook_get_history(http: requests.Session, session: str, account_id: str, base_url: str | None = None):
+    """Return closed trade history for given MyFXBook account id."""
+    base = base_url or getattr(settings, 'MYFXBOOK_BASE_URL', 'https://www.myfxbook.com')
+    try:
+        url = f"{base}/api/get-history.json?session={session}&id={account_id}"
+        resp = http.get(url, timeout=20)
+    except Exception as e:
+        logger.exception('Failed to fetch MyFXBook history: %s', e)
+        raise RuntimeError(f"Failed to fetch MyFXBook history: {e}")
+    try:
+        data = resp.json()
+    except Exception:
+        logger.error('MyFXBook history response was not valid JSON. Body: %s', resp.text[:500])
+        raise RuntimeError('MyFXBook history response was not valid JSON.')
+    if resp.status_code != 200:
+        msg = data.get('message', f"HTTP {resp.status_code}")
+        logger.error('Failed to get MyFXBook history: %s', msg)
+        logger.error(f"MyFXBook get_history failed. Status: {resp.status_code}, Response: {resp.text}")
+        if 'Invalid session' in (msg or ''):
+            raise MyFxBookInvalidSession(msg)
+        raise ValueError(f"Failed to get MyFXBook history: {msg}")
+    history = data.get('history', [])
+    if history is None:
+        history = []
+    logger.info('MyFXBook returned %d history trades for account %s.', len(history), account_id)
+    return history
+
+def myfxbook_fetch_history_with_retry(account_id: str):
+    """Fetch trade history with retries and base URL fallbacks."""
+    http = requests.Session()
+    http.headers.update({'User-Agent': MYFXBOOK_HTTP_HEADERS.get('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/124.0 Safari/537.36'), 'Accept': 'application/json'})
+    session_token = None
+    try:
+        # First attempt: https GET login
+        base1 = getattr(settings, 'MYFXBOOK_BASE_URL', 'https://www.myfxbook.com')
+        session_token = myfxbook_login(http, base_url=base1, use_post=False)
+        return myfxbook_get_history(http, session_token, account_id, base_url=base1)
+    except MyFxBookInvalidSession:
+        logger.warning('MyFXBook session invalid for history/https GET; retrying with https POST.')
+        try:
+            if session_token:
+                try:
+                    myfxbook_logout(http, session_token, base_url=getattr(settings, 'MYFXBOOK_BASE_URL', 'https://www.myfxbook.com'))
+                except Exception:
+                    pass
+            base1 = getattr(settings, 'MYFXBOOK_BASE_URL', 'https://www.myfxbook.com')
+            session_token = myfxbook_login(http, base_url=base1, use_post=True)
+            return myfxbook_get_history(http, session_token, account_id, base_url=base1)
+        except MyFxBookInvalidSession:
+            logger.warning('MyFXBook session invalid for history/https POST; trying http base.')
+            try:
+                if session_token:
+                    try:
+                        myfxbook_logout(http, session_token, base_url=getattr(settings, 'MYFXBOOK_BASE_URL', 'https://www.myfxbook.com'))
+                    except Exception:
+                        pass
+                base2 = 'http://www.myfxbook.com'
+                session_token = myfxbook_login(http, base_url=base2, use_post=False)
+                return myfxbook_get_history(http, session_token, account_id, base_url=base2)
+            except Exception as e:
+                logger.exception('Error fetching MyFXBook history: %s', e)
+                raise
+    finally:
+        try:
+            if session_token:
+                myfxbook_logout(http, session_token)
+        except Exception:
+            pass
             
 def myfxbook_get_my_accounts(http: requests.Session, session: str, base_url: str | None = None):
     """Return accounts using a persistent HTTP session."""
@@ -298,6 +367,14 @@ def update_account_data_from_myfxbook(account, accounts=None):
         source = matched or info or None
         if not source:
             raise Exception(f"No matching MyFXBook account found for login {account.login}")
+        # Resolve account id for history lookups
+        account_id_str = None
+        try:
+            sid = source.get('accountId') or source.get('id')
+            if sid is not None:
+                account_id_str = str(sid)
+        except Exception:
+            account_id_str = None
 
         from decimal import Decimal
         balance = source.get('balance')
@@ -324,10 +401,85 @@ def update_account_data_from_myfxbook(account, accounts=None):
         account.last_updated = timezone.now()
         account.save()
 
+        # Compute and persist daily max drawdown based on day's opening equity
+        try:
+            from decimal import Decimal
+            now = timezone.now()
+            today = now.date()
+            eq = account.equity
+            if eq is not None:
+                # Initialize/reset opening equity at start of day
+                if account.equity_open_day_date is None or account.equity_open_day_date != today:
+                    account.equity_open_day = eq
+                    account.equity_open_day_date = today
+                    account.daily_max_drawdown = Decimal('0')
+                # Calculate current daily drawdown percentage
+                if account.equity_open_day:
+                    try:
+                        open_eq = Decimal(str(account.equity_open_day))
+                        curr_eq = Decimal(str(eq))
+                        dd = ((open_eq - curr_eq) / open_eq) * Decimal('100') if open_eq > 0 else Decimal('0')
+                        if dd < 0:
+                            dd = Decimal('0')
+                        if account.daily_max_drawdown is None or dd > account.daily_max_drawdown:
+                            account.daily_max_drawdown = dd
+                    except Exception:
+                        pass
+                # Breach if daily max drawdown reaches or exceeds 4%
+                try:
+                    if account.daily_max_drawdown is not None and Decimal(str(account.daily_max_drawdown)) >= Decimal('4'):
+                        account.status = 'breached'
+                except Exception:
+                    pass
+                account.save(update_fields=['equity_open_day', 'equity_open_day_date', 'daily_max_drawdown', 'status'])
+        except Exception:
+            pass
+
         try:
             account.check_breach_status()
         except Exception:
             pass
+
+        # Check single-trade 2% max loss breach using MyFXBook history
+        try:
+            from decimal import Decimal
+            if account_id_str and account.initial_balance:
+                trades = myfxbook_fetch_history_with_retry(account_id_str)
+                ib = Decimal(str(account.initial_balance))
+                threshold = (ib * Decimal('0.02'))
+                # Track max single-trade loss percentage for UI
+                max_loss_pct = Decimal('0')
+                # Evaluate recent closed trades only
+                for t in trades:
+                    profit = t.get('profit')
+                    try:
+                        p = Decimal(str(profit)) if profit is not None else Decimal('0')
+                    except Exception:
+                        p = Decimal('0')
+                    if p < 0:
+                        loss_amt = -p
+                        # Compute loss percentage against initial balance for display
+                        if ib > 0:
+                            try:
+                                lpct = (loss_amt / ib) * Decimal('100')
+                                if lpct > max_loss_pct:
+                                    max_loss_pct = lpct
+                            except Exception:
+                                pass
+                        # Breach on any trade losing >= 2% of initial balance
+                        if loss_amt >= threshold and account.status != 'breached':
+                            account.status = 'breached'
+                            account.save(update_fields=['status'])
+                            logger.info('Account %s breached by single trade loss %.2f (>= 2%% of initial %.2f).', account.login, float(loss_amt), float(ib))
+                            # No need to continue once breached
+                            break
+                # Attach computed max single-trade loss percentage for template display
+                try:
+                    account.max_single_trade_loss_pct = float(max_loss_pct)
+                except Exception:
+                    account.max_single_trade_loss_pct = 0.0
+        except Exception as e:
+            logger.exception('Error evaluating single-trade breach for %s: %s', account.login, e)
 
         logger.info('Updated MyFXBook metrics for login %s: balance=%s equity=%s profit=%s drawdown=%s',
                     account.login, account.balance, account.equity, account.profit, account.drawdown)
@@ -1043,9 +1195,19 @@ def dashboard_payouts(request):
         account_id = request.POST.get('account_id')
         amount = request.POST.get('amount')
         payment_method = request.POST.get('payment_method')
+        bank_details = request.POST.get('bank_details')
+        wallet_address = request.POST.get('wallet_address')
         
         if not all([account_id, amount, payment_method]):
             messages.error(request, 'Please fill all required fields')
+            return redirect('dashboard_payouts')
+
+        # Enforce method-specific required details
+        if payment_method == 'bank_transfer' and not bank_details:
+            messages.error(request, 'Please provide your bank details for bank transfer payout')
+            return redirect('dashboard_payouts')
+        if payment_method == 'crypto' and not wallet_address:
+            messages.error(request, 'Please provide your crypto wallet address for payout')
             return redirect('dashboard_payouts')
         
         try:
@@ -1057,7 +1219,9 @@ def dashboard_payouts(request):
                 user=request.user,
                 amount=amount,
                 mt5_account=account,
-                payment_method=payment_method
+                payment_method=payment_method,
+                bank_details=bank_details if payment_method == 'bank_transfer' else None,
+                wallet_address=wallet_address if payment_method == 'crypto' else None,
             )
             
             # Create prop request for payout (for admin tracking)

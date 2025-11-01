@@ -28,7 +28,7 @@
             <img src="{% static 'images/logob.png' %}" alt="Trial2Trade Logo" style="width: 130px; height: 75px;">
         </div>
             <div class="user-info">
-                <img src="{% static 'images/avatar-placeholder.png' %}" alt="User Avatar" class="avatar">
+                <img src="{% static 'images/avatar-placeholder.svg' %}" alt="User Avatar" class="avatar">
                 <div class="user-details">
                     <h4 class="user-name">{{ request.user.first_name|default:request.user.username }}</h4>
                     <span class="user-status">{% if user_accounts %}Active Trader{% else %}New User{% endif %}</span>
