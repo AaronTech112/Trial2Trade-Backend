@@ -135,8 +135,8 @@ AUTH_USER_MODEL = 'main.CustomUser'
 LOGIN_URL = 'login_user'
 
 # Flutterwave keys from environment (fallback to test keys for dev)
-FLUTTERWAVE_PUBLIC_KEY = os.getenv('FLUTTERWAVE_PUBLIC_KEY', "FLWPUBK_TEST-bcdf22a790a59b61b4434142398d4975-X")
-FLUTTERWAVE_SECRET_KEY = os.getenv('FLUTTERWAVE_SECRET_KEY', "FLWSECK_TEST-732a1c10a2c6dbcff4fc8bf7da4942a3-X")
+FLUTTERWAVE_PUBLIC_KEY = os.getenv('FLUTTERWAVE_PUBLIC_KEY', "FLWPUBK-86fbe294a13c5a515e0e83cdf5ef3f18-X")
+FLUTTERWAVE_SECRET_KEY = os.getenv('FLUTTERWAVE_SECRET_KEY', "FLWSECK-54196b0b51380b6ecc2f0aaca9a6a051-19a4ec21ab4vt-X")
 
 # MyFXBook credentials (simple in-settings configuration)
 MYFXBOOK_EMAIL = "trial2fund@gmail.com"

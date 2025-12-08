@@ -223,7 +223,7 @@ def myfxbook_fetch_history_with_retry(account_id: str):
                 myfxbook_logout(http, session_token)
         except Exception:
             pass
-            
+
 def myfxbook_get_my_accounts(http: requests.Session, session: str, base_url: str | None = None):
     """Return accounts using a persistent HTTP session."""
     base = base_url or getattr(settings, 'MYFXBOOK_BASE_URL', 'https://www.myfxbook.com')
@@ -487,7 +487,7 @@ def update_account_data_from_myfxbook(account, accounts=None):
     except Exception as e:
         logger.exception('Error updating account data for login %s: %s', getattr(account, 'login', 'unknown'), e)
         return False
-    
+
 @login_required(login_url='/login_user')
 def dashboard_overview(request):
     # Fetch assigned MT5 accounts for the current user
@@ -530,7 +530,7 @@ def dashboard_overview(request):
         'win_rate_change': win_rate_change,
         'profit_change': profit_change,
     }
-    
+
     return render(request, 'main/dashboard_overview.html', context)
 
 
@@ -636,7 +636,7 @@ def register(request):
                 messages.error(request, 'Error creating account. Please check the form.')
         else:
             form = RegisterForm()
-    return render(request, 'main/register.html', {'form': form})       
+    return render(request, 'main/register.html', {'form': form})
 
 
 def verify_email(request):
@@ -775,11 +775,11 @@ def get_available_mt5_account(account_size=None):
         except Exception:
             pass
         query = query.filter(account_size__iexact=normalized)
-    
+
     account = query.first()
     if not account:
         return None
-        
+
     return {
         'account_size': account.account_size,
         'login': account.login,
@@ -927,7 +927,7 @@ def dashboard_purchase(request):
         )
 
         # Get Flutterwave secret key
-        secret_key = settings.FLUTTERWAVE_SECRET_KEY or 'FLWSECK_TEST-732a1c10a2c6dbcff4fc8bf7da4942a3-X'
+        secret_key = settings.FLUTTERWAVE_SECRET_KEY or 'FLWSECK-54196b0b51380b6ecc2f0aaca9a6a051-19a4ec21ab4vt-X'
 
         # Build absolute redirect URL for payment verification callback
         redirect_url = request.build_absolute_uri(reverse('payment_callback'))
@@ -999,19 +999,19 @@ def dashboard_purchase(request):
             return redirect('dashboard_purchase')
 
     # Show purchase page with available account sizes
-    public_key = settings.FLUTTERWAVE_PUBLIC_KEY or 'FLWPUBK_TEST-bcdf22a790a59b61b4434142398d4975-X'
-    
+    public_key = settings.FLUTTERWAVE_PUBLIC_KEY or 'FLWPUBK-86fbe294a13c5a515e0e83cdf5ef3f18-X'
+
     # Get available account sizes from database
     account_sizes = MT5Account.objects.filter(
-        status='available', 
+        status='available',
         assigned=False
     ).values_list('account_size', flat=True).distinct()
-    
+
     context = {
         'public_key': public_key,
         'account_sizes': sorted(list(account_sizes))
     }
-    
+
     return render(request, 'main/dashboard-purchase.html', context)
 
 @csrf_exempt
@@ -1037,11 +1037,11 @@ def verify_payment(request):
         return JsonResponse({'detail': 'tx_ref required'}, status=400)
 
     # Verify with Flutterwave
-    secret = settings.FLUTTERWAVE_SECRET_KEY or 'FLWSECK_TEST-732a1c10a2c6dbcff4fc8bf7da4942a3-X'
+    secret = settings.FLUTTERWAVE_SECRET_KEY or 'FLWSECK-54196b0b51380b6ecc2f0aaca9a6a051-19a4ec21ab4vt-X'
     headers = {'Authorization': f'Bearer {secret}'}
     # Use verify_by_reference for tx_ref lookups
     resp = requests.get(f'https://api.flutterwave.com/v3/transactions/verify_by_reference?tx_ref={tx_ref}', headers=headers)
-    
+
     if resp.status_code != 200:
         return JsonResponse({'detail': 'verification failed', 'resp': resp.text}, status=400)
 
@@ -1086,11 +1086,11 @@ def verify_payment(request):
         except MT5Account.DoesNotExist:
             return JsonResponse({'detail': 'Account record missing in database'}, status=400)
         # Assign account to user
-        mt5_account.assign_to_user(user)        
+        mt5_account.assign_to_user(user)
         # Link purchase to account
         purchase_obj.account = mt5_account
         purchase_obj.save()
-        
+
 
         messages.success(request._request, 'Payment successful! Your trading account has been assigned.')
         return JsonResponse({'detail': 'payment verified and account assigned', 'account': {
@@ -1142,34 +1142,34 @@ def dashboard_accounts(request):
 @login_required(login_url='/login_user')
 def dashboard_next_phase(request):
     user_accounts = MT5Account.objects.filter(user=request.user)
-    
+
     if request.method == 'POST':
         request_type = request.POST.get('request_type')
         account_id = request.POST.get('account_id')
-        
+
         if not account_id:
             messages.error(request, 'Please select an account')
             return redirect('dashboard_next_phase')
-        
+
         try:
             account = MT5Account.objects.get(id=account_id, user=request.user)
         except MT5Account.DoesNotExist:
             messages.error(request, 'Invalid account selected')
             return redirect('dashboard_next_phase')
-        
+
         # Create prop request
         prop_request = RealPropRequest.objects.create(
             user=request.user,
             request_type=request_type,
             mt5_account=account
         )
-        
+
         messages.success(request, f'Your {request_type} request has been submitted and is pending approval')
         return redirect('dashboard_next_phase')
-    
+
     # Get existing requests
     prop_requests = RealPropRequest.objects.filter(user=request.user).order_by('-created_at')
-    
+
     return render(request, 'main/dashboard-next-phase.html', {
         'user_accounts': user_accounts,
         'prop_requests': prop_requests
@@ -1190,14 +1190,14 @@ def dashboard_referral(request):
 def dashboard_payouts(request):
     # Only allow payouts from funded/real accounts (active status)
     eligible_accounts = MT5Account.objects.filter(user=request.user, status='active')
-    
+
     if request.method == 'POST':
         account_id = request.POST.get('account_id')
         amount = request.POST.get('amount')
         payment_method = request.POST.get('payment_method')
         bank_details = request.POST.get('bank_details')
         wallet_address = request.POST.get('wallet_address')
-        
+
         if not all([account_id, amount, payment_method]):
             messages.error(request, 'Please fill all required fields')
             return redirect('dashboard_payouts')
@@ -1209,11 +1209,11 @@ def dashboard_payouts(request):
         if payment_method == 'crypto' and not wallet_address:
             messages.error(request, 'Please provide your crypto wallet address for payout')
             return redirect('dashboard_payouts')
-        
+
         try:
             # Enforce selection of an active (funded) account only
             account = MT5Account.objects.get(id=account_id, user=request.user, status='active')
-            
+
             # Create payout request
             payout = Payout.objects.create(
                 user=request.user,
@@ -1223,25 +1223,25 @@ def dashboard_payouts(request):
                 bank_details=bank_details if payment_method == 'bank_transfer' else None,
                 wallet_address=wallet_address if payment_method == 'crypto' else None,
             )
-            
+
             # Create prop request for payout (for admin tracking)
             RealPropRequest.objects.create(
                 user=request.user,
                 request_type='payout',
                 mt5_account=account
             )
-            
+
             messages.success(request, 'Your payout request has been submitted and is pending approval')
         except MT5Account.DoesNotExist:
             messages.error(request, 'Invalid account selected or account not eligible for payout')
         except Exception as e:
             messages.error(request, f'Error processing request: {str(e)}')
-        
+
         return redirect('dashboard_payouts')
-    
+
     # Get existing payouts
     payouts = Payout.objects.filter(user=request.user).order_by('-created_at')
-    
+
     return render(request, 'main/dashboard-payouts.html', {
         'accounts': eligible_accounts,
         'payouts': payouts
@@ -1285,7 +1285,7 @@ def process_purchase(request):
         redirect_url = request.build_absolute_uri(reverse('payment_callback'))
 
         # Render checkout page for Flutterwave Inline
-        public_key = settings.FLUTTERWAVE_PUBLIC_KEY or 'FLWPUBK_TEST-bcdf22a790a59b61b4434142398d4975-X'
+        public_key = settings.FLUTTERWAVE_PUBLIC_KEY or 'FLWPUBK-86fbe294a13c5a515e0e83cdf5ef3f18-X'
         context = {
             'public_key': public_key,
             'tx_ref': tx_ref,
@@ -1318,12 +1318,12 @@ def payment_callback(request):
 
             if event_type == 'charge.completed' and status in ['successful', 'completed']:
                 verification_response = verify_transaction(transaction_id)
-                logger.info("Webhook verification response: status=%s data_status=%s amount=%s currency=%s", 
+                logger.info("Webhook verification response: status=%s data_status=%s amount=%s currency=%s",
                             verification_response.get('status'),
                             (verification_response.get('data', {}) or {}).get('status'),
                             (verification_response.get('data', {}) or {}).get('amount'),
                             (verification_response.get('data', {}) or {}).get('currency'))
-                if (verification_response.get('status') == 'success' and 
+                if (verification_response.get('status') == 'success' and
                     verification_response.get('data', {}).get('status') in ['successful', 'completed']):
                     amount = verification_response['data'].get('amount')
                     currency = verification_response['data'].get('currency')
@@ -1390,21 +1390,21 @@ def payment_callback(request):
         if status in ['successful', 'completed']:
             # Try verify by transaction_id first if available, else by reference
             verification_response = verify_transaction(transaction_id) if transaction_id else verify_transaction_by_reference(tx_ref)
-            logger.info("Return verification response initial: status=%s data_status=%s", 
+            logger.info("Return verification response initial: status=%s data_status=%s",
                         verification_response.get('status'),
                         (verification_response.get('data', {}) or {}).get('status'))
             # Fallback: if verification by id fails, try by reference
             if not (
-                verification_response.get('status') == 'success' and 
+                verification_response.get('status') == 'success' and
                 verification_response.get('data', {}).get('status') in ['successful', 'completed']
             ) and transaction_id:
                 verification_response = verify_transaction_by_reference(tx_ref)
-                logger.info("Return verification response by reference: status=%s data_status=%s", 
+                logger.info("Return verification response by reference: status=%s data_status=%s",
                             verification_response.get('status'),
                             (verification_response.get('data', {}) or {}).get('status'))
 
             if (
-                verification_response.get('status') == 'success' and 
+                verification_response.get('status') == 'success' and
                 verification_response.get('data', {}).get('status') in ['successful', 'completed']
             ):
                 amount = verification_response['data'].get('amount')
@@ -1463,7 +1463,7 @@ def verify_transaction(transaction_id):
             return {'status': 'error', 'data': {}, 'message': 'Missing transaction_id'}
         url = f"https://api.flutterwave.com/v3/transactions/{transaction_id}/verify"
         headers = {
-            'Authorization': f"Bearer {getattr(settings, 'FLUTTERWAVE_SECRET_KEY', 'FLWSECK_TEST-732a1c10a2c6dbcff4fc8bf7da4942a3-X')}",
+            'Authorization': f"Bearer {getattr(settings, 'FLUTTERWAVE_SECRET_KEY', 'FLWSECK-54196b0b51380b6ecc2f0aaca9a6a051-19a4ec21ab4vt-X')}",
             'Content-Type': 'application/json',
         }
         response = requests.get(url, headers=headers, timeout=10)
@@ -1482,7 +1482,7 @@ def verify_transaction_by_reference(tx_ref):
             return {'status': 'error', 'data': {}, 'message': 'Missing tx_ref'}
         url = f"https://api.flutterwave.com/v3/transactions/verify_by_reference?tx_ref={tx_ref}"
         headers = {
-            'Authorization': f"Bearer {getattr(settings, 'FLUTTERWAVE_SECRET_KEY', 'FLWSECK_TEST-732a1c10a2c6dbcff4fc8bf7da4942a3-X')}",
+            'Authorization': f"Bearer {getattr(settings, 'FLUTTERWAVE_SECRET_KEY', 'FLWSECK-54196b0b51380b6ecc2f0aaca9a6a051-19a4ec21ab4vt-X')}",
             'Content-Type': 'application/json',
         }
         response = requests.get(url, headers=headers, timeout=10)

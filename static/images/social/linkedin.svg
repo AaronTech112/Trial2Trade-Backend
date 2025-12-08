@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+  <!-- Circle Background -->
+  <circle cx="15" cy="15" r="14" fill="#0A0A0A" stroke="#FFD700" stroke-width="1"/>
+  
+  <!-- LinkedIn Icon -->
+  <rect x="8" y="12" width="3" height="10" rx="1" fill="#FFD700"/>
+  <circle cx="9.5" cy="9" r="1.5" fill="#FFD700"/>
+  <path d="M14,12 v10 h3 v-5 c0,-1.5 0.5,-2 2,-2 s2,0.5 2,2 v5 h3 v-6 c0,-3 -1,-5 -4,-5 c-1.5,0 -2.5,0.5 -3,1.5 v-1.5 z" 
+        fill="none" stroke="#FFD700" stroke-width="1" stroke-linejoin="round"/>
+  
+  <!-- Decorative Elements -->
+  <circle cx="15" cy="15" r="12" fill="none" stroke="#FFD700" stroke-width="0.5" opacity="0.5"/>
+  
+  <!-- Shine Effect -->
+  <circle cx="10" cy="10" r="5" fill="url(#shineGradient)" opacity="0.2"/>
+  
+  <defs>
+    <linearGradient id="shineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+</svg>

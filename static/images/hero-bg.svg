@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <!-- Dark Background -->
+  <rect width="1920" height="1080" fill="#0A0A0A"/>
+  
+  <!-- Abstract Grid Pattern -->
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,215,0,0.05)" stroke-width="0.5"/>
+    </pattern>
+  </defs>
+  
+  <rect width="1920" height="1080" fill="url(#grid)"/>
+  
+  <!-- Radial Gradient Overlay -->
+  <radialGradient id="radialGlow" cx="50%" cy="30%" r="70%" fx="50%" fy="30%">
+    <stop offset="0%" stop-color="rgba(255,215,0,0.1)"/>
+    <stop offset="100%" stop-color="rgba(10,10,10,0)"/>
+  </radialGradient>
+  
+  <rect width="1920" height="1080" fill="url(#radialGlow)"/>
+  
+  <!-- Abstract Lines -->
+  <path d="M 0,400 C 500,300 1000,500 1920,300" stroke="rgba(255,215,0,0.1)" stroke-width="2" fill="none"/>
+  <path d="M 0,600 C 600,500 1200,700 1920,500" stroke="rgba(255,215,0,0.07)" stroke-width="1.5" fill="none"/>
+  <path d="M 0,800 C 700,750 1400,850 1920,700" stroke="rgba(255,215,0,0.05)" stroke-width="1" fill="none"/>
+  
+  <!-- Particles -->
+  <g opacity="0.6">
+    <circle cx="200" cy="200" r="1" fill="#FFD700"/>
+    <circle cx="500" cy="300" r="1.5" fill="#FFD700"/>
+    <circle cx="800" cy="200" r="1" fill="#FFD700"/>
+    <circle cx="1100" cy="400" r="1.5" fill="#FFD700"/>
+    <circle cx="1400" cy="300" r="1" fill="#FFD700"/>
+    <circle cx="1700" cy="200" r="1.5" fill="#FFD700"/>
+    <circle cx="300" cy="500" r="1" fill="#FFD700"/>
+    <circle cx="600" cy="600" r="1.5" fill="#FFD700"/>
+    <circle cx="900" cy="500" r="1" fill="#FFD700"/>
+    <circle cx="1200" cy="700" r="1.5" fill="#FFD700"/>
+    <circle cx="1500" cy="600" r="1" fill="#FFD700"/>
+    <circle cx="1800" cy="500" r="1.5" fill="#FFD700"/>
+    <circle cx="400" cy="800" r="1" fill="#FFD700"/>
+    <circle cx="700" cy="900" r="1.5" fill="#FFD700"/>
+    <circle cx="1000" cy="800" r="1" fill="#FFD700"/>
+    <circle cx="1300" cy="900" r="1.5" fill="#FFD700"/>
+    <circle cx="1600" cy="800" r="1" fill="#FFD700"/>
+    <circle cx="1900" cy="900" r="1.5" fill="#FFD700"/>
+  </g>
+  
+  <!-- Larger Glowing Particles -->
+  <circle cx="300" cy="300" r="3" fill="#FFD700" opacity="0.7">
+    <animate attributeName="opacity" values="0.7;0.3;0.7" dur="3s" repeatCount="indefinite"/>
+  </circle>
+  
+  <circle cx="1200" cy="500" r="4" fill="#FFD700" opacity="0.6">
+    <animate attributeName="opacity" values="0.6;0.2;0.6" dur="4s" repeatCount="indefinite"/>
+  </circle>
+  
+  <circle cx="800" cy="700" r="3" fill="#FFD700" opacity="0.5">
+    <animate attributeName="opacity" values="0.5;0.1;0.5" dur="5s" repeatCount="indefinite"/>
+  </circle>
+  
+  <circle cx="1600" cy="400" r="4" fill="#FFD700" opacity="0.4">
+    <animate attributeName="opacity" values="0.4;0.1;0.4" dur="6s" repeatCount="indefinite"/>
+  </circle>
+  
+  <!-- Abstract Shapes -->
+  <path d="M 200,100 L 300,150 L 250,250 L 150,200 Z" fill="rgba(255,215,0,0.03)" stroke="rgba(255,215,0,0.1)" stroke-width="0.5"/>
+  
+  <path d="M 1600,800 L 1700,850 L 1650,950 L 1550,900 Z" fill="rgba(255,215,0,0.03)" stroke="rgba(255,215,0,0.1)" stroke-width="0.5"/>
+  
+  <path d="M 1000,300 C 1050,250 1150,250 1200,300 C 1250,350 1250,450 1200,500 C 1150,550 1050,550 1000,500 C 950,450 950,350 1000,300 Z" 
+        fill="rgba(255,215,0,0.02)" stroke="rgba(255,215,0,0.08)" stroke-width="0.5"/>
+  
+  <!-- Subtle Wave Effect -->
+  <path d="M 0,950 C 200,900 400,1000 600,950 C 800,900 1000,1000 1200,950 C 1400,900 1600,1000 1800,950 L 1920,950 L 1920,1080 L 0,1080 Z" 
+        fill="rgba(255,215,0,0.03)"/>
+</svg>

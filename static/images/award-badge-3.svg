@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 150 150">
+  <!-- Badge Background -->
+  <circle cx="75" cy="75" r="70" fill="#0A0A0A" stroke="#FFD700" stroke-width="2"/>
+  
+  <!-- Inner Circle -->
+  <circle cx="75" cy="75" r="60" fill="none" stroke="#FFD700" stroke-width="1" stroke-dasharray="3,2"/>
+  
+  <!-- Growth Chart Shape -->
+  <path d="M45,85 L55,75 L65,80 L75,60 L85,65 L95,50 L105,40" 
+        fill="none" stroke="#FFD700" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="45" cy="85" r="3" fill="#FFD700"/>
+  <circle cx="55" cy="75" r="3" fill="#FFD700"/>
+  <circle cx="65" cy="80" r="3" fill="#FFD700"/>
+  <circle cx="75" cy="60" r="3" fill="#FFD700"/>
+  <circle cx="85" cy="65" r="3" fill="#FFD700"/>
+  <circle cx="95" cy="50" r="3" fill="#FFD700"/>
+  <circle cx="105" cy="40" r="3" fill="#FFD700"/>
+  
+  <!-- Outer Ring with Text -->
+  <path id="textPath" d="M75,15 a60,60 0 1,1 -0.1,0" fill="none"/>
+  <text font-family="Arial, sans-serif" font-size="10" fill="#FFD700" letter-spacing="1">
+    <textPath href="#textPath" startOffset="5%">★ FASTEST GROWING TRADERS FUNDING SOLUTION ★</textPath>
+  </text>
+  
+  <!-- Inner Text -->
+  <text x="75" y="110" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#FFD700" text-anchor="middle">TRIAL2FUND</text>
+  <text x="75" y="125" font-family="Arial, sans-serif" font-size="8" fill="#FFD700" text-anchor="middle">GROWTH AWARD</text>
+  
+  <!-- Decorative Elements -->
+  <circle cx="75" cy="75" r="65" fill="none" stroke="#FFD700" stroke-width="0.5" opacity="0.5"/>
+  <circle cx="75" cy="75" r="55" fill="none" stroke="#FFD700" stroke-width="0.5" opacity="0.5"/>
+  
+  <!-- Shine Effect -->
+  <circle cx="50" cy="50" r="40" fill="url(#shineGradient)" opacity="0.2"/>
+  
+  <defs>
+    <linearGradient id="shineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+</svg>

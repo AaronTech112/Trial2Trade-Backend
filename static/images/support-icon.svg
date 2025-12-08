@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+  <!-- Circle Background -->
+  <circle cx="20" cy="20" r="18" fill="#0A0A0A" stroke="#FFD700" stroke-width="1.5"/>
+  
+  <!-- Headset Icon -->
+  <path d="M28,20 v-2 c0,-4.4 -3.6,-8 -8,-8 s-8,3.6 -8,8 v2 h-2 v8 h4 v-10 c0,-3.3 2.7,-6 6,-6 s6,2.7 6,6 v10 h4 v-8 h-2 z" 
+        fill="none" stroke="#FFD700" stroke-width="1.5" stroke-linejoin="round"/>
+  
+  <!-- Decorative Elements -->
+  <circle cx="20" cy="20" r="15" fill="none" stroke="#FFD700" stroke-width="0.5" opacity="0.5"/>
+  
+  <!-- Shine Effect -->
+  <circle cx="15" cy="15" r="8" fill="url(#shineGradient)" opacity="0.2"/>
+  
+  <defs>
+    <linearGradient id="shineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+</svg>

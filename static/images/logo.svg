@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="50" viewBox="0 0 200 50">
+  <!-- Crown Icon -->
+  <path d="M100 5 L105 15 L110 10 L115 20 L120 5 L115 15 L100 15 Z" fill="#FFD700" />
+  
+  <!-- Text: Trial2Fund -->
+  <text x="50" y="35" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#FFFFFF">
+    Trial<tspan fill="#FFD700">2</tspan>Fund
+  </text>
+</svg>
