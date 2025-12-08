@@ -126,21 +126,23 @@
                         <h3>Total Profit</h3>
                         <p class="stat-value">${{ total_profit|default:"0.00" }}</p>
                         <span class="stat-change {% if profit_change >= 0 %}positive{% else %}negative{% endif %}">
-                            {{ profit_change|default:"0" }}% 
+                            {{ profit_change|floatformat:2 }}% 
                             <i class="fas fa-arrow-{% if profit_change >= 0 %}up{% else %}down{% endif %}"></i>
                         </span>
                     </div>
                 </div>
-                <div class="stat-card">
+                {% comment %} <div class="stat-card">
                     <div class="stat-icon">
-                        <i class="fas fa-balance-scale"></i>
+                        <i class="fas fa-percent"></i>
                     </div>
                     <div class="stat-info">
-                        <h3>Win Rate</h3>
-                        <p class="stat-value">{{ win_rate|default:"0" }}%</p>
-                        <span class="stat-change positive">+{{ win_rate_change|default:"0" }}% <i class="fas fa-arrow-up"></i></span>
+                        <h3>Average Gain</h3>
+                        <p class="stat-value">{{ average_gain_pct|floatformat:2 }}%</p>
+                        <span class="stat-change {% if average_gain_pct >= 0 %}positive{% else %}negative{% endif %}">
+                            <i class="fas fa-arrow-{% if average_gain_pct >= 0 %}up{% else %}down{% endif %}"></i>
+                        </span>
                     </div>
-                </div>
+                </div> {% endcomment %}
                 <div class="stat-card">
                     <div class="stat-icon">
                         <i class="fas fa-trophy"></i>
@@ -157,7 +159,7 @@
                     </div>
                     <div class="stat-info">
                         <h3>Allocation</h3>
-                        <p class="stat-value">${{ total_balance|default:"0.00" }}</p>
+                        <p class="stat-value">${{ total_allocation|default:"0.00" }}</p>
                         <span class="stat-label">Across all accounts</span>
                     </div>
                 </div>
@@ -177,9 +179,9 @@
                                     <p>{{ account.account_size }} Account - {{ account.status|title }}</p>
                                     <span class="activity-time">Last updated: {{ account.last_updated|date:"M d, Y H:i" }}</span>
                                 </div>
-                                {% with dd=account.drawdown|default_if_none:0 %}
-                                <div class="activity-value {% if dd < 5 %}positive{% else %}negative{% endif %}">
-                                    {{ dd|floatformat:1 }}%
+                                {% with g=account.gain_pct|default_if_none:0 %}
+                                <div class="activity-value {% if g >= 0 %}positive{% else %}negative{% endif %}">
+                                    {{ g|floatformat:2 }}%
                                 </div>
                                 {% endwith %}
                             </div>

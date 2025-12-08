@@ -381,6 +381,11 @@ def update_account_data_from_myfxbook(account, accounts=None):
         equity = source.get('equity')
         profit = source.get('profit')
         drawdown = source.get('drawdown')
+        gain = source.get('gain')
+        last_update = (
+            source.get('lastUpdate') or source.get('lastUpdated') or source.get('updateDate') or
+            source.get('lastUpdateTime') or source.get('updated') or source.get('last_update') or source.get('last_updated')
+        )
 
         if account.initial_balance is None and balance is not None:
             try:
@@ -400,6 +405,49 @@ def update_account_data_from_myfxbook(account, accounts=None):
         account.drawdown = to_decimal(drawdown, account.drawdown)
         account.last_updated = timezone.now()
         account.save()
+
+        try:
+            if gain is not None:
+                account.gain_pct = float(gain)
+            else:
+                ib = account.initial_balance or Decimal('0')
+                p = account.profit or Decimal('0')
+                if ib and ib > 0:
+                    account.gain_pct = float((p / ib) * Decimal('100'))
+                else:
+                    account.gain_pct = 0.0
+        except Exception:
+            try:
+                account.gain_pct = 0.0
+            except Exception:
+                pass
+
+        try:
+            lu_str = None
+            if last_update is not None:
+                dt = None
+                if isinstance(last_update, (int, float)):
+                    try:
+                        from datetime import datetime as _dt
+                        dt = _dt.fromtimestamp(float(last_update), tz=timezone.get_current_timezone())
+                    except Exception:
+                        dt = None
+                if dt is None:
+                    try:
+                        from django.utils.dateparse import parse_datetime as _pd
+                        dt = _pd(str(last_update))
+                        if dt and timezone.is_naive(dt):
+                            dt = timezone.make_aware(dt, timezone.get_current_timezone())
+                    except Exception:
+                        dt = None
+                if dt is not None:
+                    lu_str = timezone.localtime(dt).strftime('%b %d, %Y %H:%M')
+                else:
+                    lu_str = str(last_update)
+            if lu_str:
+                account.myfxbook_last_updated_str = lu_str
+        except Exception:
+            pass
 
         # Compute and persist daily max drawdown based on day's opening equity
         try:
@@ -513,21 +561,61 @@ def dashboard_overview(request):
     from decimal import Decimal
     total_balance = sum([(a.balance or Decimal('0')) for a in user_accounts], Decimal('0'))
     total_profit = sum([(a.profit or Decimal('0')) for a in user_accounts], Decimal('0'))
-    active_accounts_count = user_accounts.filter(status='active').count()
+    gains_list = []
+    for a in user_accounts:
+        gp_attr = getattr(a, 'gain_pct', None)
+        if gp_attr is not None:
+            try:
+                gains_list.append(Decimal(str(gp_attr)))
+            except Exception:
+                pass
+        else:
+            ib = a.initial_balance or Decimal('0')
+            p = a.profit or Decimal('0')
+            if ib and ib > 0:
+                try:
+                    gains_list.append((p / ib) * Decimal('100'))
+                except Exception:
+                    pass
+    active_accounts_qs = user_accounts.filter(status='active')
+    active_accounts_count = active_accounts_qs.count()
+    total_allocation = sum([account_size_to_amount(a.account_size) for a in active_accounts_qs], Decimal('0'))
 
-    # Placeholder stats (no trade history model yet)
-    win_rate = 0
-    win_rate_change = 0
-    profit_change = 0
+    # Equity change since today's open across all accounts
+    # Use MyFXBook-derived profit and initial_balance to compute overall gain percentage
+    total_initial = sum([(a.initial_balance or Decimal('0')) for a in user_accounts], Decimal('0'))
+    if total_initial > 0:
+        try:
+            profit_change = ((total_profit / total_initial) * Decimal('100'))
+        except Exception:
+            profit_change = Decimal('0')
+    else:
+        profit_change = Decimal('0')
+    try:
+        profit_change = profit_change.quantize(Decimal('0.01'))
+    except Exception:
+        pass
+
+    if gains_list:
+        try:
+            average_gain_pct = (sum(gains_list, Decimal('0')) / Decimal(str(len(gains_list))))
+        except Exception:
+            average_gain_pct = Decimal('0')
+    else:
+        average_gain_pct = Decimal('0')
+    try:
+        average_gain_pct = average_gain_pct.quantize(Decimal('0.01'))
+    except Exception:
+        pass
 
     context = {
         'user_has_accounts': user_accounts.exists(),
         'user_accounts': user_accounts,
         'active_accounts_count': active_accounts_count,
         'total_balance': total_balance,
+        'total_allocation': total_allocation,
+        'average_gain_pct': average_gain_pct,
         'total_profit': total_profit,
-        'win_rate': win_rate,
-        'win_rate_change': win_rate_change,
         'profit_change': profit_change,
     }
 
@@ -760,6 +848,22 @@ def normalize_account_size(account_size):
         50000: '$50k',
     }
     return mapping.get(val)
+
+def account_size_to_amount(account_size):
+    from decimal import Decimal
+    if account_size is None:
+        return Decimal('0')
+    s = str(account_size).strip().lower().replace('$', '').replace(',', '')
+    if s.endswith('k'):
+        try:
+            num = Decimal(s[:-1])
+            return num * Decimal('1000')
+        except Exception:
+            return Decimal('0')
+    try:
+        return Decimal(s)
+    except Exception:
+        return Decimal('0')
 
 def get_available_mt5_account(account_size=None):
     """
@@ -1134,6 +1238,10 @@ def dashboard_accounts(request):
                 elif progress > 100:
                     progress = Decimal('100')
                 account.profit_percentage = float(progress)
+                try:
+                    account.profit_target_amount = float(target)
+                except Exception:
+                    account.profit_target_amount = 0.0
             except Exception:
                 account.profit_percentage = 0.0
     return render(request, 'main/dashboard-accounts.html', {'user_accounts': user_accounts})
