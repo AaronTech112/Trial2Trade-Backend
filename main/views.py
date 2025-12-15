@@ -107,7 +107,7 @@ def myfxbook_get_account_info(http: requests.Session, session: str, account_id: 
         logger.error(f"MyFXBook get_account_information failed. Status: {resp.status_code}, Response: {resp.text}")
         if isinstance(msg, str) and 'invalid session' in msg.lower():
             raise MyFxBookInvalidSession(msg)
-    raise ValueError(f"Failed to get MyFXBook account info: {msg}")
+        raise ValueError(f"Failed to get MyFXBook account info: {msg}")
     info = data.get('account') or {}
     return info
 
@@ -156,36 +156,44 @@ def myfxbook_fetch_account_info_with_retry(account_id: str):
                 pass
 
 def myfxbook_get_history(http: requests.Session, session: str, account_id: str, base_url: str | None = None):
-    """Return closed trade history for given MyFXBook account id."""
     base = base_url or getattr(settings, 'MYFXBOOK_BASE_URL', 'https://www.myfxbook.com')
+    url = f"{base}/api/get-history.json?session={session}&id={account_id}"
     try:
-        url = f"{base}/api/get-history.json?session={session}&id={account_id}"
         resp = http.get(url, timeout=20)
-    except Exception as e:
-        logger.exception('Failed to fetch MyFXBook history: %s', e)
-        raise RuntimeError(f"Failed to fetch MyFXBook history: {e}")
-    try:
-        data = resp.json()
+        try:
+            resp.raise_for_status()
+        except requests.RequestException as e:
+            logger.exception('Failed to fetch MyFXBook history: %s', e)
+            raise RuntimeError(f"Failed to fetch MyFXBook history: {e}")
+        try:
+            data = resp.json()
+        except Exception:
+            logger.error('MyFXBook history response was not valid JSON. Body: %s', resp.text[:500])
+            raise RuntimeError('MyFXBook history response was not valid JSON.')
+        if data.get('error') or (isinstance(data.get('status'), str) and data.get('status').lower() == 'error'):
+            msg = data.get('message', 'Unknown error')
+            logger.error('Failed to get MyFXBook history: %s', msg)
+            logger.error(f"MyFXBook get_history failed. Status: {resp.status_code}, Response: {resp.text}")
+            if isinstance(msg, str) and 'invalid session' in msg.lower():
+                raise MyFxBookInvalidSession(msg)
+            raise ValueError(f"Failed to get MyFXBook history: {msg}")
+        history = data.get('history', [])
+        if history is None:
+            history = []
+        logger.info('MyFXBook returned %d history trades for account %s.', len(history), account_id)
+        return history
     except Exception:
-        logger.error('MyFXBook history response was not valid JSON. Body: %s', resp.text[:500])
-        raise RuntimeError('MyFXBook history response was not valid JSON.')
-    if resp.status_code != 200:
-        msg = data.get('message', f"HTTP {resp.status_code}")
-        logger.error('Failed to get MyFXBook history: %s', msg)
-        logger.error(f"MyFXBook get_history failed. Status: {resp.status_code}, Response: {resp.text}")
-        if 'Invalid session' in (msg or ''):
-            raise MyFxBookInvalidSession(msg)
-        raise ValueError(f"Failed to get MyFXBook history: {msg}")
-    history = data.get('history', [])
-    if history is None:
-        history = []
-    logger.info('MyFXBook returned %d history trades for account %s.', len(history), account_id)
-    return history
+        raise
 
 def myfxbook_fetch_history_with_retry(account_id: str):
     """Fetch trade history with retries and base URL fallbacks."""
     http = requests.Session()
+    http.trust_env = False
+    http.proxies = {}
     http.headers.update({'User-Agent': MYFXBOOK_HTTP_HEADERS.get('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/124.0 Safari/537.36'), 'Accept': 'application/json'})
+    retries = Retry(total=3, backoff_factor=1.0, status_forcelist=[429, 502, 503, 504], allowed_methods=["GET","POST"])
+    http.mount("https://", HTTPAdapter(max_retries=retries))
+    http.mount("http://", HTTPAdapter(max_retries=retries))
     session_token = None
     try:
         # First attempt: https GET login
@@ -355,6 +363,21 @@ def update_account_data_from_myfxbook(account, accounts=None):
                         matched = acc
                         break
 
+            # Fallback: try matching purely by login/id ignoring server if not found
+            if not matched:
+                for acc in accounts:
+                    acc_id = acc.get('accountId')
+                    acc_login = acc.get('login')
+                    try:
+                        if acc_id is not None and str(acc_id).strip() == login_str:
+                            matched = acc
+                            break
+                    except Exception:
+                        pass
+                    if acc_login is not None and str(acc_login).strip() == login_str:
+                        matched = acc
+                        break
+
         # If not matched from list, try direct account info by login as id
         info = None
         if not matched:
@@ -370,7 +393,16 @@ def update_account_data_from_myfxbook(account, accounts=None):
         # Resolve account id for history lookups
         account_id_str = None
         try:
-            sid = source.get('accountId') or source.get('id')
+            sid = source.get('id')
+            if sid is None:
+                try:
+                    info2 = myfxbook_fetch_account_info_with_retry(str(account.login).strip())
+                except Exception:
+                    info2 = None
+                if info2:
+                    sid = info2.get('id') or info2.get('accountId')
+            if sid is None:
+                sid = source.get('accountId')
             if sid is not None:
                 account_id_str = str(sid)
         except Exception:
@@ -491,41 +523,101 @@ def update_account_data_from_myfxbook(account, accounts=None):
         # Check single-trade 2% max loss breach using MyFXBook history
         try:
             from decimal import Decimal
-            if account_id_str and account.initial_balance:
-                trades = myfxbook_fetch_history_with_retry(account_id_str)
-                ib = Decimal(str(account.initial_balance))
-                threshold = (ib * Decimal('0.02'))
-                # Track max single-trade loss percentage for UI
-                max_loss_pct = Decimal('0')
-                # Evaluate recent closed trades only
-                for t in trades:
-                    profit = t.get('profit')
-                    try:
-                        p = Decimal(str(profit)) if profit is not None else Decimal('0')
-                    except Exception:
-                        p = Decimal('0')
-                    if p < 0:
-                        loss_amt = -p
-                        # Compute loss percentage against initial balance for display
-                        if ib > 0:
-                            try:
-                                lpct = (loss_amt / ib) * Decimal('100')
-                                if lpct > max_loss_pct:
-                                    max_loss_pct = lpct
-                            except Exception:
-                                pass
-                        # Breach on any trade losing >= 2% of initial balance
-                        if loss_amt >= threshold and account.status != 'breached':
-                            account.status = 'breached'
-                            account.save(update_fields=['status'])
-                            logger.info('Account %s breached by single trade loss %.2f (>= 2%% of initial %.2f).', account.login, float(loss_amt), float(ib))
-                            # No need to continue once breached
-                            break
-                # Attach computed max single-trade loss percentage for template display
+            if account_id_str:
                 try:
-                    account.max_single_trade_loss_pct = float(max_loss_pct)
+                    logger.info('Fetching MyFXBook history for login %s using id=%s (altId=%s).', account.login, account_id_str, (source or {}).get('accountId'))
                 except Exception:
-                    account.max_single_trade_loss_pct = 0.0
+                    pass
+                trades = myfxbook_fetch_history_with_retry(account_id_str)
+                try:
+                    if (not trades) and source is not None:
+                        alt_id = source.get('accountId')
+                        if alt_id and str(alt_id) != account_id_str:
+                            trades = myfxbook_fetch_history_with_retry(str(alt_id))
+                    if (not trades):
+                        try:
+                            info3 = myfxbook_fetch_account_info_with_retry(str(account.login).strip())
+                        except Exception:
+                            info3 = None
+                        if info3:
+                            eid = info3.get('id') or info3.get('accountId')
+                            if eid and str(eid) != account_id_str:
+                                trades = myfxbook_fetch_history_with_retry(str(eid))
+                except Exception:
+                    pass
+                if account.initial_balance:
+                    ib = Decimal(str(account.initial_balance))
+                    threshold = (ib * Decimal('0.02'))
+                    max_loss_pct = Decimal('0')
+                    for t in trades:
+                        profit = t.get('profit')
+                        try:
+                            p = Decimal(str(profit)) if profit is not None else Decimal('0')
+                        except Exception:
+                            p = Decimal('0')
+                        if p < 0:
+                            loss_amt = -p
+                            if ib > 0:
+                                try:
+                                    lpct = (loss_amt / ib) * Decimal('100')
+                                    if lpct > max_loss_pct:
+                                        max_loss_pct = lpct
+                                except Exception:
+                                    pass
+                            if loss_amt >= threshold and account.status != 'breached':
+                                account.status = 'breached'
+                                account.save(update_fields=['status'])
+                                logger.info('Account %s breached by single trade loss %.2f (>= 2%% of initial %.2f).', account.login, float(loss_amt), float(ib))
+                                break
+                    try:
+                        account.max_single_trade_loss_pct = float(max_loss_pct)
+                    except Exception:
+                        account.max_single_trade_loss_pct = 0.0
+                try:
+                    def _parse_close_dt(v):
+                        if v is None:
+                            return None
+                        try:
+                            from django.utils.dateparse import parse_datetime
+                            dt = parse_datetime(str(v))
+                            if dt and timezone.is_naive(dt):
+                                dt = timezone.make_aware(dt, timezone.get_current_timezone())
+                            return dt
+                        except Exception:
+                            return None
+                    def _get_close_dt(t):
+                        return _parse_close_dt(t.get('closeTime') or t.get('closeDate') or t.get('close_time'))
+                    sorted_trades = sorted(trades, key=lambda x: (_get_close_dt(x) or timezone.now()), reverse=True)
+                    recent = []
+                    for t in sorted_trades[:5]:
+                        sym = t.get('symbol') or t.get('instrument') or ''
+                        typ = t.get('type') or t.get('side') or ''
+                        lots = t.get('lots') or t.get('volume') or 0
+                        op = t.get('openPrice') or t.get('open_price')
+                        cp = t.get('closePrice') or t.get('close_price')
+                        pf = t.get('profit') or 0
+                        dt = _get_close_dt(t)
+                        dts = timezone.localtime(dt).strftime('%b %d, %Y %H:%M') if dt else ''
+                        try:
+                            profit_val = float(pf) if isinstance(pf, (int, float)) else float(str(pf)) if pf is not None else 0.0
+                        except Exception:
+                            profit_val = 0.0
+                        recent.append({
+                            'symbol': sym,
+                            'type': typ,
+                            'lots': lots,
+                            'open_price': op,
+                            'close_price': cp,
+                            'profit': profit_val,
+                            'close_time': dts,
+                        })
+                    account.recent_trades = recent
+                    try:
+                        account.myfxbook_history_count = len(recent)
+                    except Exception:
+                        pass
+                except Exception:
+                    account.recent_trades = []
         except Exception as e:
             logger.exception('Error evaluating single-trade breach for %s: %s', account.login, e)
 

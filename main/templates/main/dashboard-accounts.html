@@ -156,7 +156,7 @@
                                 <div class="stat">
                                     <span class="label">Drawdown</span>
                                     <span class="value danger">
-                                        -{{ dd|floatformat:1 }}%
+                                        -{{ dd|floatformat:1 }}% <span style="opacity:0.75; font-size:12px; margin-left:6px;">Max: 10%</span>
                                     </span>
                                 </div>
                                 {% endwith %}
@@ -164,7 +164,7 @@
                                 <div class="stat">
                                     <span class="label">Daily Max Drawdown</span>
                                     <span class="value {% if dmd < 2 %}success{% elif dmd < 4 %}warning{% else %}danger{% endif %}">
-                                        {{ dmd|floatformat:1 }}%
+                                        {{ dmd|floatformat:1 }}% <span style="opacity:0.75; font-size:12px; margin-left:6px;">Max: 4%</span>
                                     </span>
                                 </div>
                                 {% endwith %}
@@ -186,6 +186,37 @@
                                 <div class="progress-label" style="margin-top: 6px;">
                                     <span>Target: ${{ account.profit_target_amount|default:0|floatformat:2 }}</span>
                                     <span>Profit: ${{ account.profit|default_if_none:0|floatformat:2 }}</span>
+                                </div>
+                            </div>
+
+                            <div class="recent-trades" style="margin-top: 14px;">
+                                <h4>Recent Trades</h4>
+                                <div class="activity-list">
+                                    {% if account.recent_trades %}
+                                        {% for t in account.recent_trades %}
+                                            <div class="activity-item">
+                                                <div class="activity-icon {% if t.profit >= 0 %}success{% else %}danger{% endif %}">
+                                                    <i class="fas {% if t.profit >= 0 %}fa-arrow-up{% else %}fa-arrow-down{% endif %}"></i>
+                                                </div>
+                                                <div class="activity-details">
+                                                    <h4>{{ t.symbol }} {{ t.type|title }}</h4>
+                                                    <p>{{ t.lots }} lots{% if t.open_price and t.close_price %} @ {{ t.open_price }} → {{ t.close_price }}{% endif %}</p>
+                                                    <span class="activity-time">Closed: {{ t.close_time }}</span>
+                                                </div>
+                                                <div class="activity-value {% if t.profit >= 0 %}positive{% else %}negative{% endif %}">
+                                                    ${{ t.profit|floatformat:2 }}
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    {% else %}
+                                        <div class="activity-item">
+                                            <div class="activity-icon info"><i class="fas fa-info-circle"></i></div>
+                                            <div class="activity-details">
+                                                <h4>No recent trades</h4>
+                                                <p>Closed trades will appear here</p>
+                                            </div>
+                                        </div>
+                                    {% endif %}
                                 </div>
                             </div>
 
