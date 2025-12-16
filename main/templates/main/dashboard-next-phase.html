@@ -22,6 +22,16 @@
     
     <!-- Mobile Navigation Overlay -->
     <div class="mobile-nav-overlay"></div>
+    <div id="global-alert" style="position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: {% if global_alert %}flex{% else %}none{% endif %}; align-items: center; justify-content: center; gap: 10px; padding: 10px 14px; background: {% if global_alert and global_alert.severity == 'warning' %}#b8860b{% elif global_alert and global_alert.severity == 'danger' %}#8b0000{% elif global_alert and global_alert.severity == 'success' %}#1b6e2e{% else %}#1f2944{% endif %}; color: #fff; box-shadow: 0 4px 16px rgba(0,0,0,0.25);">
+        <i class="fas fa-bullhorn"></i>
+        <span>{{ global_alert.message }}</span>
+        {% if global_alert and global_alert.link_url %}
+        <a href="{{ global_alert.link_url }}" style="margin-left: 12px; color: #fff; text-decoration: underline;">{{ global_alert.link_text|default:'Learn more' }}</a>
+        {% endif %}
+        <button type="button" style="margin-left: 12px; background: transparent; border: none; color: #fff; cursor: pointer;" onclick="document.getElementById('global-alert').style.display='none'">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
 <!-- Dashboard Navigation -->
     <nav class="dashboard-nav">
         <div class="nav-logo">
@@ -83,7 +93,7 @@
     </nav>
 
     <!-- Main Dashboard Content -->
-    <main class="dashboard-content">
+    <main class="dashboard-content" style="{% if global_alert %}padding-top:56px;{% endif %}">
         <header class="dashboard-header">
             <div class="header-search">
                 <i class="fas fa-search"></i>

@@ -12268,3 +12268,11 @@ requests.exceptions.ConnectTimeout: HTTPSConnectionPool(host='www.myfxbook.com',
 [INFO] 2025-12-16 07:55:18,659 main.views: MyFXBook login successful.
 [INFO] 2025-12-16 07:55:18,982 main.views: MyFXBook returned 11 history trades for account 11820402.
 [INFO] 2025-12-16 07:55:19,275 main.views: Updated MyFXBook metrics for login 99499149: balance=4835.62 equity=4835.62 profit=-164.38 drawdown=5.12
+[INFO] 2025-12-16 19:26:32,924 main.views: Attempting MyFXBook login for email trial2fund@gmail.com
+[INFO] 2025-12-16 19:26:34,894 main.views: MyFXBook login successful.
+[INFO] 2025-12-16 19:26:36,552 main.views: MyFXBook returned 22 accounts.
+[INFO] 2025-12-16 19:26:39,711 main.views: Fetching MyFXBook history for login 99499149 using id=11820402 (altId=99499149).
+[INFO] 2025-12-16 19:26:39,806 main.views: Attempting MyFXBook login for email trial2fund@gmail.com
+[INFO] 2025-12-16 19:26:43,063 main.views: MyFXBook login successful.
+[INFO] 2025-12-16 19:26:43,317 main.views: MyFXBook returned 11 history trades for account 11820402.
+[INFO] 2025-12-16 19:26:43,693 main.views: Updated MyFXBook metrics for login 99499149: balance=4835.62 equity=4835.62 profit=-164.38 drawdown=5.12

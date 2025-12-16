@@ -52,6 +52,13 @@ def server_matches(acc_server, server_name):
     brand = s_norm.split('-', 1)[0]
     return as_norm == brand
 
+def get_active_global_alert():
+    try:
+        from .models import GlobalAlert
+        return GlobalAlert.objects.filter(is_active=True).order_by('-created_at').first()
+    except Exception:
+        return None
+
 def myfxbook_login(http: requests.Session, base_url: str | None = None, use_post: bool = False) -> str:
     """Login using a persistent HTTP session; return session token."""
     email = getattr(settings, 'MYFXBOOK_EMAIL', None)
@@ -735,6 +742,7 @@ def dashboard_overview(request):
         'average_gain_pct': average_gain_pct,
         'total_profit': total_profit,
         'profit_change': profit_change,
+        'global_alert': get_active_global_alert(),
     }
 
     return render(request, 'main/dashboard_overview.html', context)
@@ -1202,6 +1210,7 @@ def dashboard_purchase(request):
                     'account_size': account_size,
                     'payment_link': payment_link
                 }
+                context['global_alert'] = get_active_global_alert()
                 return render(request, 'main/payment-checkout.html', context)
             else:
                 error_msg = response_data.get('message', 'Failed to initiate payment. Please try again.')
@@ -1231,7 +1240,8 @@ def dashboard_purchase(request):
 
     context = {
         'public_key': public_key,
-        'account_sizes': sorted(list(account_sizes))
+        'account_sizes': sorted(list(account_sizes)),
+        'global_alert': get_active_global_alert(),
     }
 
     return render(request, 'main/dashboard-purchase.html', context)
@@ -1362,7 +1372,7 @@ def dashboard_accounts(request):
                     account.profit_target_amount = 0.0
             except Exception:
                 account.profit_percentage = 0.0
-    return render(request, 'main/dashboard-accounts.html', {'user_accounts': user_accounts})
+    return render(request, 'main/dashboard-accounts.html', {'user_accounts': user_accounts, 'global_alert': get_active_global_alert()})
 
 
 @login_required(login_url='/login_user')
@@ -1398,18 +1408,26 @@ def dashboard_next_phase(request):
 
     return render(request, 'main/dashboard-next-phase.html', {
         'user_accounts': user_accounts,
-        'prop_requests': prop_requests
+        'prop_requests': prop_requests,
+        'global_alert': get_active_global_alert(),
     })
 
 
 @login_required(login_url='/login_user')
 def dashboard_rules(request):
-    return render(request, 'main/dashboard-rules.html')
+    return render(request, 'main/dashboard-rules.html', {'global_alert': get_active_global_alert()})
+
+
+@login_required(login_url='/login_user')
+def dashboard_announcements(request):
+    from .models import Announcement
+    items = Announcement.objects.filter(is_published=True).order_by('-created_at')
+    return render(request, 'main/dashboard-announcements.html', {'announcements': items, 'global_alert': get_active_global_alert()})
 
 
 @login_required(login_url='/login_user')
 def dashboard_referral(request):
-    return render(request, 'main/dashboard-referral.html')
+    return render(request, 'main/dashboard-referral.html', {'global_alert': get_active_global_alert()})
 
 
 @login_required(login_url='/login_user')
@@ -1470,14 +1488,15 @@ def dashboard_payouts(request):
 
     return render(request, 'main/dashboard-payouts.html', {
         'accounts': eligible_accounts,
-        'payouts': payouts
+        'payouts': payouts,
+        'global_alert': get_active_global_alert(),
     })
 
 
 @login_required(login_url='/login_user')
 def dashboard_transactions(request):
     purchases = Purchase.objects.filter(user=request.user).order_by('-created_at')
-    return render(request, 'main/dashboard-transactions.html', {'purchases': purchases})
+    return render(request, 'main/dashboard-transactions.html', {'purchases': purchases, 'global_alert': get_active_global_alert()})
 
 
 @login_required(login_url='/login_user')
@@ -1485,6 +1504,7 @@ def dashboard_certificates(request):
     certificates = Certificate.objects.filter(user=request.user).order_by('-issued_at')
     return render(request, 'main/dashboard-certificates.html', {
         'certificates': certificates,
+        'global_alert': get_active_global_alert(),
     })
 
 @login_required(login_url='/login_user')

@@ -95,7 +95,7 @@ class PayoutAdmin(admin.ModelAdmin):
         queryset.update(status='rejected')
     mark_as_rejected.short_description = "Mark selected payouts as rejected"
 
-from .models import Certificate
+from .models import Certificate, Announcement, GlobalAlert
 
 @admin.register(Certificate)
 class CertificateAdmin(admin.ModelAdmin):
@@ -103,3 +103,26 @@ class CertificateAdmin(admin.ModelAdmin):
     list_filter = ('issued_at',)
     search_fields = ('title', 'user__username', 'user__email')
     readonly_fields = ('issued_at',)
+
+
+@admin.register(Announcement)
+class AnnouncementAdmin(admin.ModelAdmin):
+    list_display = ('title', 'is_published', 'created_at')
+    list_filter = ('is_published', 'created_at')
+    search_fields = ('title', 'body')
+    readonly_fields = ('created_at', 'updated_at')
+
+
+@admin.register(GlobalAlert)
+class GlobalAlertAdmin(admin.ModelAdmin):
+    list_display = ('message', 'severity', 'is_active', 'created_at')
+    list_filter = ('severity', 'is_active', 'created_at')
+    search_fields = ('message',)
+    readonly_fields = ('created_at', 'updated_at')
+    actions = ['mark_active', 'mark_inactive']
+
+    def mark_active(self, request, queryset):
+        queryset.update(is_active=True)
+
+    def mark_inactive(self, request, queryset):
+        queryset.update(is_active=False)

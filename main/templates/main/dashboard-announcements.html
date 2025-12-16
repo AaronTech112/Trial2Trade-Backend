@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trial2Trade - Certificates</title>
+    <title>Trial2Trade - Announcements</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
     <link rel="stylesheet" href="{% static 'css/dashboard-nav.css' %}">
@@ -14,12 +14,9 @@
     <link rel="stylesheet" href="{% static 'css/mobile-nav.css' %}">
 </head>
 <body>
-    <!-- Mobile Navigation Toggle -->
     <button class="mobile-nav-toggle">
         <i class="fas fa-bars"></i>
     </button>
-    
-    <!-- Mobile Navigation Overlay -->
     <div class="mobile-nav-overlay"></div>
     <div id="global-alert" style="position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: {% if global_alert %}flex{% else %}none{% endif %}; align-items: center; justify-content: center; gap: 10px; padding: 10px 14px; background: {% if global_alert and global_alert.severity == 'warning' %}#b8860b{% elif global_alert and global_alert.severity == 'danger' %}#8b0000{% elif global_alert and global_alert.severity == 'success' %}#1b6e2e{% else %}#1f2944{% endif %}; color: #fff; box-shadow: 0 4px 16px rgba(0,0,0,0.25);">
         <i class="fas fa-bullhorn"></i>
@@ -31,18 +28,18 @@
             <i class="fas fa-times"></i>
         </button>
     </div>
-    <!-- Dashboard Navigation -->
+
     <nav class="dashboard-nav">
         <div class="nav-logo">
             <img src="{% static 'images/logob.png' %}" alt="Trial2Trade Logo" style="width: 130px; height: 75px;">
         </div>
-            <div class="user-info">
-                <img src="{% static 'images/avatar-placeholder.svg' %}" alt="User Avatar" class="avatar">
-                <div class="user-details">
-                    <h4 class="user-name">{{ request.user.first_name|default:request.user.username }}</h4>
-                    <span class="user-status">Active Trader</span>
-                </div>
+        <div class="user-info">
+            <img src="{% static 'images/avatar-placeholder.svg' %}" alt="User Avatar" class="avatar">
+            <div class="user-details">
+                <h4 class="user-name">{{ request.user.username }}</h4>
+                <span class="user-status">Active Trader</span>
             </div>
+        </div>
         <div class="nav-menu">
             <a href="{% url 'index' %}" class="nav-item">
                 <i class="fas fa-chart-line"></i>
@@ -60,6 +57,10 @@
                 <i class="fas fa-arrow-right"></i>
                 <span>Next Phase</span>
             </a>
+            <a href="{% url 'dashboard_announcements' %}" class="nav-item active">
+                <i class="fas fa-bullhorn"></i>
+                <span>Announcements</span>
+            </a>
             <a href="{% url 'dashboard_rules' %}" class="nav-item">
                 <i class="fas fa-book"></i>
                 <span>Trading Rules</span>
@@ -76,22 +77,17 @@
                 <i class="fas fa-history"></i>
                 <span>Transactions</span>
             </a>
-            <a href="{% url 'dashboard_certificates' %}" class="nav-item active">
+            <a href="{% url 'dashboard_certificates' %}" class="nav-item">
                 <i class="fas fa-certificate"></i>
                 <span>Certificates</span>
             </a>
-           
-
             <a href="{% url 'logout_user' %}" class="logout-btn">
                 <i class="fas fa-sign-out-alt"></i>
                 <span>Logout</span>
             </a>
         </div>
-
-
     </nav>
 
-    <!-- Main Dashboard Content -->
     <main class="dashboard-content" style="{% if global_alert %}padding-top:56px;{% endif %}">
         <header class="dashboard-header">
             <div class="header-search">
@@ -99,10 +95,6 @@
                 <input type="text" placeholder="Search...">
             </div>
             <div class="header-actions">
-                <button class="notification-btn">
-                    <i class="fas fa-bell"></i>
-                    <span class="notification-badge">3</span>
-                </button>
                 <a href="mailto:info@trial2trade.com" class="support-btn">
                     <i class="fas fa-headset"></i>
                     <span>Support</span>
@@ -110,41 +102,41 @@
             </div>
         </header>
 
-        <!-- Certificates Section -->
         <section class="dashboard-section active">
             <div class="section-header">
-                <h2>Your <span class="highlight">Certificates</span></h2>
-                <p>View and download your trading achievements</p>
+                <h2>Latest <span class="highlight">Announcements</span></h2>
+                <p>News and updates from the Trial2Trade team</p>
             </div>
 
-            {% if certificates %}
-            <div class="certificates-grid">
-                {% for cert in certificates %}
-                <div class="certificate-card">
-                    <div class="certificate-preview">
-                        <img src="{{ cert.file.url }}" alt="{{ cert.title }}">
-                        <div class="certificate-overlay">
-                            <a href="{{ cert.file.url }}" target="_blank" class="btn primary-btn">
-                                <i class="fas fa-download"></i>
-                                View / Download
-                            </a>
-                        </div>
+            {% if announcements %}
+            <div class="cards-grid">
+                {% for a in announcements %}
+                <div class="card" style="background:#0e1220; border-radius:12px; overflow:hidden;">
+                    {% if a.image %}
+                    <div class="card-image" style="height:180px; background:#111; display:flex; align-items:center; justify-content:center;">
+                        <img src="{{ a.image.url }}" alt="Announcement Image" style="max-height:180px; width:auto;">
                     </div>
-                    <div class="certificate-info">
-                        <h3>{{ cert.title }}</h3>
-                        <span class="date">Issued: {{ cert.issued_at|date:"M d, Y" }}</span>
+                    {% endif %}
+                    <div class="card-body" style="padding:16px;">
+                        <h3 style="margin:0 0 6px 0;">{{ a.title }}</h3>
+                        <p style="opacity:0.85;">{{ a.body }}</p>
+                        <div class="card-meta" style="margin-top:10px; font-size:12px; opacity:0.7;">
+                            <i class="far fa-clock"></i> {{ a.created_at|date:"M d, Y H:i" }}
+                        </div>
                     </div>
                 </div>
                 {% endfor %}
             </div>
             {% else %}
-            <div class="empty-state">
-                <p>No certificates awarded yet. Once an admin uploads your certificate, it will appear here.</p>
+            <div class="no-accounts-message">
+                <i class="fas fa-info-circle"></i>
+                <h3>No Announcements Yet</h3>
+                <p>Stay tuned for updates and news from our team.</p>
             </div>
             {% endif %}
         </section>
     </main>
-    
+
     <script src="{% static 'js/mobile-nav.js' %}"></script>
 </body>
 </html>
