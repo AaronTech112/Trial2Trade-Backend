@@ -106,73 +106,80 @@
         <section class="dashboard-section active">
             <div class="section-header">
                 <h2>Trading <span class="highlight">Rules</span></h2>
-                <p>Follow these rules to maintain your trading accounts</p>
+                <p>Follow these rules to pass the challenge and get funded</p>
+                <a href="{% static 'T2T Rules .pdf' %}" class="btn primary-btn" download>Download Rules (PDF)</a>
             </div>
 
-            <div class="rules-grid">
-                <div class="rule-card">
-                    <div class="rule-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>Profit Target</h3>
-                    <p>Achieve 15% profit on your account balance</p>
-                    <div class="rule-details">
-                        <ul>
-                            <li>$5,000 Account: $750 target</li>
-                            <li>$10,000 Account: $1,500 target</li>
-                            <li>$25,000 Account: $3,750 target</li>
-                            <li>$50,000 Account: $7,500 target</li>
-                        </ul>
-                    </div>
-                </div>
+            <div class="rules-content" style="background: #0e1220; border-radius: 12px; padding: 18px;">
+                <h3>Trading Rules Guide<br>Trial2trade</h3>
+                <p>A Simple Guide to Help You Pass the Challenge & Get a funded Account</p>
 
-                <div class="rule-card">
-                    <div class="rule-icon">
-                        <i class="fas fa-exclamation-triangle"></i>
-                    </div>
-                    <h3>Maximum Drawdown</h3>
-                    <p>Stay within the allowed drawdown limits</p>
-                    <div class="rule-details">
-                        <ul>
-                            <li>Daily Max: 4% of initial balance</li>
-                            <li>Overall Max: 10% of initial balance</li>
-                            <li>Calculated in real-time</li>
-                            <li>Reset daily at 00:00 GMT</li>
-                        </ul>
-                    </div>
-                </div>
+                <h4>1. Payout Conditions</h4>
+                <p>To successfully pass the Trial2trade Challenge and receive a funded account, you must:</p>
+                <ul>
+                    <li>Achieve 15% profit on the trial account without breaking any rules.</li>
+                </ul>
+                <p><strong>Profit Split Policy:</strong></p>
+                <ul>
+                    <li>First payout: 85% profit share to you, 15% to Trial2trade (service fee).</li>
+                    <li>Subsequent payouts: 95% profit share to you, 5% to Trial2trade.</li>
+                </ul>
+                <p>This ensures fairness while rewarding consistent, disciplined traders.</p>
 
-                <div class="rule-card">
-                    <div class="rule-icon">
-                        <i class="fas fa-calendar-check"></i>
-                    </div>
-                    <h3>Trading Period</h3>
-                    <p>Complete the challenge within the specified time</p>
-                    <div class="rule-details">
-                        <ul>
-                            <li>Minimum trading days: 20</li>
-                            <li>No maximum time limit</li>
-                            <li>Weekend holding allowed</li>
-                            <li>Trade during Forex market hours</li>
-                        </ul>
-                    </div>
-                </div>
+                <hr style="border-color:#1f2944;">
 
-                <div class="rule-card">
-                    <div class="rule-icon">
-                        <i class="fas fa-cog"></i>
-                    </div>
-                    <h3>Trading Settings</h3>
-                    <p>Maintain these trading parameters</p>
-                    <div class="rule-details">
-                        <ul>
-                            <li>Leverage: Up to 1:100</li>
-                            <li>News trading allowed</li>
-                            <li>EA trading allowed</li>
-                            <li>No consistency rules</li>
-                        </ul>
-                    </div>
-                </div>
+                <h4>2. Drawdown & Account Protection</h4>
+                <p><strong>A. Daily Drawdown Limit – 4% (Fixed)</strong><br>
+                You cannot lose more than 4% of the initial account balance in a single day.<br>
+                Example: $10,000 account = $400 max daily loss.</p>
+                <p><strong>B. Maximum Drawdown – 10% (Balance Based)</strong><br>
+                You cannot lose more than 10% of the initial account balance<br>
+                Example: on a $10,000 dollar account you cannot loose more than $1,000 overall...</p>
+                <p>  Why? This protects your capital and ensures sustainable growth.</p>
+
+                <hr style="border-color:#1f2944;">
+
+                <h4>3. Risk Management Rules</h4>
+                <ul>
+                    <li>Max Positions per Asset: Not more 3 open positions on the same assets|pair at a time.</li>
+                    <li>Max Risk per Trade: do not lose more than 2% of your initial account balance on single trade</li>
+                    <li>E.g On a $10,000 account loosing $200 dollars on A single trade is a breach, but opening two positions and risking 1% each ($100 ×2= $200) is not a breach.</li>
+                    <li>Minimum Trading Days: At least 20 trading days must be recorded before qualifying for funding.</li>
+                    <li>News Trading:  Allowed.</li>
+                </ul>
+
+                <h4>4 Scalping Rules</h4>
+                <p>Opening and closing a trade within two (2) minutes, is strictly not allowed.<br>
+                Any trade held for less than two minutes will be classified as scalping and considered a breach of trading rules.</p>
+
+                <h4>5 Account Inactivity / Dormancy Rule</h4>
+                <p>If a trader does not place any trades for 45 consecutive days, the account will automatically become dormant and invalid.<br>
+                Once an account becomes dormant, all progress made on that account is considered void and cannot be reactivated.<br>
+                This ensures active participation and fair use of the Trial2trade trading environment.</p>
+
+                <h4>6 Quick Rule Summary</h4>
+                <ul>
+                    <li>RuleRequirement Profit Target: 13%</li>
+                    <li>Payout Split: 85/15 (first), 95/5 (after)</li>
+                    <li>Daily Drawdown: 4% (fixed on initial balance)</li>
+                    <li>Max Drawdown : 10% (Balance Based)</li>
+                    <li>Max Positions per Asset/Pair: 3</li>
+                    <li>Max Risk per Trade: 2%</li>
+                    <li>Minimum Trading Days 20</li>
+                    <li>News Trading Allowed</li>
+                    <li>Account invalidity: 45 days of in activity</li>
+                    <li>Scalping: holding positions less than 2 minutes and closing within 2 minutes</li>
+                </ul>
+
+                <hr style="border-color:#1f2944;">
+
+                <h4>Final Notes</h4>
+                <p>⚠ Every rule listed above is a hard rule. Any breach = immediate disqualification.<br>
+                Trial2trade will not be responsible for account losses due to breaches. We are here to reward disciplined and skilled traders who take their trading journey seriously and are ready to level up.</p>
+
+                <p>---<br>
+                Happy Trading,<br>
+                The Trial2tradeTeam ν</p>
             </div>
         </section>
     </main>
