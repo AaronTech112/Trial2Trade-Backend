@@ -12242,3 +12242,29 @@ requests.exceptions.ConnectTimeout: HTTPSConnectionPool(host='www.myfxbook.com',
 [INFO] 2025-12-15 22:38:29,301 main.views: MyFXBook returned 11 history trades for account 11820402.
 [INFO] 2025-12-15 22:38:29,630 main.views: Account 99499149 breached by single trade loss 177.60 (>= 2% of initial 4997.23).
 [INFO] 2025-12-15 22:38:29,633 main.views: Updated MyFXBook metrics for login 99499149: balance=4835.62 equity=4835.62 profit=-164.38 drawdown=5.12
+[INFO] 2025-12-15 23:20:46,064 main.views: --- ENTERING dashboard_accounts ---
+[INFO] 2025-12-15 23:20:46,080 main.views: Attempting MyFXBook login for email trial2fund@gmail.com
+[INFO] 2025-12-15 23:20:48,385 main.views: MyFXBook login successful.
+[INFO] 2025-12-15 23:20:49,855 main.views: MyFXBook returned 22 accounts.
+[INFO] 2025-12-15 23:20:50,349 main.views: Fetching MyFXBook history for login 99499149 using id=11820402 (altId=99499149).
+[INFO] 2025-12-15 23:20:50,349 main.views: Attempting MyFXBook login for email trial2fund@gmail.com
+[INFO] 2025-12-15 23:20:51,715 main.views: MyFXBook login successful.
+[INFO] 2025-12-15 23:20:52,009 main.views: MyFXBook returned 11 history trades for account 11820402.
+[INFO] 2025-12-15 23:20:52,300 main.views: Updated MyFXBook metrics for login 99499149: balance=4835.62 equity=4835.62 profit=-164.38 drawdown=5.12
+[INFO] 2025-12-16 07:54:26,250 main.views: Attempting MyFXBook login for email trial2fund@gmail.com
+[INFO] 2025-12-16 07:54:29,863 main.views: MyFXBook login successful.
+[INFO] 2025-12-16 07:54:31,233 main.views: MyFXBook returned 22 accounts.
+[INFO] 2025-12-16 07:54:31,542 main.views: Fetching MyFXBook history for login 99499149 using id=11820402 (altId=99499149).
+[INFO] 2025-12-16 07:54:31,545 main.views: Attempting MyFXBook login for email trial2fund@gmail.com
+[INFO] 2025-12-16 07:54:36,242 main.views: MyFXBook login successful.
+[INFO] 2025-12-16 07:54:36,899 main.views: MyFXBook returned 11 history trades for account 11820402.
+[INFO] 2025-12-16 07:54:37,419 main.views: Updated MyFXBook metrics for login 99499149: balance=4835.62 equity=4835.62 profit=-164.38 drawdown=5.12
+[INFO] 2025-12-16 07:55:10,708 main.views: --- ENTERING dashboard_accounts ---
+[INFO] 2025-12-16 07:55:10,714 main.views: Attempting MyFXBook login for email trial2fund@gmail.com
+[INFO] 2025-12-16 07:55:14,109 main.views: MyFXBook login successful.
+[INFO] 2025-12-16 07:55:15,458 main.views: MyFXBook returned 22 accounts.
+[INFO] 2025-12-16 07:55:15,787 main.views: Fetching MyFXBook history for login 99499149 using id=11820402 (altId=99499149).
+[INFO] 2025-12-16 07:55:15,790 main.views: Attempting MyFXBook login for email trial2fund@gmail.com
+[INFO] 2025-12-16 07:55:18,659 main.views: MyFXBook login successful.
+[INFO] 2025-12-16 07:55:18,982 main.views: MyFXBook returned 11 history trades for account 11820402.
+[INFO] 2025-12-16 07:55:19,275 main.views: Updated MyFXBook metrics for login 99499149: balance=4835.62 equity=4835.62 profit=-164.38 drawdown=5.12

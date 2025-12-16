@@ -578,8 +578,21 @@ def update_account_data_from_myfxbook(account, accounts=None):
                         if v is None:
                             return None
                         try:
+                            if isinstance(v, (int, float)):
+                                ts = float(v)
+                                if ts > 1e12:
+                                    ts = ts / 1000.0
+                                dt = datetime.fromtimestamp(ts, tz=timezone.get_current_timezone())
+                                return dt
+                            s = str(v).strip()
+                            try:
+                                dt = datetime.strptime(s, '%m/%d/%Y %H:%M')
+                                dt = timezone.make_aware(dt, timezone.get_current_timezone())
+                                return dt
+                            except Exception:
+                                pass
                             from django.utils.dateparse import parse_datetime
-                            dt = parse_datetime(str(v))
+                            dt = parse_datetime(s)
                             if dt and timezone.is_naive(dt):
                                 dt = timezone.make_aware(dt, timezone.get_current_timezone())
                             return dt
@@ -591,20 +604,33 @@ def update_account_data_from_myfxbook(account, accounts=None):
                     recent = []
                     for t in sorted_trades[:5]:
                         sym = t.get('symbol') or t.get('instrument') or ''
-                        typ = t.get('type') or t.get('side') or ''
-                        lots = t.get('lots') or t.get('volume') or 0
+                        action = t.get('action') or t.get('type') or t.get('side') or ''
+                        # lots value may be inside sizing: { type: 'lots', value: '0.04' }
+                        sizing = t.get('sizing') if isinstance(t.get('sizing'), dict) else None
+                        if sizing:
+                            try:
+                                lots_val = sizing.get('value')
+                                lots = float(lots_val) if lots_val is not None else 0.0
+                            except Exception:
+                                lots = 0.0
+                        else:
+                            lots = t.get('lots') or t.get('volume') or 0
+                            try:
+                                lots = float(lots) if lots is not None else 0.0
+                            except Exception:
+                                lots = 0.0
                         op = t.get('openPrice') or t.get('open_price')
                         cp = t.get('closePrice') or t.get('close_price')
                         pf = t.get('profit') or 0
                         dt = _get_close_dt(t)
-                        dts = timezone.localtime(dt).strftime('%b %d, %Y %H:%M') if dt else ''
+                        dts = timezone.localtime(dt).strftime('%b %d, %Y %H:%M') if dt else (t.get('closeTime') or t.get('closeDate') or '')
                         try:
                             profit_val = float(pf) if isinstance(pf, (int, float)) else float(str(pf)) if pf is not None else 0.0
                         except Exception:
                             profit_val = 0.0
                         recent.append({
                             'symbol': sym,
-                            'type': typ,
+                            'action': action,
                             'lots': lots,
                             'open_price': op,
                             'close_price': cp,

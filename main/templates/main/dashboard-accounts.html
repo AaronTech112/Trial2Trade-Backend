@@ -198,11 +198,11 @@
                                                 <div class="activity-icon {% if t.profit >= 0 %}success{% else %}danger{% endif %}">
                                                     <i class="fas {% if t.profit >= 0 %}fa-arrow-up{% else %}fa-arrow-down{% endif %}"></i>
                                                 </div>
-                                                <div class="activity-details">
-                                                    <h4>{{ t.symbol }} {{ t.type|title }}</h4>
-                                                    <p>{{ t.lots }} lots{% if t.open_price and t.close_price %} @ {{ t.open_price }} → {{ t.close_price }}{% endif %}</p>
-                                                    <span class="activity-time">Closed: {{ t.close_time }}</span>
-                                                </div>
+                                            <div class="activity-details">
+                                                <h4>{{ t.symbol }} {{ t.action }}</h4>
+                                                <p>{{ t.lots|floatformat:2 }} lots{% if t.open_price and t.close_price %} @ {{ t.open_price }} → {{ t.close_price }}{% endif %}</p>
+                                                <span class="activity-time">Closed: {{ t.close_time }}</span>
+                                            </div>
                                                 <div class="activity-value {% if t.profit >= 0 %}positive{% else %}negative{% endif %}">
                                                     ${{ t.profit|floatformat:2 }}
                                                 </div>
