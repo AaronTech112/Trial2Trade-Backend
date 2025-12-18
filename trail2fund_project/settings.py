@@ -208,7 +208,7 @@ EMAIL_HOST = 'smtp.hostinger.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'info@trial2trade.com'
-EMAIL_HOST_PASSWORD = 'Josh2funny1@'
+EMAIL_HOST_PASSWORD = 'Ravensport1@'
 DEFAULT_FROM_EMAIL = 'Trial 2 Trade <info@trial2trade.com>'
 EMAIL_TIMEOUT = 30
 # Optional HTTP email fallback provider (set key if you want to use it)
