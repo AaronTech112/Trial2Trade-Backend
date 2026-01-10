@@ -154,20 +154,34 @@ class Payout(models.Model):
         ('completed', 'Completed'),
         ('rejected', 'Rejected'),
     )
+
+    PAYOUT_TYPE_CHOICES = (
+        ('trading', 'Trading Account'),
+        ('referral', 'Referral Commission'),
+    )
     
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='payouts')
+    payout_type = models.CharField(max_length=20, choices=PAYOUT_TYPE_CHOICES, default='trading')
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     created_at = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
     paid_date = models.DateTimeField(null=True, blank=True)
-    mt5_account = models.ForeignKey(MT5Account, on_delete=models.SET_NULL, null=True, related_name='payouts')
+    mt5_account = models.ForeignKey(MT5Account, on_delete=models.SET_NULL, null=True, blank=True, related_name='payouts')
     transaction_reference = models.CharField(max_length=200, blank=True, null=True)
     payment_method = models.CharField(max_length=100, blank=True, null=True)
+    
+    # Generic bank details text
     bank_details = models.TextField(blank=True, null=True)
+    
+    # Specific fields for Referral Payouts
+    full_name = models.CharField(max_length=200, blank=True, null=True)
+    bank_name = models.CharField(max_length=200, blank=True, null=True)
+    account_number = models.CharField(max_length=100, blank=True, null=True)
+    
     wallet_address = models.CharField(max_length=200, blank=True, null=True)
 
     def __str__(self):
-        return f"Payout {self.user.username} - {self.amount} - {self.status}"
+        return f"Payout ({self.payout_type}) {self.user.username} - {self.amount} - {self.status}"
 
 class Certificate(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='certificates')

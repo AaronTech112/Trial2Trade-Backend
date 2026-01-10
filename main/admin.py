@@ -100,9 +100,9 @@ class RealPropRequestAdmin(admin.ModelAdmin):
 
 @admin.register(Payout)
 class PayoutAdmin(admin.ModelAdmin):
-    list_display = ('user', 'amount', 'status', 'mt5_account', 'created_at', 'paid_date')
-    list_filter = ('status',)
-    search_fields = ('user__username', 'user__email', 'transaction_reference')
+    list_display = ('user', 'payout_type', 'amount', 'status', 'mt5_account', 'created_at', 'paid_date')
+    list_filter = ('status', 'payout_type')
+    search_fields = ('user__username', 'user__email', 'transaction_reference', 'full_name')
     readonly_fields = ('created_at',)
     
     actions = ['mark_as_completed', 'mark_as_processing', 'mark_as_rejected']

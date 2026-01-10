@@ -17,7 +17,7 @@ import uuid
 import time
 from datetime import datetime
 from django.utils import timezone
-from .forms import RegisterForm
+from .forms import RegisterForm, ReferralPayoutForm
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
@@ -1467,6 +1467,35 @@ def dashboard_referral(request):
     earnings = user.referral_earnings.all().order_by('-created_at')
     total_earnings = sum(e.amount for e in earnings)
     
+    # Calculate payouts and available balance
+    referral_payouts = Payout.objects.filter(user=user, payout_type='referral').order_by('-created_at')
+    # Exclude rejected payouts from the total payout amount
+    total_payouts_sum = sum(p.amount for p in referral_payouts if p.status != 'rejected')
+    available_balance = total_earnings - total_payouts_sum
+
+    form = ReferralPayoutForm()
+
+    if request.method == 'POST':
+        form = ReferralPayoutForm(request.POST)
+        if form.is_valid():
+            amount = form.cleaned_data['amount']
+            if amount > available_balance:
+                messages.error(request, 'Insufficient available balance.')
+            else:
+                Payout.objects.create(
+                    user=user,
+                    payout_type='referral',
+                    amount=amount,
+                    full_name=form.cleaned_data['full_name'],
+                    bank_name=form.cleaned_data['bank_name'],
+                    account_number=form.cleaned_data['account_number'],
+                    status='pending'
+                )
+                messages.success(request, 'Your payout request has been submitted. Status: Pending. It usually takes 24 hours to process.')
+                return redirect('dashboard_referral')
+        else:
+             messages.error(request, 'Please correct the errors below.')
+    
     # Get commission percentage
     settings_obj = ReferralSettings.objects.first()
     commission_pct = settings_obj.commission_percentage if settings_obj else 10
@@ -1478,6 +1507,9 @@ def dashboard_referral(request):
         'referrals': referrals,
         'earnings': earnings,
         'total_earnings': total_earnings,
+        'available_balance': available_balance,
+        'referral_payouts': referral_payouts,
+        'form': form,
         'commission_pct': commission_pct,
         'referral_code': user.referral_code,
         'global_alert': get_active_global_alert(),

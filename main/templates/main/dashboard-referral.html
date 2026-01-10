@@ -141,6 +141,22 @@
             gap: 0.5rem;
             margin-top: 1rem;
         }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            font-family: inherit;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
     </style>
 </head>
 <body>
@@ -226,6 +242,17 @@
             </div>
         </header>
         
+        {% if messages %}
+        <div class="messages" style="margin-bottom: 20px;">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}" role="alert" style="padding: 1rem; border-radius: 8px; margin-bottom: 10px; background-color: {% if message.tags == 'success' %}rgba(0, 184, 148, 0.1){% elif message.tags == 'error' %}rgba(255, 118, 117, 0.1){% else %}rgba(116, 185, 255, 0.1){% endif %}; color: {% if message.tags == 'success' %}var(--success-color){% elif message.tags == 'error' %}var(--danger-color){% else %}var(--primary-color){% endif %}; border: 1px solid currentColor;">
+                <i class="fas fa-{% if message.tags == 'success' %}check-circle{% elif message.tags == 'error' %}exclamation-circle{% else %}info-circle{% endif %} me-2"></i>
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
         {% if global_alert and global_alert.is_active %}
         <div class="alert alert-{{ global_alert.severity }} fade show" role="alert" style="margin-bottom: 20px;">
             <i class="fas fa-info-circle me-2"></i>
@@ -255,6 +282,10 @@
 
             <div class="stats-grid">
                 <div class="stat-card">
+                    <h3>Available Balance</h3>
+                    <div class="value">${{ available_balance|floatformat:2 }}</div>
+                </div>
+                <div class="stat-card">
                     <h3>Total Earnings</h3>
                     <div class="value">${{ total_earnings|floatformat:2 }}</div>
                 </div>
@@ -263,6 +294,92 @@
                     <div class="value">{{ referrals.count }}</div>
                 </div>
             </div>
+        </div>
+
+        <div class="referral-card">
+            <h3>Request Payout</h3>
+            <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Withdraw your referral earnings directly to your bank account.</p>
+            
+            {% if available_balance > 0 %}
+            <form method="POST" action="{% url 'dashboard_referral' %}" style="display: grid; gap: 1rem; max-width: 500px;">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label style="display: block; margin-bottom: 0.5rem; color: var(--text-color);">Full Name</label>
+                    {{ form.full_name }}
+                </div>
+                
+                <div class="form-group">
+                    <label style="display: block; margin-bottom: 0.5rem; color: var(--text-color);">Bank Name</label>
+                    {{ form.bank_name }}
+                </div>
+                
+                <div class="form-group">
+                    <label style="display: block; margin-bottom: 0.5rem; color: var(--text-color);">Account Number</label>
+                    {{ form.account_number }}
+                </div>
+                
+                <div class="form-group">
+                    <label style="display: block; margin-bottom: 0.5rem; color: var(--text-color);">Amount ($)</label>
+                    {{ form.amount }}
+                    <small style="color: var(--text-muted);">Available: ${{ available_balance|floatformat:2 }}</small>
+                </div>
+                
+                <button type="submit" class="copy-btn" style="width: 100%; justify-content: center;">
+                    Submit Request
+                </button>
+            </form>
+            {% else %}
+            <div class="empty-state" style="padding: 2rem 0;">
+                <i class="fas fa-wallet fa-2x" style="margin-bottom: 1rem; opacity: 0.5;"></i>
+                <p>You need to have earnings to request a payout.</p>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="referral-card">
+            <h3>Payout History</h3>
+            {% if referral_payouts %}
+            <div class="table-responsive">
+                <table class="referral-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for payout in referral_payouts %}
+                        <tr>
+                            <td>{{ payout.created_at|date:"M d, Y" }}</td>
+                            <td>${{ payout.amount }}</td>
+                            <td>
+                                <span style="
+                                    padding: 0.25rem 0.75rem; 
+                                    border-radius: 15px; 
+                                    font-size: 0.85rem;
+                                    {% if payout.status == 'completed' %}background: rgba(0, 184, 148, 0.1); color: var(--success-color);
+                                    {% elif payout.status == 'rejected' %}background: rgba(255, 118, 117, 0.1); color: var(--danger-color);
+                                    {% else %}background: rgba(253, 203, 110, 0.1); color: var(--warning-color);{% endif %}
+                                ">
+                                    {{ payout.get_status_display }}
+                                </span>
+                            </td>
+                            <td style="font-size: 0.9rem; color: var(--text-muted);">
+                                {{ payout.bank_name }} - {{ payout.account_number|slice:"-4:" }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="empty-state">
+                <p>No payout requests yet.</p>
+            </div>
+            {% endif %}
         </div>
 
         <div class="referral-card">
