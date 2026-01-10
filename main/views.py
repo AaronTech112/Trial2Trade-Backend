@@ -31,7 +31,7 @@ from django.contrib.auth.hashers import make_password
 from django.utils.dateparse import parse_datetime
 from django.contrib.auth.hashers import check_password
 
-from .models import MT5Account, Purchase, CustomUser, RealPropRequest, Payout, Certificate
+from .models import MT5Account, Purchase, CustomUser, RealPropRequest, Payout, Certificate, ReferralSettings, ReferralEarning
 
 logger = logging.getLogger(__name__)
 MYFXBOOK_HTTP_HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36'}
@@ -748,7 +748,13 @@ def dashboard_overview(request):
     return render(request, 'main/dashboard_overview.html', context)
 
 
+
 def register(request):
+    # Capture referral code from URL if present
+    ref_code = request.GET.get('ref')
+    if ref_code:
+        request.session['referral_code'] = ref_code
+
     if request.user.is_authenticated:
         return redirect('index')
     else:
@@ -899,6 +905,23 @@ def verify_email(request):
             is_active=True,
         )
         user.password = password_hashed
+
+        # Handle referral
+        ref_code = request.session.get('referral_code')
+        if ref_code:
+            try:
+                referrer = CustomUser.objects.get(referral_code=ref_code)
+                user.referred_by = referrer
+            except CustomUser.DoesNotExist:
+                pass
+        
+        # Generate unique referral code
+        while True:
+            new_ref_code = secrets.token_urlsafe(8)[:10]
+            if not CustomUser.objects.filter(referral_code=new_ref_code).exists():
+                user.referral_code = new_ref_code
+                break
+
         user.save()
 
         # Login and cleanup
@@ -906,6 +929,8 @@ def verify_email(request):
         messages.success(request, 'Email verified successfully! Your account has been created and you are now logged in.')
         request.session.pop('pending_registration', None)
         request.session.pop('pending_verification_email', None)
+        # Keep referral_code in session? No, we used it.
+        request.session.pop('referral_code', None)
         return redirect('index')
 
     return render(request, 'main/verify-email.html', {'prefill_email': prefill_email})
@@ -1427,7 +1452,37 @@ def dashboard_announcements(request):
 
 @login_required(login_url='/login_user')
 def dashboard_referral(request):
-    return render(request, 'main/dashboard-referral.html', {'global_alert': get_active_global_alert()})
+    user = request.user
+    
+    # Ensure user has a referral code (for old users)
+    if not user.referral_code:
+        while True:
+            new_ref_code = secrets.token_urlsafe(8)[:10]
+            if not CustomUser.objects.filter(referral_code=new_ref_code).exists():
+                user.referral_code = new_ref_code
+                user.save()
+                break
+    
+    referrals = user.referrals.all()
+    earnings = user.referral_earnings.all().order_by('-created_at')
+    total_earnings = sum(e.amount for e in earnings)
+    
+    # Get commission percentage
+    settings_obj = ReferralSettings.objects.first()
+    commission_pct = settings_obj.commission_percentage if settings_obj else 10
+    
+    referral_link = request.build_absolute_uri(reverse('register')) + f'?ref={user.referral_code}'
+    
+    context = {
+        'referral_link': referral_link,
+        'referrals': referrals,
+        'earnings': earnings,
+        'total_earnings': total_earnings,
+        'commission_pct': commission_pct,
+        'referral_code': user.referral_code,
+        'global_alert': get_active_global_alert(),
+    }
+    return render(request, 'main/dashboard-referral.html', context)
 
 
 @login_required(login_url='/login_user')
@@ -1544,6 +1599,29 @@ def process_purchase(request):
 
     return redirect('dashboard_purchase')
 
+def process_referral_commission(purchase):
+    """Calculate and award referral commission if applicable."""
+    try:
+        user = purchase.user
+        if user.referred_by:
+            # Check if commission already paid for this purchase
+            if ReferralEarning.objects.filter(purchase=purchase).exists():
+                return
+                
+            settings_obj = ReferralSettings.objects.first()
+            commission_pct = settings_obj.commission_percentage if settings_obj else 10
+            commission_amount = (purchase.amount * commission_pct) / 100
+            
+            ReferralEarning.objects.create(
+                referrer=user.referred_by,
+                referred_user=user,
+                amount=commission_amount,
+                purchase=purchase
+            )
+            logger.info(f"Commission of {commission_amount} awarded to {user.referred_by.username} for purchase {purchase.id}")
+    except Exception as e:
+        logger.exception(f"Error processing referral commission for purchase {purchase.id}: {e}")
+
 @csrf_exempt
 @require_http_methods(["GET", "POST"])
 def payment_callback(request):
@@ -1597,6 +1675,9 @@ def payment_callback(request):
                         purchase.payment_status = 'successful'
                         purchase.verified = True
                         purchase.save()
+
+                        # Process referral commission
+                        process_referral_commission(purchase)
 
                         # Get available MT5 account
                         account_data = get_available_mt5_account(account_size)
@@ -1670,6 +1751,9 @@ def payment_callback(request):
                     purchase.payment_status = 'successful'
                     purchase.verified = True
                     purchase.save()
+
+                    # Process referral commission
+                    process_referral_commission(purchase)
 
                     # Assign MT5 account to current user
                     user = request.user if request.user.is_authenticated else purchase.user

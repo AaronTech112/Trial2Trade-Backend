@@ -18,6 +18,10 @@ class CustomUser(AbstractUser):
     # Password reset fields (code-based reset)
     password_reset_code = models.CharField(max_length=6, blank=True, null=True)
     password_reset_expires = models.DateTimeField(blank=True, null=True)
+    
+    # Referral fields
+    referral_code = models.CharField(max_length=20, unique=True, blank=True, null=True)
+    referred_by = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True, related_name='referrals')
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
@@ -174,20 +178,18 @@ class Certificate(models.Model):
     def __str__(self):
         return f"{self.title} - {self.user.username}"
 
-
 class Announcement(models.Model):
     title = models.CharField(max_length=200)
     body = models.TextField()
     image = models.FileField(upload_to='announcements/', blank=True, null=True)
     is_published = models.BooleanField(default=True)
-    link_url = models.CharField(max_length=300, blank=True, null=True)
-    link_text = models.CharField(max_length=100, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    link_text = models.CharField(max_length=100, blank=True, null=True)
+    link_url = models.CharField(max_length=300, blank=True, null=True)
 
     def __str__(self):
         return self.title
-
 
 class GlobalAlert(models.Model):
     SEVERITY_CHOICES = (
@@ -205,4 +207,29 @@ class GlobalAlert(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.message[:50]
+        return self.message
+
+class ReferralSettings(models.Model):
+    commission_percentage = models.DecimalField(max_digits=5, decimal_places=2, default=10.00, help_text="Commission percentage for referrals (e.g., 10.00 for 10%)")
+
+    def save(self, *args, **kwargs):
+        if not self.pk and ReferralSettings.objects.exists():
+            return
+        return super(ReferralSettings, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return f"Referral Settings ({self.commission_percentage}%)"
+
+    class Meta:
+        verbose_name = "Referral Settings"
+        verbose_name_plural = "Referral Settings"
+
+class ReferralEarning(models.Model):
+    referrer = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='referral_earnings')
+    referred_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='generated_earnings')
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    purchase = models.ForeignKey(Purchase, on_delete=models.CASCADE, related_name='referral_earnings')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.referrer.username} earned {self.amount} from {self.referred_user.username}"

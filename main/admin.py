@@ -1,32 +1,57 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.html import format_html
-from .models import MT5Account, Purchase, RealPropRequest, Payout, CustomUser
+from .models import MT5Account, Purchase, RealPropRequest, Payout, CustomUser, ReferralSettings, ReferralEarning
 
 
 @admin.register(CustomUser)
 class CustomUserAdmin(UserAdmin):
     model = CustomUser
     list_display = (
-        'username', 'email', 'first_name', 'last_name', 'is_staff',
+        'username', 'email', 'first_name', 'last_name', 'is_staff', 'referral_code', 'referred_by'
     )
     list_filter = (
         'is_staff', 'is_active',
     )
     search_fields = (
-        'email', 'username', 'first_name', 'last_name',
+        'email', 'username', 'first_name', 'last_name', 'referral_code'
     )
     ordering = ('email',)
     fieldsets = UserAdmin.fieldsets + (
         ('Additional Info', {'fields': (
             'phone_number',
         )}),
+        ('Referral Info', {'fields': (
+            'referral_code',
+            'referred_by',
+        )}),
     )
     add_fieldsets = UserAdmin.add_fieldsets + (
         (None, {'fields': (
             'phone_number',
+            'referral_code',
+            'referred_by',
         )}),
     )
+
+
+@admin.register(ReferralSettings)
+class ReferralSettingsAdmin(admin.ModelAdmin):
+    list_display = ('commission_percentage',)
+    
+    def has_add_permission(self, request):
+        # Only allow adding if no instance exists
+        if self.model.objects.exists():
+            return False
+        return super().has_add_permission(request)
+
+
+@admin.register(ReferralEarning)
+class ReferralEarningAdmin(admin.ModelAdmin):
+    list_display = ('referrer', 'referred_user', 'amount', 'purchase', 'created_at')
+    list_filter = ('created_at',)
+    search_fields = ('referrer__username', 'referred_user__username', 'referred_user__email')
+    readonly_fields = ('created_at',)
 
 
 @admin.register(MT5Account)
@@ -95,7 +120,7 @@ class PayoutAdmin(admin.ModelAdmin):
         queryset.update(status='rejected')
     mark_as_rejected.short_description = "Mark selected payouts as rejected"
 
-from .models import Certificate, Announcement, GlobalAlert
+from .models import Certificate
 
 @admin.register(Certificate)
 class CertificateAdmin(admin.ModelAdmin):
@@ -103,26 +128,3 @@ class CertificateAdmin(admin.ModelAdmin):
     list_filter = ('issued_at',)
     search_fields = ('title', 'user__username', 'user__email')
     readonly_fields = ('issued_at',)
-
-
-@admin.register(Announcement)
-class AnnouncementAdmin(admin.ModelAdmin):
-    list_display = ('title', 'is_published', 'created_at')
-    list_filter = ('is_published', 'created_at')
-    search_fields = ('title', 'body')
-    readonly_fields = ('created_at', 'updated_at')
-
-
-@admin.register(GlobalAlert)
-class GlobalAlertAdmin(admin.ModelAdmin):
-    list_display = ('message', 'severity', 'is_active', 'created_at')
-    list_filter = ('severity', 'is_active', 'created_at')
-    search_fields = ('message',)
-    readonly_fields = ('created_at', 'updated_at')
-    actions = ['mark_active', 'mark_inactive']
-
-    def mark_active(self, request, queryset):
-        queryset.update(is_active=True)
-
-    def mark_inactive(self, request, queryset):
-        queryset.update(is_active=False)

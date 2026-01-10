@@ -6,12 +6,142 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trial2Trade - Refer & Earn</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css'%} ">
     <link rel="stylesheet" href="{% static 'css/dashboard-nav.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="icon" href="{% static 'images/logo.JPG' %}" type="image/svg+xml">
     <link rel="stylesheet" href="{% static 'css/mobile-nav.css' %}">
+    <style>
+        .referral-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+        }
+        
+        .referral-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .referral-header h2 {
+            font-size: 2rem;
+            color: var(--text-color);
+            margin-bottom: 1rem;
+        }
+        
+        .referral-header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .referral-link-container {
+            background: var(--bg-color);
+            padding: 1.5rem;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+            flex-wrap: wrap;
+        }
+
+        .referral-link-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.1rem;
+            font-family: monospace;
+            width: 100%;
+        }
+
+        .copy-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .copy-btn:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stat-card .value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .referral-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .referral-table th,
+        .referral-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .referral-table th {
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-muted);
+        }
+
+        .commission-badge {
+            background: rgba(0, 184, 148, 0.1);
+            color: var(--success-color);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+    </style>
 </head>
 <body>
     <!-- Mobile Navigation Toggle -->
@@ -21,30 +151,18 @@
     
     <!-- Mobile Navigation Overlay -->
     <div class="mobile-nav-overlay"></div>
-    <div id="global-alert" style="position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: {% if global_alert %}flex{% else %}none{% endif %}; align-items: center; justify-content: center; gap: 10px; padding: 10px 14px; background: {% if global_alert and global_alert.severity == 'warning' %}#b8860b{% elif global_alert and global_alert.severity == 'danger' %}#8b0000{% elif global_alert and global_alert.severity == 'success' %}#1b6e2e{% else %}#1f2944{% endif %}; color: #fff; box-shadow: 0 4px 16px rgba(0,0,0,0.25);">
-        <i class="fas fa-bullhorn"></i>
-        <span>{{ global_alert.message }}</span>
-        {% if global_alert and global_alert.link_url %}
-        <a href="{{ global_alert.link_url }}" style="margin-left: 12px; color: #fff; text-decoration: underline;">{{ global_alert.link_text|default:'Learn more' }}</a>
-        {% endif %}
-        <button type="button" style="margin-left: 12px; background: transparent; border: none; color: #fff; cursor: pointer;" onclick="document.getElementById('global-alert').style.display='none'">
-            <i class="fas fa-times"></i>
-        </button>
-    </div>
-<!-- Dashboard Navigation -->
+    <!-- Dashboard Navigation -->
     <nav class="dashboard-nav">
         <div class="nav-logo">
             <img src="{% static 'images/logob.png' %}" alt="Trial2Trade Logo" style="width: 130px; height: 75px;">
         </div>
-            <div class="user-info">
-                <img src="{% static 'images/avatar-placeholder.svg' %}" alt="User Avatar" class="avatar">
-                <div class="user-details">
-                    <h4 class="user-name">Aaron
-                        x
-                    </h4>
-                    <span class="user-status">Active Trader</span>
-                </div>
+        <div class="user-info">
+            <img src="{% static 'images/avatar-placeholder.svg' %}" alt="User Avatar" class="avatar">
+            <div class="user-details">
+                <h4 class="user-name">{{ request.user.username }}</h4>
+                <span class="user-status">Active Trader</span>
             </div>
+        </div>
         <div class="nav-menu">
             <a href="{% url 'index' %}" class="nav-item">
                 <i class="fas fa-chart-line"></i>
@@ -82,19 +200,15 @@
                 <i class="fas fa-certificate"></i>
                 <span>Certificates</span>
             </a>
-           
-
             <a href="{% url 'logout_user' %}" class="logout-btn">
                 <i class="fas fa-sign-out-alt"></i>
                 <span>Logout</span>
             </a>
         </div>
-
-
     </nav>
 
     <!-- Main Dashboard Content -->
-    <main class="dashboard-content" style="{% if global_alert %}padding-top:56px;{% endif %}">
+    <main class="dashboard-content">
         <header class="dashboard-header">
             <div class="header-search">
                 <i class="fas fa-search"></i>
@@ -111,83 +225,99 @@
                 </a>
             </div>
         </header>
+        
+        {% if global_alert and global_alert.is_active %}
+        <div class="alert alert-{{ global_alert.severity }} fade show" role="alert" style="margin-bottom: 20px;">
+            <i class="fas fa-info-circle me-2"></i>
+            {{ global_alert.message }}
+            {% if global_alert.link_url %}
+                <a href="{{ global_alert.link_url }}" class="alert-link">{{ global_alert.link_text|default:"Learn more" }}</a>
+            {% endif %}
+        </div>
+        {% endif %}
 
-        <!-- Refer & Earn Section -->
-        <section class="dashboard-section active">
-            <div class="section-header">
-                <h2>Refer & <span class="highlight">Earn</span></h2>
-                <p>Invite traders and earn commission on their success</p>
+        <div class="referral-card">
+            <div class="referral-header">
+                <h2>Refer & Earn</h2>
+                <p>Invite your friends and earn {{ commission_pct }}% commission on their first purchase!</p>
+                <div class="commission-badge">
+                    <i class="fas fa-percentage"></i> {{ commission_pct }}% Commission Rate
+                </div>
             </div>
-            <div class="coming-soon">
-                <h3>Coming Soon</h3>
-                <p>Our referral program is launching soon. Stay tuned!</p>
+
+            <div class="referral-link-container">
+                <i class="fas fa-link" style="color: var(--primary-color);"></i>
+                <input type="text" value="{{ referral_link }}" readonly class="referral-link-input" id="referralLink">
+                <button class="copy-btn" onclick="copyReferralLink()">
+                    <i class="fas fa-copy"></i> Copy Link
+                </button>
             </div>
 
-            {% comment %} <div class="referral-container">
-                <div class="referral-stats">
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <div class="stat-info">
-                            <h3>Total Referrals</h3>
-                            <p class="stat-value">24</p>
-                            <span class="stat-change positive">+3 this month</span>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-money-bill-wave"></i>
-                        </div>
-                        <div class="stat-info">
-                            <h3>Commission Earned</h3>
-                            <p class="stat-value">$890.45</p>
-                            <span class="stat-change positive">+$150 this month</span>
-                        </div>
-                    </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Total Earnings</h3>
+                    <div class="value">${{ total_earnings|floatformat:2 }}</div>
                 </div>
+                <div class="stat-card">
+                    <h3>Total Referrals</h3>
+                    <div class="value">{{ referrals.count }}</div>
+                </div>
+            </div>
+        </div>
 
-                <div class="referral-link-container">
-                    <h3>Your Referral Link</h3>
-                    <div class="referral-link">
-                        <input type="text" value="https://trial2trade.com/ref/johndoe123" readonly>
-                        <button class="btn primary-btn copy-btn">
-                            <i class="fas fa-copy"></i>
-                            Copy
-                        </button>
-                    </div>
-                </div>
-
-                <div class="share-buttons">
-                    <button class="btn social-btn telegram">
-                        <i class="fab fa-telegram"></i>
-                        Share on Telegram
-                    </button>
-                    <button class="btn social-btn whatsapp">
-                        <i class="fab fa-whatsapp"></i>
-                        Share on WhatsApp
-                    </button>
-                    <button class="btn social-btn twitter">
-                        <i class="fab fa-twitter"></i>
-                        Share on Twitter
-                    </button>
-                </div>
-            </div> {% endcomment %}
-        </section>
+        <div class="referral-card">
+            <h3>Recent Earnings</h3>
+            {% if earnings %}
+            <div class="table-responsive">
+                <table class="referral-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Referred User</th>
+                            <th>Purchase Amount</th>
+                            <th>Commission Earned</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for earning in earnings %}
+                        <tr>
+                            <td>{{ earning.created_at|date:"M d, Y" }}</td>
+                            <td>{{ earning.referred_user.username }}</td>
+                            <td>${{ earning.purchase.amount }}</td>
+                            <td style="color: var(--success-color);">+${{ earning.amount }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="empty-state">
+                <i class="fas fa-coins fa-3x" style="margin-bottom: 1rem; opacity: 0.5;"></i>
+                <p>No earnings yet. Start sharing your link!</p>
+            </div>
+            {% endif %}
+        </div>
     </main>
 
-    <script>
-        // Copy referral link functionality
-        document.querySelector('.copy-btn').addEventListener('click', function() {
-            const input = document.querySelector('.referral-link input');
-            input.select();
-            document.execCommand('copy');
-            this.innerHTML = '<i class="fas fa-check"></i> Copied!';
-            setTimeout(() => {
-                this.innerHTML = '<i class="fas fa-copy"></i> Copy';
-            }, 2000);
-        });
-    </script>
+    <script src="{% static 'js/dashboard-nav.js' %}"></script>
     <script src="{% static 'js/mobile-nav.js' %}"></script>
+    <script>
+        function copyReferralLink() {
+            var copyText = document.getElementById("referralLink");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); /* For mobile devices */
+            navigator.clipboard.writeText(copyText.value);
+            
+            var btn = document.querySelector('.copy-btn');
+            var originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+            btn.style.background = 'var(--success-color)';
+            
+            setTimeout(function() {
+                btn.innerHTML = originalText;
+                btn.style.background = 'var(--primary-color)';
+            }, 2000);
+        }
+    </script>
 </body>
 </html>
