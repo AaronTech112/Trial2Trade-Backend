@@ -35,7 +35,9 @@ class ReferralPayoutForm(forms.Form):
 
     def clean_amount(self):
         amount = self.cleaned_data.get('amount')
-        if amount <= 0:
-            raise forms.ValidationError("Amount must be greater than zero.")
+        if amount is None:
+             raise forms.ValidationError("Amount is required.")
+        if amount < 30:
+            raise forms.ValidationError("Minimum payout amount is $30.")
         return amount
         
