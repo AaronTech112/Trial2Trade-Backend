@@ -101,6 +101,12 @@
             </div>
         </header>
 
+        {% if active_discount_code %}
+        <div class="discount-banner" style="background: linear-gradient(90deg, #FFD700, #FFA500); color: #000; padding: 10px; text-align: center; font-weight: bold; margin-bottom: 20px; border-radius: 8px; margin-top: 20px;">
+            🎉 Special Offer! Use code <span style="background: #000; color: #FFD700; padding: 2px 8px; border-radius: 4px; margin: 0 5px;">{{ active_discount_code.code }}</span> for {{ active_discount_code.percentage }}% OFF!
+        </div>
+        {% endif %}
+
         <!-- Next Phase Section -->
         <section class="dashboard-section active">
             <div class="section-header">

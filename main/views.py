@@ -30,8 +30,9 @@ from datetime import timedelta
 from django.contrib.auth.hashers import make_password
 from django.utils.dateparse import parse_datetime
 from django.contrib.auth.hashers import check_password
+from decimal import Decimal
 
-from .models import MT5Account, Purchase, CustomUser, RealPropRequest, Payout, Certificate, ReferralSettings, ReferralEarning
+from .models import MT5Account, Purchase, CustomUser, RealPropRequest, Payout, Certificate, ReferralSettings, ReferralEarning, DiscountCode
 
 logger = logging.getLogger(__name__)
 MYFXBOOK_HTTP_HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36'}
@@ -1148,11 +1149,38 @@ def dashboard_purchase(request):
     if request.method == 'POST':
         account_size = request.POST.get('account_size')
         amount = request.POST.get('amount')
+        discount_code = request.POST.get('discount_code', '').strip()
         currency = 'NGN'
 
         if not account_size or not amount:
             messages.error(request, 'Please select an account size and enter amount.')
             return redirect('dashboard_purchase')
+
+        # Calculate discount if code is provided
+        discount_amount = Decimal('0')
+        final_amount = Decimal(amount)
+        discount_obj = None
+
+        if discount_code:
+            try:
+                discount_obj = DiscountCode.objects.get(code=discount_code, is_active=True)
+                discount_percentage = Decimal(discount_obj.percentage)
+                discount_amount = (final_amount * discount_percentage) / Decimal('100')
+                final_amount = final_amount - discount_amount
+                # Ensure amount doesn't go below zero
+                if final_amount < 0:
+                    final_amount = Decimal('0')
+                messages.success(request, f'Discount code applied! You saved {discount_obj.percentage}%.')
+            except DiscountCode.DoesNotExist:
+                messages.error(request, 'Invalid or inactive discount code.')
+                # Optionally redirect back or continue without discount
+                # return redirect('dashboard_purchase') 
+                # Let's continue without discount but notify user? 
+                # Or maybe better to stop and let them correct it?
+                # User said "input discount code at checkout", usually implies they can try again.
+                # But here the flow initiates payment immediately.
+                # So if code is invalid, we should probably stop.
+                return redirect('dashboard_purchase')
 
         # Enforce inventory availability before initiating payment
         normalized_size = normalize_account_size(account_size)
@@ -1163,12 +1191,6 @@ def dashboard_purchase(request):
             messages.error(request, f'No {normalized_size} accounts available at the moment. Please try another account size.')
             return redirect('dashboard_purchase')
 
-        # Check if account size is available
-        normalized_size = normalize_account_size(account_size)
-        if not normalized_size or not MT5Account.objects.filter(status='available', assigned=False, account_size=normalized_size).exists():
-            messages.error(request, f'No {normalized_size or account_size} accounts available at the moment. Please try another account size.')
-            return redirect('dashboard_purchase')
-
         # Generate unique transaction reference
         tx_ref = f"txn-{uuid.uuid4().hex[:10]}"
 
@@ -1176,7 +1198,7 @@ def dashboard_purchase(request):
         Purchase.objects.create(
             user=request.user,
             tx_ref=tx_ref,
-            amount=amount,
+            amount=final_amount, # Use final discounted amount
             payment_status='pending',
             verified=False,
         )
@@ -1190,10 +1212,13 @@ def dashboard_purchase(request):
         # Prepare payment payload for Flutterwave
         payload = {
             'tx_ref': tx_ref,
-            'amount': amount,
+            'amount': str(final_amount), # Use final discounted amount
             'currency': currency,
             'redirect_url': redirect_url,
-            'meta': {'account_size': account_size},
+            'meta': {
+                'account_size': account_size,
+                'discount_code': discount_code if discount_obj else ''
+            },
             'customer': {
                 'email': request.user.email,
                 'name': request.user.get_full_name() or request.user.username,
@@ -1230,10 +1255,13 @@ def dashboard_purchase(request):
                 payment_link = response_data['data']['link']
                 context = {
                     'tx_ref': tx_ref,
-                    'amount': amount,
+                    'amount': final_amount,
+                    'original_amount': Decimal(amount),
                     'currency': currency,
                     'account_size': account_size,
-                    'payment_link': payment_link
+                    'payment_link': payment_link,
+                    'discount_code': discount_code if discount_obj else None,
+                    'discount_amount': discount_amount if discount_obj else 0
                 }
                 context['global_alert'] = get_active_global_alert()
                 return render(request, 'main/payment-checkout.html', context)
@@ -1599,18 +1627,34 @@ def process_purchase(request):
     if request.method == 'POST':
         account_size = request.POST.get('account_size')
         amount = request.POST.get('amount')
+        discount_code = request.POST.get('discount_code')
         currency = 'NGN'
 
         if not account_size or not amount:
             messages.error(request, 'Please select an account size and enter amount.')
             return redirect('dashboard_purchase')
 
+        try:
+            final_amount = Decimal(amount)
+        except:
+            messages.error(request, 'Invalid amount.')
+            return redirect('dashboard_purchase')
+
+        if discount_code:
+            try:
+                discount = DiscountCode.objects.get(code=discount_code, is_active=True)
+                discount_amount = (final_amount * discount.percentage) / 100
+                final_amount = final_amount - discount_amount
+                messages.success(request, f'Discount code applied! You saved {discount.percentage}%.')
+            except DiscountCode.DoesNotExist:
+                messages.error(request, 'Invalid or inactive discount code.')
+
         tx_ref = f"txn-{uuid.uuid4().hex[:10]}"
 
         Purchase.objects.create(
             user=request.user,
             tx_ref=tx_ref,
-            amount=amount,
+            amount=final_amount,
             payment_status='pending',
             verified=False,
         )
@@ -1622,7 +1666,7 @@ def process_purchase(request):
         context = {
             'public_key': public_key,
             'tx_ref': tx_ref,
-            'amount': amount,
+            'amount': final_amount,
             'currency': currency,
             'account_size': account_size,
             'redirect_url': redirect_url,

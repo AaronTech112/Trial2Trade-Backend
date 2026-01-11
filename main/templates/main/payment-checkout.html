@@ -116,16 +116,48 @@
                                 <span class="label">Account Size:</span>
                                 <span class="value">${{ account_size }}</span>
                             </div>
+                            
+                            {% if discount_code %}
+        <div class="detail-row">
+            <span class="label">Original Amount:</span>
+            <span class="value">₦{{ original_amount }} {{ currency }}</span>
+        </div>
+        <div class="detail-row" style="color: #00b894;">
+            <span class="label">Discount ({{ discount_code }}):</span>
+            <span class="value">-₦{{ discount_amount }}</span>
+        </div>
+        <div class="detail-row" style="font-weight: bold; border-top: 1px solid #eee; padding-top: 10px; margin-top: 5px;">
+            <span class="label">Total to Pay:</span>
+            <span class="value">₦{{ amount }} {{ currency }}</span>
+        </div>
+        {% else %}
                             <div class="detail-row">
                                 <span class="label">Amount:</span>
                                 <span class="value">₦{{ amount }} {{ currency }}</span>
                             </div>
+                            {% endif %}
+
                             <div class="detail-row">
                                 <span class="label">Reference:</span>
                                 <span class="value">{{ tx_ref }}</span>
                             </div>
                         </div>
 
+                        {% if payment_link %}
+                        <div class="payment-actions" style="text-align: center;">
+                            <p class="redirect-message">Redirecting to secure Flutterwave checkout...</p>
+                            <a href="{{ payment_link }}" class="btn primary-btn">Proceed to Payment</a>
+                            <a href="{% url 'dashboard_purchase' %}" class="btn secondary-btn" style="margin-left: 10px;">Back to Purchase</a>
+                        </div>
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function() {
+                                // Auto-redirect to Flutterwave hosted pay. If blocked, user can click the button.
+                                setTimeout(function() {
+                                    window.location.href = "{{ payment_link }}";
+                                }, 1500);
+                            });
+                        </script>
+                        {% else %}
                         <form id="hosted-payment-form" method="POST" action="https://checkout.flutterwave.com/v3/hosted/pay">
                             <input type="hidden" name="public_key" value="{{ public_key }}" />
                             <input type="hidden" name="tx_ref" value="{{ tx_ref }}" />
@@ -147,17 +179,7 @@
                                 <a href="{% url 'dashboard_purchase' %}" class="secondary-btn">Back to Purchase</a>
                             </div>
                         </form>
-                        <script>
-                            document.addEventListener('DOMContentLoaded', function() {
-                                // Auto-submit to Flutterwave hosted pay. If blocked, user can click the button.
-                                try {
-                                    document.getElementById('hosted-payment-form').submit();
-                                } catch (e) {
-                                    console.error('Auto-submit error:', e);
-                                    document.querySelector('.redirect-message').textContent = 'Click "Proceed to Payment" to continue.';
-                                }
-                            });
-                        </script>
+                        {% endif %}
                     </div>
                 </div>
             </div>

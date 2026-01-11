@@ -101,6 +101,20 @@
             </div>
         </header>
 
+        {% if messages %}
+        <div class="messages-container">
+            {% for message in messages %}
+            <div class="alert {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if active_discount_code %}
+        <div class="discount-banner" style="background: linear-gradient(90deg, #FFD700, #FFA500); color: #000; padding: 10px; text-align: center; font-weight: bold; margin-bottom: 20px; border-radius: 8px; margin-top: 20px;">
+            🎉 Special Offer! Use code <span style="background: #000; color: #FFD700; padding: 2px 8px; border-radius: 4px; margin: 0 5px;">{{ active_discount_code.code }}</span> for {{ active_discount_code.percentage }}% OFF!
+        </div>
+        {% endif %}
+
         <!-- Purchase Account Section -->
         <section class="dashboard-section active">
             <div class="section-header">
@@ -132,10 +146,13 @@
                         </ul>
                     </div>
                     <div class="card-footer">
-                        <form action="{% url 'process_purchase' %}" method="post">
+                        <form action="{% url 'dashboard_purchase' %}" method="post">
                             {% csrf_token %}
                             <input type="hidden" name="account_size" value="5000">
                             <input type="hidden" name="amount" value="8000">
+                            <div class="discount-input-group" style="margin-bottom: 15px; margin-top: 10px;">
+                                <input type="text" name="discount_code" placeholder="Discount Code (Optional)" style="width: 100%; padding: 10px; border: 1px solid #444; border-radius: 4px; background: #2a2a2a; color: #fff;">
+                            </div>
                             <button type="submit" class="btn primary-btn">Purchase Now</button>
                         </form>
                     </div>
@@ -164,10 +181,13 @@
                         </ul>
                     </div>
                     <div class="card-footer">
-                        <form action="{% url 'process_purchase' %}" method="post">
+                        <form action="{% url 'dashboard_purchase' %}" method="post">
                             {% csrf_token %}
                             <input type="hidden" name="account_size" value="10000">
                             <input type="hidden" name="amount" value="12800">
+                            <div class="discount-input-group" style="margin-bottom: 15px; margin-top: 10px;">
+                                <input type="text" name="discount_code" placeholder="Discount Code (Optional)" style="width: 100%; padding: 10px; border: 1px solid #444; border-radius: 4px; background: #2a2a2a; color: #fff;">
+                            </div>
                             <button type="submit" class="btn primary-btn">Purchase Now</button>
                         </form>
                     </div>
@@ -196,10 +216,13 @@
                         </ul>
                     </div>
                     <div class="card-footer">
-                        <form action="{% url 'process_purchase' %}" method="post">
+                        <form action="{% url 'dashboard_purchase' %}" method="post">
                             {% csrf_token %}
                             <input type="hidden" name="account_size" value="25000">
                             <input type="hidden" name="amount" value="25600">
+                            <div class="discount-input-group" style="margin-bottom: 15px; margin-top: 10px;">
+                                <input type="text" name="discount_code" placeholder="Discount Code (Optional)" style="width: 100%; padding: 10px; border: 1px solid #444; border-radius: 4px; background: #2a2a2a; color: #fff;">
+                            </div>
                             <button type="submit" class="btn primary-btn">Purchase Now</button>
                         </form>
                     </div>
@@ -228,10 +251,13 @@
                         </ul>
                     </div>
                     <div class="card-footer">
-                        <form action="{% url 'process_purchase' %}" method="post">
+                        <form action="{% url 'dashboard_purchase' %}" method="post">
                             {% csrf_token %}
                             <input type="hidden" name="account_size" value="50000">
                             <input type="hidden" name="amount" value="51200">
+                            <div class="discount-input-group" style="margin-bottom: 15px; margin-top: 10px;">
+                                <input type="text" name="discount_code" placeholder="Discount Code (Optional)" style="width: 100%; padding: 10px; border: 1px solid #444; border-radius: 4px; background: #2a2a2a; color: #fff;">
+                            </div>
                             <button type="submit" class="btn primary-btn">Purchase Now</button>
                         </form>
                     </div>

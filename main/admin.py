@@ -1,7 +1,14 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.html import format_html
-from .models import MT5Account, Purchase, RealPropRequest, Payout, CustomUser, ReferralSettings, ReferralEarning
+from .models import MT5Account, Purchase, RealPropRequest, Payout, CustomUser, ReferralSettings, ReferralEarning, DiscountCode
+
+
+@admin.register(DiscountCode)
+class DiscountCodeAdmin(admin.ModelAdmin):
+    list_display = ('code', 'percentage', 'is_active', 'created_at')
+    list_filter = ('is_active',)
+    search_fields = ('code',)
 
 
 @admin.register(CustomUser)
