@@ -19,6 +19,7 @@ urlpatterns = [
     path('dashboard-payouts/', views.dashboard_payouts, name='dashboard_payouts'),
     path('dashboard-transactions/', views.dashboard_transactions, name='dashboard_transactions'),
     path('dashboard-certificates/', views.dashboard_certificates, name='dashboard_certificates'),
+    path('dashboard-verified-traders/', views.dashboard_verified_traders, name='dashboard_verified_traders'),
     path('verify_payment', views.verify_payment, name='verify_payment'),
     path('process_purchase/', views.process_purchase, name='process_purchase'),
     path('payment/callback/', views.payment_callback, name='payment_callback'),

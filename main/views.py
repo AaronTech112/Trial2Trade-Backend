@@ -32,7 +32,7 @@ from django.utils.dateparse import parse_datetime
 from django.contrib.auth.hashers import check_password
 from decimal import Decimal
 
-from .models import MT5Account, Purchase, CustomUser, RealPropRequest, Payout, Certificate, ReferralSettings, ReferralEarning, DiscountCode
+from .models import MT5Account, Purchase, CustomUser, RealPropRequest, Payout, Certificate, ReferralSettings, ReferralEarning, DiscountCode, VerifiedTrader
 
 logger = logging.getLogger(__name__)
 MYFXBOOK_HTTP_HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36'}
@@ -1899,5 +1899,14 @@ def verify_transaction_by_reference(tx_ref):
         return {'status': 'error', 'data': {}, 'message': f'Connection error: {str(e)}'}
     except Exception as e:
         return {'status': 'error', 'data': {}, 'message': f'Unexpected error: {str(e)}'}
+
+@login_required(login_url='/login_user')
+def dashboard_verified_traders(request):
+    verified_traders = VerifiedTrader.objects.all().order_by('-date_passed')
+    context = {
+        'verified_traders': verified_traders,
+        'global_alert': get_active_global_alert(),
+    }
+    return render(request, 'main/dashboard-verified-traders.html', context)
 
 

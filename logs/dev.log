@@ -15980,3 +15980,285 @@ Traceback (most recent call last):
     raise Exception(f"No matching MyFXBook account found for login {account.login}")
 Exception: No matching MyFXBook account found for login 78656788
 [INFO] 2026-01-11 17:34:40,461 main.views: Payment return callback received: status=cancelled tx_ref=txn-dd99dab196 txn_id=None
+[INFO] 2026-01-11 18:03:12,343 main.views: Attempting MyFXBook login for email trial2fund@gmail.com
+[INFO] 2026-01-11 18:03:14,575 main.views: MyFXBook login successful.
+[INFO] 2026-01-11 18:03:35,589 main.views: MyFXBook returned 84 accounts.
+[INFO] 2026-01-11 18:03:36,108 main.views: Attempting MyFXBook login for email trial2fund@gmail.com
+[INFO] 2026-01-11 18:03:38,565 main.views: MyFXBook login successful.
+[ERROR] 2026-01-11 18:03:40,252 main.views: Failed to fetch MyFXBook account info: 404 Client Error: Not Found for url: https://www.myfxbook.com/api/get-account-information.json?session=z0GjxNBNzgEthxdhwyMzo5BZ5a03XUuf1L%2BJ5tMcdNHaTlriiwsNx9ey4TfVmv2bXF%2FJ2MIiNDFEd1YjBdi26w%3D%3D&id=78656788
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 103, in myfxbook_get_account_info
+    resp.raise_for_status()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://www.myfxbook.com/api/get-account-information.json?session=z0GjxNBNzgEthxdhwyMzo5BZ5a03XUuf1L%2BJ5tMcdNHaTlriiwsNx9ey4TfVmv2bXF%2FJ2MIiNDFEd1YjBdi26w%3D%3D&id=78656788
+[ERROR] 2026-01-11 18:03:40,286 main.views: Error fetching MyFXBook account info: Failed to fetch MyFXBook account info: 404 Client Error: Not Found for url: https://www.myfxbook.com/api/get-account-information.json?session=z0GjxNBNzgEthxdhwyMzo5BZ5a03XUuf1L%2BJ5tMcdNHaTlriiwsNx9ey4TfVmv2bXF%2FJ2MIiNDFEd1YjBdi26w%3D%3D&id=78656788
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 103, in myfxbook_get_account_info
+    resp.raise_for_status()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://www.myfxbook.com/api/get-account-information.json?session=z0GjxNBNzgEthxdhwyMzo5BZ5a03XUuf1L%2BJ5tMcdNHaTlriiwsNx9ey4TfVmv2bXF%2FJ2MIiNDFEd1YjBdi26w%3D%3D&id=78656788
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 140, in myfxbook_fetch_account_info_with_retry
+    return myfxbook_get_account_info(http, session_token, account_id, base_url=base1)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 106, in myfxbook_get_account_info
+    raise RuntimeError(f"Failed to fetch MyFXBook account info: {e}")
+RuntimeError: Failed to fetch MyFXBook account info: 404 Client Error: Not Found for url: https://www.myfxbook.com/api/get-account-information.json?session=z0GjxNBNzgEthxdhwyMzo5BZ5a03XUuf1L%2BJ5tMcdNHaTlriiwsNx9ey4TfVmv2bXF%2FJ2MIiNDFEd1YjBdi26w%3D%3D&id=78656788
+[ERROR] 2026-01-11 18:03:40,607 main.views: MyFXBook direct account info failed for login 78656788: Failed to fetch MyFXBook account info: 404 Client Error: Not Found for url: https://www.myfxbook.com/api/get-account-information.json?session=z0GjxNBNzgEthxdhwyMzo5BZ5a03XUuf1L%2BJ5tMcdNHaTlriiwsNx9ey4TfVmv2bXF%2FJ2MIiNDFEd1YjBdi26w%3D%3D&id=78656788
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 103, in myfxbook_get_account_info
+    resp.raise_for_status()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://www.myfxbook.com/api/get-account-information.json?session=z0GjxNBNzgEthxdhwyMzo5BZ5a03XUuf1L%2BJ5tMcdNHaTlriiwsNx9ey4TfVmv2bXF%2FJ2MIiNDFEd1YjBdi26w%3D%3D&id=78656788
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 393, in update_account_data_from_myfxbook
+    info = myfxbook_fetch_account_info_with_retry(str(account.login).strip())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 140, in myfxbook_fetch_account_info_with_retry
+    return myfxbook_get_account_info(http, session_token, account_id, base_url=base1)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 106, in myfxbook_get_account_info
+    raise RuntimeError(f"Failed to fetch MyFXBook account info: {e}")
+RuntimeError: Failed to fetch MyFXBook account info: 404 Client Error: Not Found for url: https://www.myfxbook.com/api/get-account-information.json?session=z0GjxNBNzgEthxdhwyMzo5BZ5a03XUuf1L%2BJ5tMcdNHaTlriiwsNx9ey4TfVmv2bXF%2FJ2MIiNDFEd1YjBdi26w%3D%3D&id=78656788
+[ERROR] 2026-01-11 18:03:40,617 main.views: Error updating account data for login 78656788: No matching MyFXBook account found for login 78656788
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 400, in update_account_data_from_myfxbook
+    raise Exception(f"No matching MyFXBook account found for login {account.login}")
+Exception: No matching MyFXBook account found for login 78656788
+[INFO] 2026-01-16 22:27:36,278 main.views: Attempting MyFXBook login for email trial2fund@gmail.com
+[INFO] 2026-01-16 22:27:44,213 main.views: MyFXBook login successful.
+[ERROR] 2026-01-16 22:27:55,958 main.views: Error fetching MyFXBook accounts: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Read timed out.
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\response.py", line 754, in _error_catcher
+    yield
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\response.py", line 1219, in read_chunked
+    self._update_chunk_length()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\response.py", line 1138, in _update_chunk_length
+    line = self._fp.fp.readline()  # type: ignore[union-attr]
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 706, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\ssl.py", line 1311, in recv_into
+    return self.read(nbytes, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\ssl.py", line 1167, in read
+    return self._sslobj.read(len, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TimeoutError: The read operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\models.py", line 820, in generate
+    yield from self.raw.stream(chunk_size, decode_content=True)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\response.py", line 1063, in stream
+    yield from self.read_chunked(amt, decode_content=decode_content)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\response.py", line 1202, in read_chunked
+    with self._error_catcher():
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\contextlib.py", line 155, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\response.py", line 759, in _error_catcher
+    raise ReadTimeoutError(self._pool, None, "Read timed out.") from e  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.ReadTimeoutError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Read timed out.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 297, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(http, session_token, base_url=base1)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 247, in myfxbook_get_my_accounts
+    resp = http.get(url, timeout=10)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 746, in send
+    r.content
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\models.py", line 902, in content
+    self._content = b"".join(self.iter_content(CONTENT_CHUNK_SIZE)) or b""
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\models.py", line 826, in generate
+    raise ConnectionError(e)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Read timed out.
+[ERROR] 2026-01-16 22:28:06,951 main.views: Error fetching MyFXBook accounts list: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Read timed out.
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\response.py", line 754, in _error_catcher
+    yield
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\response.py", line 1219, in read_chunked
+    self._update_chunk_length()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\response.py", line 1138, in _update_chunk_length
+    line = self._fp.fp.readline()  # type: ignore[union-attr]
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 706, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\ssl.py", line 1311, in recv_into
+    return self.read(nbytes, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\ssl.py", line 1167, in read
+    return self._sslobj.read(len, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TimeoutError: The read operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\models.py", line 820, in generate
+    yield from self.raw.stream(chunk_size, decode_content=True)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\response.py", line 1063, in stream
+    yield from self.read_chunked(amt, decode_content=decode_content)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\response.py", line 1202, in read_chunked
+    with self._error_catcher():
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\contextlib.py", line 155, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\response.py", line 759, in _error_catcher
+    raise ReadTimeoutError(self._pool, None, "Read timed out.") from e  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.ReadTimeoutError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Read timed out.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 674, in dashboard_overview
+    accounts_list = myfxbook_fetch_accounts_with_retry()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 297, in myfxbook_fetch_accounts_with_retry
+    return myfxbook_get_my_accounts(http, session_token, base_url=base1)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 247, in myfxbook_get_my_accounts
+    resp = http.get(url, timeout=10)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 746, in send
+    r.content
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\models.py", line 902, in content
+    self._content = b"".join(self.iter_content(CONTENT_CHUNK_SIZE)) or b""
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\models.py", line 826, in generate
+    raise ConnectionError(e)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Read timed out.
+[INFO] 2026-01-16 22:28:07,001 main.views: Attempting MyFXBook login for email trial2fund@gmail.com
+[INFO] 2026-01-16 22:28:10,585 main.views: MyFXBook login successful.
+[ERROR] 2026-01-16 22:28:13,734 main.views: Failed to fetch MyFXBook account info: 404 Client Error: Not Found for url: https://www.myfxbook.com/api/get-account-information.json?session=HxwtNArzTmYbEFWITpMjvAAk%2F5E%2BTwzsRuwWgAwevFRy3BOxZvb8WpCZmfVho7B7gxtBUfDAFhD8brH8fv%2BfEA%3D%3D&id=78656788
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 103, in myfxbook_get_account_info
+    resp.raise_for_status()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://www.myfxbook.com/api/get-account-information.json?session=HxwtNArzTmYbEFWITpMjvAAk%2F5E%2BTwzsRuwWgAwevFRy3BOxZvb8WpCZmfVho7B7gxtBUfDAFhD8brH8fv%2BfEA%3D%3D&id=78656788
+[ERROR] 2026-01-16 22:28:13,741 main.views: Error fetching MyFXBook account info: Failed to fetch MyFXBook account info: 404 Client Error: Not Found for url: https://www.myfxbook.com/api/get-account-information.json?session=HxwtNArzTmYbEFWITpMjvAAk%2F5E%2BTwzsRuwWgAwevFRy3BOxZvb8WpCZmfVho7B7gxtBUfDAFhD8brH8fv%2BfEA%3D%3D&id=78656788
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 103, in myfxbook_get_account_info
+    resp.raise_for_status()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://www.myfxbook.com/api/get-account-information.json?session=HxwtNArzTmYbEFWITpMjvAAk%2F5E%2BTwzsRuwWgAwevFRy3BOxZvb8WpCZmfVho7B7gxtBUfDAFhD8brH8fv%2BfEA%3D%3D&id=78656788
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 140, in myfxbook_fetch_account_info_with_retry
+    return myfxbook_get_account_info(http, session_token, account_id, base_url=base1)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 106, in myfxbook_get_account_info
+    raise RuntimeError(f"Failed to fetch MyFXBook account info: {e}")
+RuntimeError: Failed to fetch MyFXBook account info: 404 Client Error: Not Found for url: https://www.myfxbook.com/api/get-account-information.json?session=HxwtNArzTmYbEFWITpMjvAAk%2F5E%2BTwzsRuwWgAwevFRy3BOxZvb8WpCZmfVho7B7gxtBUfDAFhD8brH8fv%2BfEA%3D%3D&id=78656788
+[ERROR] 2026-01-16 22:28:17,472 main.views: MyFXBook direct account info failed for login 78656788: Failed to fetch MyFXBook account info: 404 Client Error: Not Found for url: https://www.myfxbook.com/api/get-account-information.json?session=HxwtNArzTmYbEFWITpMjvAAk%2F5E%2BTwzsRuwWgAwevFRy3BOxZvb8WpCZmfVho7B7gxtBUfDAFhD8brH8fv%2BfEA%3D%3D&id=78656788
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 103, in myfxbook_get_account_info
+    resp.raise_for_status()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://www.myfxbook.com/api/get-account-information.json?session=HxwtNArzTmYbEFWITpMjvAAk%2F5E%2BTwzsRuwWgAwevFRy3BOxZvb8WpCZmfVho7B7gxtBUfDAFhD8brH8fv%2BfEA%3D%3D&id=78656788
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 393, in update_account_data_from_myfxbook
+    info = myfxbook_fetch_account_info_with_retry(str(account.login).strip())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 140, in myfxbook_fetch_account_info_with_retry
+    return myfxbook_get_account_info(http, session_token, account_id, base_url=base1)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 106, in myfxbook_get_account_info
+    raise RuntimeError(f"Failed to fetch MyFXBook account info: {e}")
+RuntimeError: Failed to fetch MyFXBook account info: 404 Client Error: Not Found for url: https://www.myfxbook.com/api/get-account-information.json?session=HxwtNArzTmYbEFWITpMjvAAk%2F5E%2BTwzsRuwWgAwevFRy3BOxZvb8WpCZmfVho7B7gxtBUfDAFhD8brH8fv%2BfEA%3D%3D&id=78656788
+[ERROR] 2026-01-16 22:28:17,534 main.views: Error updating account data for login 78656788: No matching MyFXBook account found for login 78656788
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 400, in update_account_data_from_myfxbook
+    raise Exception(f"No matching MyFXBook account found for login {account.login}")
+Exception: No matching MyFXBook account found for login 78656788
+[INFO] 2026-01-17 01:15:56,391 main.views: Attempting MyFXBook login for email trial2fund@gmail.com
+[INFO] 2026-01-17 01:15:59,305 main.views: MyFXBook login successful.
+[INFO] 2026-01-17 01:16:00,750 main.views: MyFXBook returned 96 accounts.
+[INFO] 2026-01-17 01:16:01,117 main.views: Attempting MyFXBook login for email trial2fund@gmail.com
+[INFO] 2026-01-17 01:16:05,231 main.views: MyFXBook login successful.
+[ERROR] 2026-01-17 01:16:06,599 main.views: Failed to fetch MyFXBook account info: 404 Client Error: Not Found for url: https://www.myfxbook.com/api/get-account-information.json?session=NXretqGD7n7oRZPyrHeD%2FEzfL9EUU7oQ4JfxRwNile9cKmwAUU1SsKvmt8qGG2Te74SyoB87JT4ygSompvuTxg%3D%3D&id=78656788
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 103, in myfxbook_get_account_info
+    resp.raise_for_status()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://www.myfxbook.com/api/get-account-information.json?session=NXretqGD7n7oRZPyrHeD%2FEzfL9EUU7oQ4JfxRwNile9cKmwAUU1SsKvmt8qGG2Te74SyoB87JT4ygSompvuTxg%3D%3D&id=78656788
+[ERROR] 2026-01-17 01:16:10,672 main.views: Error fetching MyFXBook account info: Failed to fetch MyFXBook account info: 404 Client Error: Not Found for url: https://www.myfxbook.com/api/get-account-information.json?session=NXretqGD7n7oRZPyrHeD%2FEzfL9EUU7oQ4JfxRwNile9cKmwAUU1SsKvmt8qGG2Te74SyoB87JT4ygSompvuTxg%3D%3D&id=78656788
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 103, in myfxbook_get_account_info
+    resp.raise_for_status()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://www.myfxbook.com/api/get-account-information.json?session=NXretqGD7n7oRZPyrHeD%2FEzfL9EUU7oQ4JfxRwNile9cKmwAUU1SsKvmt8qGG2Te74SyoB87JT4ygSompvuTxg%3D%3D&id=78656788
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 140, in myfxbook_fetch_account_info_with_retry
+    return myfxbook_get_account_info(http, session_token, account_id, base_url=base1)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 106, in myfxbook_get_account_info
+    raise RuntimeError(f"Failed to fetch MyFXBook account info: {e}")
+RuntimeError: Failed to fetch MyFXBook account info: 404 Client Error: Not Found for url: https://www.myfxbook.com/api/get-account-information.json?session=NXretqGD7n7oRZPyrHeD%2FEzfL9EUU7oQ4JfxRwNile9cKmwAUU1SsKvmt8qGG2Te74SyoB87JT4ygSompvuTxg%3D%3D&id=78656788
+[ERROR] 2026-01-17 01:16:11,358 main.views: MyFXBook direct account info failed for login 78656788: Failed to fetch MyFXBook account info: 404 Client Error: Not Found for url: https://www.myfxbook.com/api/get-account-information.json?session=NXretqGD7n7oRZPyrHeD%2FEzfL9EUU7oQ4JfxRwNile9cKmwAUU1SsKvmt8qGG2Te74SyoB87JT4ygSompvuTxg%3D%3D&id=78656788
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 103, in myfxbook_get_account_info
+    resp.raise_for_status()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://www.myfxbook.com/api/get-account-information.json?session=NXretqGD7n7oRZPyrHeD%2FEzfL9EUU7oQ4JfxRwNile9cKmwAUU1SsKvmt8qGG2Te74SyoB87JT4ygSompvuTxg%3D%3D&id=78656788
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 393, in update_account_data_from_myfxbook
+    info = myfxbook_fetch_account_info_with_retry(str(account.login).strip())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 140, in myfxbook_fetch_account_info_with_retry
+    return myfxbook_get_account_info(http, session_token, account_id, base_url=base1)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 106, in myfxbook_get_account_info
+    raise RuntimeError(f"Failed to fetch MyFXBook account info: {e}")
+RuntimeError: Failed to fetch MyFXBook account info: 404 Client Error: Not Found for url: https://www.myfxbook.com/api/get-account-information.json?session=NXretqGD7n7oRZPyrHeD%2FEzfL9EUU7oQ4JfxRwNile9cKmwAUU1SsKvmt8qGG2Te74SyoB87JT4ygSompvuTxg%3D%3D&id=78656788
+[ERROR] 2026-01-17 01:16:11,368 main.views: Error updating account data for login 78656788: No matching MyFXBook account found for login 78656788
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\Programming\Trail2Fund\main\views.py", line 400, in update_account_data_from_myfxbook
+    raise Exception(f"No matching MyFXBook account found for login {account.login}")
+Exception: No matching MyFXBook account found for login 78656788

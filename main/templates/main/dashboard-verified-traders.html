@@ -1,0 +1,314 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verified Funded Traders - Trial2Trade</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard-nav.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="{% static 'images/logo.JPG' %}" type="image/svg+xml">
+    <link rel="stylesheet" href="{% static 'css/mobile-nav.css' %}">
+    <style>
+        .traders-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 25px;
+        }
+
+        .trader-card {
+            background: linear-gradient(145deg, #1e1e1e, #252525);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #333;
+            position: relative;
+        }
+
+        .trader-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            border-color: #4facfe;
+        }
+
+        .trader-card-header {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .trader-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #fff;
+            margin: 0;
+        }
+
+        .account-badge {
+            background: linear-gradient(45deg, #00f260, #0575e6);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .trader-card-body {
+            padding: 20px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .info-label {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .info-value {
+            color: #ccc;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .interview-section {
+            padding: 15px 20px;
+            background: rgba(0,0,0,0.2);
+            border-top: 1px solid #333;
+            text-align: center;
+        }
+
+        .interview-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff0055, #ff00aa);
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(255, 0, 85, 0.3);
+        }
+
+        .interview-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(255, 0, 85, 0.4);
+            color: #fff;
+        }
+
+        .interview-status {
+            font-size: 0.85rem;
+            color: #888;
+        }
+        
+        .verified-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #00f260;
+            font-size: 1.2rem;
+            opacity: 0.1;
+            transform: rotate(15deg);
+        }
+
+        .trader-card:hover .verified-badge {
+            opacity: 0.2;
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile Navigation Toggle -->
+    <button class="mobile-nav-toggle">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <!-- Mobile Navigation Overlay -->
+    <div class="mobile-nav-overlay"></div>
+
+    <!-- Dashboard Navigation -->
+    <nav class="dashboard-nav">
+        <div class="nav-logo">
+            <img src="{% static 'images/logob.png' %}" alt="Trial2Trade Logo" style="width: 130px; height: 75px;">
+        </div>
+        <div class="user-info">
+            <img src="{% static 'images/avatar-placeholder.svg' %}" alt="User Avatar" class="avatar">
+            <div class="user-details">
+                <h4 class="user-name">{{ request.user.first_name|default:request.user.username }}</h4>
+                <span class="user-status">{% if user_accounts %}Active Trader{% else %}New User{% endif %}</span>
+            </div>
+        </div>
+        <div class="nav-menu">
+            <a href="{% url 'index' %}" class="nav-item">
+                <i class="fas fa-chart-line"></i>
+                <span>Overview</span>
+            </a>
+            <a href="{% url 'dashboard_accounts' %}" class="nav-item">
+                <i class="fas fa-wallet"></i>
+                <span>My Accounts</span>
+            </a>
+            <a href="{% url 'dashboard_purchase' %}" class="nav-item">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Purchase Account</span>
+            </a>
+            <a href="{% url 'dashboard_next_phase' %}" class="nav-item">
+                <i class="fas fa-arrow-right"></i>
+                <span>Next Phase</span>
+            </a>
+            <a href="{% url 'dashboard_rules' %}" class="nav-item">
+                <i class="fas fa-book"></i>
+                <span>Trading Rules</span>
+            </a>
+            <a href="{% url 'dashboard_referral' %}" class="nav-item">
+                <i class="fas fa-users"></i>
+                <span>Refer & Earn</span>
+            </a>
+            <a href="{% url 'dashboard_payouts' %}" class="nav-item">
+                <i class="fas fa-money-bill-wave"></i>
+                <span>Payouts</span>
+            </a>
+            <a href="{% url 'dashboard_transactions' %}" class="nav-item">
+                <i class="fas fa-history"></i>
+                <span>Transactions</span>
+            </a>
+            <a href="{% url 'dashboard_certificates' %}" class="nav-item">
+                <i class="fas fa-certificate"></i>
+                <span>Certificates</span>
+            </a>
+            <a href="{% url 'dashboard_verified_traders' %}" class="nav-item active">
+                <i class="fas fa-check-circle"></i>
+                <span>Verified Traders</span>
+            </a>
+            <a href="{% url 'logout_user' %}" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Dashboard Content -->
+    <main class="dashboard-content">
+        <header class="dashboard-header">
+            <div class="header-search">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search...">
+            </div>
+            <div class="header-actions">
+                <button class="notification-btn">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </button>
+                <a href="mailto:info@trial2trade.com" class="support-btn">
+                    <i class="fas fa-headset"></i>
+                    <span>Support</span>
+                </a>
+            </div>
+        </header>
+
+        {% if messages %}
+        <div class="messages-container">
+            {% for message in messages %}
+            <div class="alert {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if active_discount_code %}
+        <div class="discount-banner" style="background: linear-gradient(90deg, #FFD700, #FFA500); color: #000; padding: 10px; text-align: center; font-weight: bold; margin-bottom: 20px; border-radius: 8px; margin-top: 20px;">
+            🎉 Special Offer! Use code <span style="background: #000; color: #FFD700; padding: 2px 8px; border-radius: 4px; margin: 0 5px;">{{ active_discount_code.code }}</span> for {{ active_discount_code.percentage }}% OFF!
+        </div>
+        {% endif %}
+
+        <section class="dashboard-section active">
+            <div class="section-header">
+                <h2>Verified Funded Traders Registry</h2>
+                <p>Recognizing our successful traders who have passed their challenges.</p>
+            </div>
+
+            <div class="traders-grid">
+                {% for trader in verified_traders %}
+                <div class="trader-card">
+                    <i class="fas fa-check-circle verified-badge"></i>
+                    <div class="trader-card-header">
+                        <h3 class="trader-name">{{ trader.full_name }}</h3>
+                        <span class="account-badge">${{ trader.account_size }}</span>
+                    </div>
+                    <div class="trader-card-body">
+                        <div class="info-row">
+                            <span class="info-label">Date Passed</span>
+                            <span class="info-value">{{ trader.date_passed|date:"M d, Y" }}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Account Type</span>
+                            <span class="info-value">{{ trader.prop_account_purchased }}</span>
+                        </div>
+                    </div>
+                    <div class="interview-section">
+                        {% if trader.interview_link %}
+                            <a href="{{ trader.interview_link }}" target="_blank" class="interview-btn">
+                                <i class="fas fa-play-circle"></i> Watch Interview
+                            </a>
+                        {% else %}
+                            <span class="interview-status">
+                                {% if trader.interviewed %}
+                                    Interview Completed (No Link)
+                                {% else %}
+                                    Interview Pending
+                                {% endif %}
+                            </span>
+                        {% endif %}
+                    </div>
+                </div>
+                {% empty %}
+                <div style="grid-column: 1 / -1; text-align: center; padding: 50px; color: #888;">
+                    <i class="fas fa-user-slash" style="font-size: 3rem; margin-bottom: 20px;"></i>
+                    <p>No verified traders listed yet.</p>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+
+    <script src="{% static 'js/dashboard.js' %}"></script>
+    <script>
+        // Mobile Navigation Logic
+        const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+        const dashboardNav = document.querySelector('.dashboard-nav');
+        const mobileNavOverlay = document.querySelector('.mobile-nav-overlay');
+
+        if (mobileNavToggle) {
+            mobileNavToggle.addEventListener('click', () => {
+                dashboardNav.classList.toggle('active');
+                mobileNavOverlay.classList.toggle('active');
+            });
+        }
+
+        if (mobileNavOverlay) {
+            mobileNavOverlay.addEventListener('click', () => {
+                dashboardNav.classList.remove('active');
+                mobileNavOverlay.classList.remove('active');
+            });
+        }
+    </script>
+</body>
+</html>

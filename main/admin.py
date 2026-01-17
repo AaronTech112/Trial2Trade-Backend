@@ -1,7 +1,14 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.html import format_html
-from .models import MT5Account, Purchase, RealPropRequest, Payout, CustomUser, ReferralSettings, ReferralEarning, DiscountCode
+from .models import MT5Account, Purchase, RealPropRequest, Payout, CustomUser, ReferralSettings, ReferralEarning, DiscountCode, VerifiedTrader
+
+
+@admin.register(VerifiedTrader)
+class VerifiedTraderAdmin(admin.ModelAdmin):
+    list_display = ('full_name', 'account_size', 'prop_account_purchased', 'date_passed', 'interviewed', 'interview_link')
+    list_filter = ('interviewed', 'account_size', 'date_passed')
+    search_fields = ('full_name', 'prop_account_purchased')
 
 
 @admin.register(DiscountCode)
@@ -107,31 +114,22 @@ class RealPropRequestAdmin(admin.ModelAdmin):
 
 @admin.register(Payout)
 class PayoutAdmin(admin.ModelAdmin):
-    list_display = ('user', 'payout_type', 'amount', 'status', 'mt5_account', 'created_at', 'paid_date')
-    list_filter = ('status', 'payout_type')
-    search_fields = ('user__username', 'user__email', 'transaction_reference', 'full_name')
+    list_display = ('user', 'payout_type', 'amount', 'status', 'paid_date', 'transaction_reference')
+    list_filter = ('status', 'payout_type', 'paid_date')
+    search_fields = ('user__username', 'user__email', 'transaction_reference', 'wallet_address')
     readonly_fields = ('created_at',)
     
-    actions = ['mark_as_completed', 'mark_as_processing', 'mark_as_rejected']
+    actions = ['mark_as_processing', 'mark_as_completed', 'mark_as_rejected']
+    
+    def mark_as_processing(self, request, queryset):
+        queryset.update(status='processing')
+    mark_as_processing.short_description = "Mark selected payouts as processing"
     
     def mark_as_completed(self, request, queryset):
         from django.utils import timezone
         queryset.update(status='completed', paid_date=timezone.now())
     mark_as_completed.short_description = "Mark selected payouts as completed"
     
-    def mark_as_processing(self, request, queryset):
-        queryset.update(status='processing')
-    mark_as_processing.short_description = "Mark selected payouts as processing"
-    
     def mark_as_rejected(self, request, queryset):
         queryset.update(status='rejected')
     mark_as_rejected.short_description = "Mark selected payouts as rejected"
-
-from .models import Certificate
-
-@admin.register(Certificate)
-class CertificateAdmin(admin.ModelAdmin):
-    list_display = ('title', 'user', 'issued_at')
-    list_filter = ('issued_at',)
-    search_fields = ('title', 'user__username', 'user__email')
-    readonly_fields = ('issued_at',)

@@ -257,3 +257,14 @@ class DiscountCode(models.Model):
     def __str__(self):
         return self.code
 
+class VerifiedTrader(models.Model):
+    full_name = models.CharField(max_length=200)
+    date_passed = models.DateField()
+    account_size = models.CharField(max_length=20)
+    prop_account_purchased = models.CharField(max_length=100)
+    interviewed = models.BooleanField(default=False)
+    interview_link = models.URLField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.full_name} - {self.account_size}"
