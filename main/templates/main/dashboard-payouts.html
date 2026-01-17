@@ -91,10 +91,12 @@
                 <input type="text" placeholder="Search...">
             </div>
             <div class="header-actions">
-                <button class="notification-btn">
+                <a href="{% url 'dashboard_announcements' %}" class="notification-btn" style="text-decoration: none;">
                     <i class="fas fa-bell"></i>
-                    <span class="notification-badge">3</span>
-                </button>
+                    {% if announcement_count > 0 %}
+                    <span class="notification-badge">{{ announcement_count }}</span>
+                    {% endif %}
+                </a>
                 <a href="mailto:info@trial2trade.com" class="support-btn">
                     <i class="fas fa-headset"></i>
                     <span>Support</span>

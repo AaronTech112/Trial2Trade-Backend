@@ -1,7 +1,13 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.html import format_html
-from .models import MT5Account, Purchase, RealPropRequest, Payout, CustomUser, ReferralSettings, ReferralEarning, DiscountCode, VerifiedTrader
+from .models import MT5Account, Purchase, RealPropRequest, Payout, CustomUser, ReferralSettings, ReferralEarning, DiscountCode, VerifiedTrader, Announcement
+
+@admin.register(Announcement)
+class AnnouncementAdmin(admin.ModelAdmin):
+    list_display = ('title', 'created_at', 'is_published')
+    list_filter = ('is_published', 'created_at')
+    search_fields = ('title', 'body')
 
 
 @admin.register(VerifiedTrader)
