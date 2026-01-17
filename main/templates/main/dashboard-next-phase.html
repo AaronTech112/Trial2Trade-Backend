@@ -253,13 +253,11 @@
                                 <small>Target: ${{ current_account.initial_balance|mul:0.15|floatformat:2 }}</small>
                             </div>
                             <div class="stat-item">
-                                <span>Trading Days Left</span>
-                                {% with days_passed=current_account.assigned_date|timesince|split:" "|first|add:0 %}
-                                {% with days_left=20|sub:days_passed %}
-                                <p class="value">{% if days_left < 0 %}0{% else %}{{ days_left }}{% endif %} Days</p>
+                                <span>Trading Days Progress</span>
+                                {% with days_left=20|sub:current_account.trading_days|default:0 %}
+                                <p class="value">{% if days_left < 0 %}0{% else %}{{ days_left }}{% endif %} Days Left</p>
                                 {% endwith %}
-                                {% endwith %}
-                                <small>Minimum: 20 Days</small>
+                                <small>{{ current_account.trading_days|default:0 }}/20 Days Completed</small>
                             </div>
                         </div>
                         {% endwith %}

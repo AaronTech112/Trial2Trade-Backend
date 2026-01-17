@@ -754,6 +754,33 @@ def update_account_data_from_myfxbook(account, accounts=None):
         except Exception:
              account.recent_trades = []
 
+        # Calculate trading days based on assigned date and activity
+        if account.assigned_date:
+            try:
+                # Calculate days since assignment
+                days_since_assignment = (timezone.now() - account.assigned_date).days
+                
+                # If there are trades, use the trading activity to determine trading days
+                if trades:
+                    # Get unique trading days from trade history
+                    trading_days_set = set()
+                    for trade in trades:
+                        trade_time = _parse_myfxbook_dt(trade.get('closeTime') or trade.get('closeDate') or trade.get('close_time'))
+                        if trade_time:
+                            trading_days_set.add(trade_time.date())
+                    
+                    # Trading days is the number of unique days with trading activity
+                    account.trading_days = len(trading_days_set)
+                else:
+                    # If no trades, trading days is just days since assignment (capped at days passed)
+                    account.trading_days = min(days_since_assignment, (timezone.now() - account.assigned_date).days)
+                    
+            except Exception as e:
+                logger.error(f"Error calculating trading days for {account.login}: {e}")
+                # Fallback: use days since assignment
+                if account.assigned_date:
+                    account.trading_days = (timezone.now() - account.assigned_date).days
+        
         try:
             account.check_breach_status()
         except Exception:

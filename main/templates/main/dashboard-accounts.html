@@ -1,4 +1,5 @@
 {% load static %}
+{% load math_filters %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -201,6 +202,22 @@
                                 <div class="progress-label" style="margin-top: 6px;">
                                     <span>Target: ${{ account.profit_target_amount|default:0|floatformat:2 }}</span>
                                     <span>Profit: ${{ account.profit|default_if_none:0|floatformat:2 }}</span>
+                                </div>
+                            </div>
+
+                            <div class="progress-container" style="margin-top: 12px;">
+                                <div class="progress-label">
+                                    <span>Trading Days Progress</span>
+                                    <span>{{ account.trading_days|default:0 }}/20</span>
+                                </div>
+                                <div class="progress-bar">
+                                    {% with trading_days=account.trading_days|default:0 %}
+                                    <div class="progress" style="width: {% if trading_days > 20 %}100{% else %}{{ trading_days|mul:5 }}{% endif %}%"></div>
+                                    {% endwith %}
+                                </div>
+                                <div class="progress-label" style="margin-top: 6px;">
+                                    <span>Minimum: 20 Days</span>
+                                    <span>Current: {{ account.trading_days|default:0 }} Days</span>
                                 </div>
                             </div>
 
