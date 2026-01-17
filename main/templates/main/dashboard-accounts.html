@@ -148,6 +148,11 @@
                         </div>
                         <div class="account-body">
                             <h3>{{ account.account_size }} Trading Account</h3>
+                            {% if account.status == 'breached' and account.breach_reason %}
+                            <p class="breach-reason" style="color: #ff4444; font-size: 0.85em; margin-top: 4px; margin-bottom: 10px;">
+                                <i class="fas fa-exclamation-triangle"></i> {{ account.breach_reason }}
+                            </p>
+                            {% endif %}
                             <div class="account-stats">
                                 <!-- Core trading stats -->
                                 <div class="stat">

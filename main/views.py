@@ -330,6 +330,73 @@ def myfxbook_fetch_accounts_with_retry():
                 pass
 
 
+def myfxbook_get_open_orders(http: requests.Session, session: str, account_id: str, base_url: str | None = None):
+    base = base_url or getattr(settings, 'MYFXBOOK_BASE_URL', 'https://www.myfxbook.com')
+    url = f"{base}/api/get-open-orders.json?session={session}&id={account_id}"
+    try:
+        resp = http.get(url, timeout=20)
+        try:
+            resp.raise_for_status()
+        except requests.RequestException as e:
+            logger.exception('Failed to fetch MyFXBook open orders: %s', e)
+            raise RuntimeError(f"Failed to fetch MyFXBook open orders: {e}")
+        try:
+            data = resp.json()
+        except Exception:
+            logger.error('MyFXBook open orders response was not valid JSON. Body: %s', resp.text[:500])
+            raise RuntimeError('MyFXBook open orders response was not valid JSON.')
+        if data.get('error') or (isinstance(data.get('status'), str) and data.get('status').lower() == 'error'):
+            msg = data.get('message', 'Unknown error')
+            # Open orders might be empty or restricted, but error indicates failure
+            logger.error('Failed to get MyFXBook open orders: %s', msg)
+            if isinstance(msg, str) and 'invalid session' in msg.lower():
+                raise MyFxBookInvalidSession(msg)
+            raise ValueError(f"Failed to get MyFXBook open orders: {msg}")
+        open_orders = data.get('openOrders', [])
+        if open_orders is None:
+            open_orders = []
+        return open_orders
+    except Exception:
+        raise
+
+def myfxbook_fetch_open_orders_with_retry(account_id: str):
+    """Fetch open orders with retries and base URL fallbacks."""
+    http = requests.Session()
+    http.trust_env = False
+    http.proxies = {}
+    http.headers.update({'User-Agent': MYFXBOOK_HTTP_HEADERS.get('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/124.0 Safari/537.36'), 'Accept': 'application/json'})
+    retries = Retry(total=3, backoff_factor=1.0, status_forcelist=[429, 502, 503, 504], allowed_methods=["GET","POST"])
+    http.mount("https://", HTTPAdapter(max_retries=retries))
+    http.mount("http://", HTTPAdapter(max_retries=retries))
+    session_token = None
+    try:
+        base1 = getattr(settings, 'MYFXBOOK_BASE_URL', 'https://www.myfxbook.com')
+        session_token = myfxbook_login(http, base_url=base1, use_post=False)
+        return myfxbook_get_open_orders(http, session_token, account_id, base_url=base1)
+    except MyFxBookInvalidSession:
+        try:
+            if session_token:
+                try:
+                    myfxbook_logout(http, session_token, base_url=getattr(settings, 'MYFXBOOK_BASE_URL', 'https://www.myfxbook.com'))
+                except Exception:
+                    pass
+            base1 = getattr(settings, 'MYFXBOOK_BASE_URL', 'https://www.myfxbook.com')
+            session_token = myfxbook_login(http, base_url=base1, use_post=True)
+            return myfxbook_get_open_orders(http, session_token, account_id, base_url=base1)
+        except Exception as e:
+            logger.exception('Error fetching MyFXBook open orders: %s', e)
+            return []
+    except Exception as e:
+        logger.exception('Error fetching MyFXBook open orders: %s', e)
+        return []
+    finally:
+        try:
+            if session_token:
+                myfxbook_logout(http, session_token)
+        except Exception:
+            pass
+
+
 def update_account_data_from_myfxbook(account, accounts=None):
     """
     Fetch account metrics from MyFXBook and update MT5Account fields.
@@ -489,171 +556,208 @@ def update_account_data_from_myfxbook(account, accounts=None):
         except Exception:
             pass
 
-        # Compute and persist daily max drawdown based on day's opening equity
+        # --- Breach Rule Evaluation ---
+        # 1. Daily Maximum Loss: Exceeding 4% daily drawdown.
+        # 2. Maximum Loss Per Trade: Risking or losing more than 2% on a single trade.
+        # 3. Overall Drawdown: Exceeding 10% total drawdown on the account.
+        # 4. Over-Positioning on the Same Asset: Opening more than 3 positions on the same pair or asset at the same time.
+        # 5. Scalping Rule Violation: Entering and closing a trade within 2 minutes.
+        # 6. Inactivity Rule: Failing to place any trade for 15 consecutive days.
+
+        from decimal import Decimal
+        from datetime import datetime, timedelta
+
+        def _parse_myfxbook_dt(v):
+            if v is None: return None
+            try:
+                if isinstance(v, (int, float)):
+                    ts = float(v)
+                    if ts > 1e12: ts /= 1000.0
+                    return datetime.fromtimestamp(ts, tz=timezone.get_current_timezone())
+                s = str(v).strip()
+                from django.utils.dateparse import parse_datetime
+                dt = parse_datetime(s)
+                if not dt:
+                     dt = datetime.strptime(s, '%m/%d/%Y %H:%M')
+                if dt and timezone.is_naive(dt):
+                    dt = timezone.make_aware(dt, timezone.get_current_timezone())
+                return dt
+            except Exception:
+                return None
+
+        # 1. Daily Maximum Loss (4%)
         try:
-            from decimal import Decimal
             now = timezone.now()
             today = now.date()
             eq = account.equity
             if eq is not None:
-                # Initialize/reset opening equity at start of day
                 if account.equity_open_day_date is None or account.equity_open_day_date != today:
                     account.equity_open_day = eq
                     account.equity_open_day_date = today
                     account.daily_max_drawdown = Decimal('0')
-                # Calculate current daily drawdown percentage
+                
                 if account.equity_open_day:
-                    try:
-                        open_eq = Decimal(str(account.equity_open_day))
-                        curr_eq = Decimal(str(eq))
-                        dd = ((open_eq - curr_eq) / open_eq) * Decimal('100') if open_eq > 0 else Decimal('0')
-                        if dd < 0:
-                            dd = Decimal('0')
+                    open_eq = Decimal(str(account.equity_open_day))
+                    curr_eq = Decimal(str(eq))
+                    if open_eq > 0:
+                        dd = ((open_eq - curr_eq) / open_eq) * Decimal('100')
+                        if dd < 0: dd = Decimal('0')
                         if account.daily_max_drawdown is None or dd > account.daily_max_drawdown:
                             account.daily_max_drawdown = dd
+                        
+                        if dd >= Decimal('4') and account.status != 'breached':
+                            account.status = 'breached'
+                            account.breach_reason = f"Daily Maximum Loss: Exceeded 4% daily drawdown ({dd:.2f}%)."
+                            account.save(update_fields=['status', 'breach_reason'])
+            account.save(update_fields=['equity_open_day', 'equity_open_day_date', 'daily_max_drawdown'])
+        except Exception as e:
+            logger.error(f"Error checking daily max loss for {account.login}: {e}")
+
+        # 3. Overall Drawdown (10%)
+        if account.status != 'breached':
+            try:
+                if account.initial_balance and account.equity:
+                     ib = Decimal(str(account.initial_balance))
+                     eq = Decimal(str(account.equity))
+                     if ib > 0:
+                         total_dd = ((ib - eq) / ib) * Decimal('100')
+                         if total_dd > Decimal('10'):
+                             account.status = 'breached'
+                             account.breach_reason = f"Overall Drawdown: Exceeded 10% total drawdown ({total_dd:.2f}%)."
+                             account.save(update_fields=['status', 'breach_reason'])
+            except Exception as e:
+                 logger.error(f"Error checking overall drawdown for {account.login}: {e}")
+
+        # Fetch History for Rules 2, 5, 6
+        trades = []
+        if account_id_str:
+            try:
+                trades = myfxbook_fetch_history_with_retry(account_id_str)
+                if (not trades) and source is not None:
+                    alt_id = source.get('accountId')
+                    if alt_id and str(alt_id) != account_id_str:
+                        trades = myfxbook_fetch_history_with_retry(str(alt_id))
+                if (not trades):
+                    try:
+                        info3 = myfxbook_fetch_account_info_with_retry(str(account.login).strip())
                     except Exception:
-                        pass
-                # Breach if daily max drawdown reaches or exceeds 4%
-                try:
-                    if account.daily_max_drawdown is not None and Decimal(str(account.daily_max_drawdown)) >= Decimal('4'):
+                        info3 = None
+                    if info3:
+                        eid = info3.get('id') or info3.get('accountId')
+                        if eid and str(eid) != account_id_str:
+                            trades = myfxbook_fetch_history_with_retry(str(eid))
+            except Exception:
+                pass
+
+        # 2. Max Loss Per Trade (2%)
+        # 5. Scalping (2 min)
+        # 6. Inactivity (15 days)
+        if trades:
+             # Sort trades by close time desc
+             trades.sort(key=lambda x: (_parse_myfxbook_dt(x.get('closeTime') or x.get('closeDate') or x.get('close_time')) or timezone.now()), reverse=True)
+             
+             # Rule 6: Inactivity
+             if account.status != 'breached':
+                 last_trade = trades[0]
+                 last_close = _parse_myfxbook_dt(last_trade.get('closeTime') or last_trade.get('closeDate') or last_trade.get('close_time'))
+                 if last_close:
+                     if (timezone.now() - last_close).days >= 15:
+                         account.status = 'breached'
+                         account.breach_reason = f"Inactivity Rule: No trades for 15 consecutive days (Last trade: {last_close.date()})."
+                         account.save(update_fields=['status', 'breach_reason'])
+             
+             # Iterate for Rules 2 and 5
+             if account.status != 'breached':
+                 ib = Decimal(str(account.initial_balance)) if account.initial_balance else Decimal('0')
+                 max_loss_pct = Decimal('0')
+                 for t in trades:
+                     # Rule 2: Max Loss
+                     profit = t.get('profit')
+                     if profit is not None:
+                         try:
+                             p = Decimal(str(profit))
+                             if p < 0 and ib > 0:
+                                 loss_pct = (abs(p) / ib) * Decimal('100')
+                                 if loss_pct > max_loss_pct: max_loss_pct = loss_pct
+                                 if loss_pct > Decimal('2'):
+                                     account.status = 'breached'
+                                     account.breach_reason = f"Maximum Loss Per Trade: Single trade loss of {loss_pct:.2f}% exceeded 2% limit."
+                                     account.save(update_fields=['status', 'breach_reason'])
+                                     break
+                         except Exception: pass
+                     
+                     # Rule 5: Scalping
+                     open_time = _parse_myfxbook_dt(t.get('openTime') or t.get('openDate'))
+                     close_time = _parse_myfxbook_dt(t.get('closeTime') or t.get('closeDate'))
+                     if open_time and close_time:
+                         duration = close_time - open_time
+                         # Only count as scalping if duration < 2 mins (120 seconds)
+                         if duration.total_seconds() < 120:
+                             account.status = 'breached'
+                             account.breach_reason = f"Scalping Rule Violation: Trade duration {duration.total_seconds():.0f}s under 2 minutes."
+                             account.save(update_fields=['status', 'breach_reason'])
+                             break
+                 
+                 # Store max single trade loss pct
+                 account.max_single_trade_loss_pct = float(max_loss_pct)
+
+        else:
+            # Rule 6 Check if no trades at all
+            if account.status != 'breached' and account.assigned_date:
+                if (timezone.now() - account.assigned_date).days >= 15:
+                     account.status = 'breached'
+                     account.breach_reason = "Inactivity Rule: No trades for 15 consecutive days since assignment."
+                     account.save(update_fields=['status', 'breach_reason'])
+
+        # 4. Over-Positioning (> 3 positions on same asset)
+        if account.status != 'breached' and account_id_str:
+            try:
+                open_orders = myfxbook_fetch_open_orders_with_retry(account_id_str)
+                symbol_counts = {}
+                for order in open_orders:
+                    sym = order.get('symbol')
+                    if sym:
+                        symbol_counts[sym] = symbol_counts.get(sym, 0) + 1
+                
+                for sym, count in symbol_counts.items():
+                    if count > 3:
                         account.status = 'breached'
-                except Exception:
-                    pass
-                account.save(update_fields=['equity_open_day', 'equity_open_day_date', 'daily_max_drawdown', 'status'])
+                        account.breach_reason = f"Over-Positioning: {count} open positions on {sym} (Limit: 3)."
+                        account.save(update_fields=['status', 'breach_reason'])
+                        break
+            except Exception as e:
+                logger.error(f"Error checking open orders for {account.login}: {e}")
+
+        # Populate recent trades for display
+        try:
+             recent = []
+             for t in trades[:5]:
+                 sym = t.get('symbol') or t.get('instrument') or ''
+                 action = t.get('action') or t.get('type') or t.get('side') or ''
+                 lots = t.get('lots') or t.get('volume') or 0
+                 try: lots = float(lots)
+                 except: lots = 0.0
+                 op = t.get('openPrice') or t.get('open_price')
+                 cp = t.get('closePrice') or t.get('close_price')
+                 pf = t.get('profit') or 0
+                 try: pf = float(pf)
+                 except: pf = 0.0
+                 dt = _parse_myfxbook_dt(t.get('closeTime') or t.get('closeDate') or t.get('close_time'))
+                 dts = timezone.localtime(dt).strftime('%b %d, %Y %H:%M') if dt else ''
+                 recent.append({
+                     'symbol': sym, 'action': action, 'lots': lots,
+                     'open_price': op, 'close_price': cp,
+                     'profit': pf, 'close_time': dts
+                 })
+             account.recent_trades = recent
+             account.myfxbook_history_count = len(trades)
         except Exception:
-            pass
+             account.recent_trades = []
 
         try:
             account.check_breach_status()
         except Exception:
             pass
-
-        # Check single-trade 2% max loss breach using MyFXBook history
-        try:
-            from decimal import Decimal
-            if account_id_str:
-                try:
-                    logger.info('Fetching MyFXBook history for login %s using id=%s (altId=%s).', account.login, account_id_str, (source or {}).get('accountId'))
-                except Exception:
-                    pass
-                trades = myfxbook_fetch_history_with_retry(account_id_str)
-                try:
-                    if (not trades) and source is not None:
-                        alt_id = source.get('accountId')
-                        if alt_id and str(alt_id) != account_id_str:
-                            trades = myfxbook_fetch_history_with_retry(str(alt_id))
-                    if (not trades):
-                        try:
-                            info3 = myfxbook_fetch_account_info_with_retry(str(account.login).strip())
-                        except Exception:
-                            info3 = None
-                        if info3:
-                            eid = info3.get('id') or info3.get('accountId')
-                            if eid and str(eid) != account_id_str:
-                                trades = myfxbook_fetch_history_with_retry(str(eid))
-                except Exception:
-                    pass
-                if account.initial_balance:
-                    ib = Decimal(str(account.initial_balance))
-                    threshold = (ib * Decimal('0.02'))
-                    max_loss_pct = Decimal('0')
-                    for t in trades:
-                        profit = t.get('profit')
-                        try:
-                            p = Decimal(str(profit)) if profit is not None else Decimal('0')
-                        except Exception:
-                            p = Decimal('0')
-                        if p < 0:
-                            loss_amt = -p
-                            if ib > 0:
-                                try:
-                                    lpct = (loss_amt / ib) * Decimal('100')
-                                    if lpct > max_loss_pct:
-                                        max_loss_pct = lpct
-                                except Exception:
-                                    pass
-                            if loss_amt >= threshold and account.status != 'breached':
-                                account.status = 'breached'
-                                account.save(update_fields=['status'])
-                                logger.info('Account %s breached by single trade loss %.2f (>= 2%% of initial %.2f).', account.login, float(loss_amt), float(ib))
-                                break
-                    try:
-                        account.max_single_trade_loss_pct = float(max_loss_pct)
-                    except Exception:
-                        account.max_single_trade_loss_pct = 0.0
-                try:
-                    def _parse_close_dt(v):
-                        if v is None:
-                            return None
-                        try:
-                            if isinstance(v, (int, float)):
-                                ts = float(v)
-                                if ts > 1e12:
-                                    ts = ts / 1000.0
-                                dt = datetime.fromtimestamp(ts, tz=timezone.get_current_timezone())
-                                return dt
-                            s = str(v).strip()
-                            try:
-                                dt = datetime.strptime(s, '%m/%d/%Y %H:%M')
-                                dt = timezone.make_aware(dt, timezone.get_current_timezone())
-                                return dt
-                            except Exception:
-                                pass
-                            from django.utils.dateparse import parse_datetime
-                            dt = parse_datetime(s)
-                            if dt and timezone.is_naive(dt):
-                                dt = timezone.make_aware(dt, timezone.get_current_timezone())
-                            return dt
-                        except Exception:
-                            return None
-                    def _get_close_dt(t):
-                        return _parse_close_dt(t.get('closeTime') or t.get('closeDate') or t.get('close_time'))
-                    sorted_trades = sorted(trades, key=lambda x: (_get_close_dt(x) or timezone.now()), reverse=True)
-                    recent = []
-                    for t in sorted_trades[:5]:
-                        sym = t.get('symbol') or t.get('instrument') or ''
-                        action = t.get('action') or t.get('type') or t.get('side') or ''
-                        # lots value may be inside sizing: { type: 'lots', value: '0.04' }
-                        sizing = t.get('sizing') if isinstance(t.get('sizing'), dict) else None
-                        if sizing:
-                            try:
-                                lots_val = sizing.get('value')
-                                lots = float(lots_val) if lots_val is not None else 0.0
-                            except Exception:
-                                lots = 0.0
-                        else:
-                            lots = t.get('lots') or t.get('volume') or 0
-                            try:
-                                lots = float(lots) if lots is not None else 0.0
-                            except Exception:
-                                lots = 0.0
-                        op = t.get('openPrice') or t.get('open_price')
-                        cp = t.get('closePrice') or t.get('close_price')
-                        pf = t.get('profit') or 0
-                        dt = _get_close_dt(t)
-                        dts = timezone.localtime(dt).strftime('%b %d, %Y %H:%M') if dt else (t.get('closeTime') or t.get('closeDate') or '')
-                        try:
-                            profit_val = float(pf) if isinstance(pf, (int, float)) else float(str(pf)) if pf is not None else 0.0
-                        except Exception:
-                            profit_val = 0.0
-                        recent.append({
-                            'symbol': sym,
-                            'action': action,
-                            'lots': lots,
-                            'open_price': op,
-                            'close_price': cp,
-                            'profit': profit_val,
-                            'close_time': dts,
-                        })
-                    account.recent_trades = recent
-                    try:
-                        account.myfxbook_history_count = len(recent)
-                    except Exception:
-                        pass
-                except Exception:
-                    account.recent_trades = []
-        except Exception as e:
-            logger.exception('Error evaluating single-trade breach for %s: %s', account.login, e)
 
         logger.info('Updated MyFXBook metrics for login %s: balance=%s equity=%s profit=%s drawdown=%s',
                     account.login, account.balance, account.equity, account.profit, account.drawdown)

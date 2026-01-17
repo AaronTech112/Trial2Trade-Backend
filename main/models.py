@@ -78,6 +78,7 @@ class MT5Account(models.Model):
     equity_open_day_date = models.DateField(null=True, blank=True)
     
     assigned_date = models.DateTimeField(null=True, blank=True)
+    breach_reason = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return f"{self.login} - {self.account_size} ({self.status})"
