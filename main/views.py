@@ -649,6 +649,16 @@ def update_account_data_from_myfxbook(account, accounts=None):
             except Exception:
                 pass
 
+        # Filter out non-trading actions (deposits, withdrawals, etc.)
+        if trades:
+             valid_trades = []
+             for t in trades:
+                 action = (t.get('action') or t.get('type') or '').lower()
+                 if 'deposit' in action or 'withdraw' in action or 'credit' in action or 'balance' in action:
+                     continue
+                 valid_trades.append(t)
+             trades = valid_trades
+
         # 2. Max Loss Per Trade (2%)
         # 5. Scalping (2 min)
         # 6. Inactivity (15 days)
