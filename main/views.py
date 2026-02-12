@@ -561,7 +561,7 @@ def update_account_data_from_myfxbook(account, accounts=None):
         # 2. Maximum Loss Per Trade: Risking or losing more than 2% on a single trade.
         # 3. Overall Drawdown: Exceeding 10% total drawdown on the account.
         # 4. Over-Positioning on the Same Asset: Opening more than 3 positions on the same pair or asset at the same time.
-        # 5. Scalping Rule Violation: Entering and closing a trade within 2 minutes.
+        # 5. Scalping Rule Violation: Entering and closing a trade within 5 minutes.
         # 6. Inactivity Rule: Failing to place any trade for 15 consecutive days.
 
         from decimal import Decimal
@@ -660,56 +660,58 @@ def update_account_data_from_myfxbook(account, accounts=None):
              trades = valid_trades
 
         # 2. Max Loss Per Trade (2%)
-        # 5. Scalping (2 min)
+        # 5. Scalping (5 min)
         # 6. Inactivity (15 days)
         if trades:
-             # Sort trades by close time desc
-             trades.sort(key=lambda x: (_parse_myfxbook_dt(x.get('closeTime') or x.get('closeDate') or x.get('close_time')) or timezone.now()), reverse=True)
-             
-             # Rule 6: Inactivity
-             if account.status != 'breached':
-                 last_trade = trades[0]
-                 last_close = _parse_myfxbook_dt(last_trade.get('closeTime') or last_trade.get('closeDate') or last_trade.get('close_time'))
-                 if last_close:
-                     if (timezone.now() - last_close).days >= 15:
-                         account.status = 'breached'
-                         account.breach_reason = f"Inactivity Rule: No trades for 15 consecutive days (Last trade: {last_close.date()})."
-                         account.save(update_fields=['status', 'breach_reason'])
-             
-             # Iterate for Rules 2 and 5
-             if account.status != 'breached':
-                 ib = Decimal(str(account.initial_balance)) if account.initial_balance else Decimal('0')
-                 max_loss_pct = Decimal('0')
-                 for t in trades:
-                     # Rule 2: Max Loss
-                     profit = t.get('profit')
-                     if profit is not None:
-                         try:
-                             p = Decimal(str(profit))
-                             if p < 0 and ib > 0:
-                                 loss_pct = (abs(p) / ib) * Decimal('100')
-                                 if loss_pct > max_loss_pct: max_loss_pct = loss_pct
-                                 if loss_pct > Decimal('2'):
-                                     account.status = 'breached'
-                                     account.breach_reason = f"Maximum Loss Per Trade: Single trade loss of {loss_pct:.2f}% exceeded 2% limit."
-                                     account.save(update_fields=['status', 'breach_reason'])
-                                     break
-                         except Exception: pass
-                     
-                     # Rule 5: Scalping
-                     open_time = _parse_myfxbook_dt(t.get('openTime') or t.get('openDate'))
-                     close_time = _parse_myfxbook_dt(t.get('closeTime') or t.get('closeDate'))
-                     if open_time and close_time:
-                         duration = close_time - open_time
-                         # Only count as scalping if duration < 2 mins (120 seconds)
-                         if duration.total_seconds() < 120:
-                             account.status = 'breached'
-                             account.breach_reason = f"Scalping Rule Violation: Trade duration {duration.total_seconds():.0f}s under 2 minutes."
-                             account.save(update_fields=['status', 'breach_reason'])
-                             break
-                 
-                 # Store max single trade loss pct
-                 account.max_single_trade_loss_pct = float(max_loss_pct)
+            # Sort trades by close time desc
+            trades.sort(key=lambda x: (_parse_myfxbook_dt(x.get('closeTime') or x.get('closeDate') or x.get('close_time')) or timezone.now()), reverse=True)
+            
+            # Rule 6: Inactivity
+            if account.status != 'breached':
+                last_trade = trades[0]
+                last_close = _parse_myfxbook_dt(last_trade.get('closeTime') or last_trade.get('closeDate') or last_trade.get('close_time'))
+                if last_close:
+                    if (timezone.now() - last_close).days >= 15:
+                        account.status = 'breached'
+                        account.breach_reason = f"Inactivity Rule: No trades for 15 consecutive days (Last trade: {last_close.date()})."
+                        account.save(update_fields=['status', 'breach_reason'])
+            
+            # Iterate for Rules 2 and 5
+            if account.status != 'breached':
+                ib = Decimal(str(account.initial_balance)) if account.initial_balance else Decimal('0')
+                max_loss_pct = Decimal('0')
+                for t in trades:
+                    # Rule 2: Max Loss
+                    profit = t.get('profit')
+                    if profit is not None:
+                        try:
+                            p = Decimal(str(profit))
+                            if p < 0 and ib > 0:
+                                loss_pct = (abs(p) / ib) * Decimal('100')
+                                if loss_pct > max_loss_pct:
+                                    max_loss_pct = loss_pct
+                                if loss_pct > Decimal('2'):
+                                    account.status = 'breached'
+                                    account.breach_reason = f"Maximum Loss Per Trade: Single trade loss of {loss_pct:.2f}% exceeded 2% limit."
+                                    account.save(update_fields=['status', 'breach_reason'])
+                                    break
+                        except Exception:
+                            pass
+                    
+                    # Rule 5: Scalping
+                    open_time = _parse_myfxbook_dt(t.get('openTime') or t.get('openDate'))
+                    close_time = _parse_myfxbook_dt(t.get('closeTime') or t.get('closeDate'))
+                    if open_time and close_time:
+                        duration = close_time - open_time
+                        # Only count as scalping if duration < 5 mins (300 seconds)
+                        if duration.total_seconds() < 300:
+                            account.status = 'breached'
+                            account.breach_reason = f"Scalping Rule Violation: Trade duration {duration.total_seconds():.0f}s under 5 minutes."
+                            account.save(update_fields=['status', 'breach_reason'])
+                            break
+                
+                # Store max single trade loss pct
+                account.max_single_trade_loss_pct = float(max_loss_pct)
 
         else:
             # Rule 6 Check if no trades at all
@@ -2049,5 +2051,3 @@ def dashboard_verified_traders(request):
         'global_alert': get_active_global_alert(),
     }
     return render(request, 'main/dashboard-verified-traders.html', context)
-
-
