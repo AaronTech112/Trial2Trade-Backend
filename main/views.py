@@ -1595,6 +1595,24 @@ def dashboard_next_phase(request):
             request_type=request_type,
             mt5_account=account
         )
+        try:
+            subject = 'Next phase request submitted'
+            message = (
+                f"User: {request.user.username} ({request.user.email})\n"
+                f"Request type: {request_type}\n"
+                f"Account: {account.login} ({account.account_size})\n"
+                f"Request ID: {prop_request.id}\n"
+                f"Submitted: {timezone.localtime(prop_request.created_at)}"
+            )
+            send_mail(
+                subject,
+                message,
+                settings.DEFAULT_FROM_EMAIL,
+                ['ehvarforex@gmail.com'],
+                fail_silently=False,
+            )
+        except Exception as e:
+            logger.exception('Failed to send next phase request email: %s', e)
 
         messages.success(request, f'Your {request_type} request has been submitted and is pending approval')
         return redirect('dashboard_next_phase')
@@ -1653,7 +1671,7 @@ def dashboard_referral(request):
             if amount > available_balance:
                 messages.error(request, 'Insufficient available balance.')
             else:
-                Payout.objects.create(
+                payout = Payout.objects.create(
                     user=user,
                     payout_type='referral',
                     amount=amount,
@@ -1662,6 +1680,26 @@ def dashboard_referral(request):
                     account_number=form.cleaned_data['account_number'],
                     status='pending'
                 )
+                try:
+                    subject = 'Referral payout request submitted'
+                    message = (
+                        f"User: {user.username} ({user.email})\n"
+                        f"Amount: ${amount}\n"
+                        f"Bank: {payout.bank_name}\n"
+                        f"Account name: {payout.full_name}\n"
+                        f"Account number: {payout.account_number}\n"
+                        f"Payout ID: {payout.id}\n"
+                        f"Submitted: {timezone.localtime(payout.created_at)}"
+                    )
+                    send_mail(
+                        subject,
+                        message,
+                        settings.DEFAULT_FROM_EMAIL,
+                        ['ehvarforex@gmail.com'],
+                        fail_silently=False,
+                    )
+                except Exception as e:
+                    logger.exception('Failed to send referral payout email: %s', e)
                 messages.success(request, 'Your payout request has been submitted. Status: Pending. It usually takes 24 hours to process.')
                 return redirect('dashboard_referral')
         else:
