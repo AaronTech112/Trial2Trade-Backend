@@ -367,7 +367,7 @@
                         {% for payout in referral_payouts %}
                         <tr>
                             <td>{{ payout.created_at|date:"M d, Y" }}</td>
-                            <td>${{ payout.amount }}</td>
+                            <td>${{ payout.amount_usd|floatformat:2 }}</td>
                             <td>
                                 <span style="
                                     padding: 0.25rem 0.75rem; 
@@ -413,8 +413,8 @@
                         <tr>
                             <td>{{ earning.created_at|date:"M d, Y" }}</td>
                             <td>{{ earning.referred_user.username }}</td>
-                            <td>${{ earning.purchase.amount }}</td>
-                            <td style="color: var(--success-color);">+${{ earning.amount }}</td>
+                            <td>${{ earning.purchase_amount_usd|floatformat:2 }}</td>
+                            <td style="color: var(--success-color);">+${{ earning.amount_usd|floatformat:2 }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>

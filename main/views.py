@@ -1658,23 +1658,52 @@ def dashboard_referral(request):
     
     # Calculate payouts and available balance
     referral_payouts = Payout.objects.filter(user=user, payout_type='referral').order_by('-created_at')
-    # Exclude rejected payouts from the total payout amount
     total_payouts_sum = sum(p.amount for p in referral_payouts if p.status != 'rejected')
     available_balance = total_earnings - total_payouts_sum
+
+    rate = getattr(settings, 'NGN_TO_USD_RATE', Decimal('0.00067'))
+    try:
+        rate = Decimal(str(rate))
+    except Exception:
+        rate = Decimal('0.00067')
+    if rate <= 0:
+        rate = Decimal('0.00067')
+
+    def _ngn_to_usd(value):
+        try:
+            return (Decimal(str(value)) * rate).quantize(Decimal('0.01'))
+        except Exception:
+            return Decimal('0.00')
+
+    def _usd_to_ngn(value):
+        try:
+            return (Decimal(str(value)) / rate).quantize(Decimal('0.01'))
+        except Exception:
+            return Decimal('0.00')
+
+    total_earnings_usd = _ngn_to_usd(total_earnings)
+    available_balance_usd = _ngn_to_usd(available_balance)
+    for payout in referral_payouts:
+        payout.amount_usd = _ngn_to_usd(payout.amount)
+    for earning in earnings:
+        earning.amount_usd = _ngn_to_usd(earning.amount)
+        if earning.purchase:
+            earning.purchase_amount_usd = _ngn_to_usd(earning.purchase.amount)
 
     form = ReferralPayoutForm()
 
     if request.method == 'POST':
         form = ReferralPayoutForm(request.POST)
         if form.is_valid():
-            amount = form.cleaned_data['amount']
-            if amount > available_balance:
+            amount_usd = form.cleaned_data['amount']
+            amount_ngn = _usd_to_ngn(amount_usd)
+            if amount_ngn > available_balance:
                 messages.error(request, 'Insufficient available balance.')
             else:
                 payout = Payout.objects.create(
                     user=user,
                     payout_type='referral',
-                    amount=amount,
+                    amount=amount_ngn,
                     full_name=form.cleaned_data['full_name'],
                     bank_name=form.cleaned_data['bank_name'],
                     account_number=form.cleaned_data['account_number'],
@@ -1684,7 +1713,8 @@ def dashboard_referral(request):
                     subject = 'Referral payout request submitted'
                     message = (
                         f"User: {user.username} ({user.email})\n"
-                        f"Amount: ${amount}\n"
+                        f"Amount (USD): ${amount_usd}\n"
+                        f"Amount (NGN): ₦{amount_ngn}\n"
                         f"Bank: {payout.bank_name}\n"
                         f"Account name: {payout.full_name}\n"
                         f"Account number: {payout.account_number}\n"
@@ -1715,8 +1745,8 @@ def dashboard_referral(request):
         'referral_link': referral_link,
         'referrals': referrals,
         'earnings': earnings,
-        'total_earnings': total_earnings,
-        'available_balance': available_balance,
+        'total_earnings': total_earnings_usd,
+        'available_balance': available_balance_usd,
         'referral_payouts': referral_payouts,
         'form': form,
         'commission_pct': commission_pct,

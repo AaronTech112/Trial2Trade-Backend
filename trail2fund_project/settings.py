@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
+from decimal import Decimal
 
 from dotenv import load_dotenv
 
@@ -139,6 +140,7 @@ LOGIN_URL = 'login_user'
 # Flutterwave keys from environment (fallback to test keys for dev)
 FLUTTERWAVE_PUBLIC_KEY = os.getenv('FLUTTERWAVE_PUBLIC_KEY', "FLWPUBK-86fbe294a13c5a515e0e83cdf5ef3f18-X")
 FLUTTERWAVE_SECRET_KEY = os.getenv('FLUTTERWAVE_SECRET_KEY', "FLWSECK-54196b0b51380b6ecc2f0aaca9a6a051-19a4ec21ab4vt-X")
+NGN_TO_USD_RATE = Decimal(os.getenv('NGN_TO_USD_RATE', '0.00067'))
 
 # MyFXBook credentials (simple in-settings configuration)
 MYFXBOOK_EMAIL = "trial2fund@gmail.com"
