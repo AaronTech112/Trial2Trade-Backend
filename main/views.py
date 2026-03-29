@@ -31,6 +31,7 @@ from django.contrib.auth.hashers import make_password
 from django.utils.dateparse import parse_datetime
 from django.contrib.auth.hashers import check_password
 from decimal import Decimal
+from typing import Optional
 
 from .models import MT5Account, Purchase, CustomUser, RealPropRequest, Payout, Certificate, ReferralSettings, ReferralEarning, DiscountCode, VerifiedTrader
 
@@ -60,7 +61,7 @@ def get_active_global_alert():
     except Exception:
         return None
 
-def myfxbook_login(http: requests.Session, base_url: str | None = None, use_post: bool = False) -> str:
+def myfxbook_login(http: requests.Session, base_url: Optional[str] = None, use_post: bool = False) -> str:
     """Login using a persistent HTTP session; return session token."""
     email = getattr(settings, 'MYFXBOOK_EMAIL', None)
     password = getattr(settings, 'MYFXBOOK_PASSWORD', None)
@@ -94,7 +95,7 @@ def myfxbook_login(http: requests.Session, base_url: str | None = None, use_post
     logger.info('MyFXBook login successful.')
     return session_token
 
-def myfxbook_get_account_info(http: requests.Session, session: str, account_id: str, base_url: str | None = None):
+def myfxbook_get_account_info(http: requests.Session, session: str, account_id: str, base_url: Optional[str] = None):
     """Return single account information for given MyFXBook account id."""
     base = base_url or getattr(settings, 'MYFXBOOK_BASE_URL', 'https://www.myfxbook.com')
     url = f"{base}/api/get-account-information.json?session={session.strip()}&id={str(account_id).strip()}"
@@ -163,7 +164,7 @@ def myfxbook_fetch_account_info_with_retry(account_id: str):
             except Exception:
                 pass
 
-def myfxbook_get_history(http: requests.Session, session: str, account_id: str, base_url: str | None = None):
+def myfxbook_get_history(http: requests.Session, session: str, account_id: str, base_url: Optional[str] = None):
     base = base_url or getattr(settings, 'MYFXBOOK_BASE_URL', 'https://www.myfxbook.com')
     url = f"{base}/api/get-history.json?session={session}&id={account_id}"
     try:
@@ -240,7 +241,7 @@ def myfxbook_fetch_history_with_retry(account_id: str):
         except Exception:
             pass
 
-def myfxbook_get_my_accounts(http: requests.Session, session: str, base_url: str | None = None):
+def myfxbook_get_my_accounts(http: requests.Session, session: str, base_url: Optional[str] = None):
     """Return accounts using a persistent HTTP session."""
     base = base_url or getattr(settings, 'MYFXBOOK_BASE_URL', 'https://www.myfxbook.com')
     url = f'{base}/api/get-my-accounts.json?session={session.strip()}'
@@ -267,7 +268,7 @@ def myfxbook_get_my_accounts(http: requests.Session, session: str, base_url: str
     return accounts
 
 
-def myfxbook_logout(http: requests.Session, session: str, base_url: str | None = None):
+def myfxbook_logout(http: requests.Session, session: str, base_url: Optional[str] = None):
     try:
         base = base_url or getattr(settings, 'MYFXBOOK_BASE_URL', 'https://www.myfxbook.com')
         url = f'{base}/api/logout.json?session={session}'
@@ -330,7 +331,7 @@ def myfxbook_fetch_accounts_with_retry():
                 pass
 
 
-def myfxbook_get_open_orders(http: requests.Session, session: str, account_id: str, base_url: str | None = None):
+def myfxbook_get_open_orders(http: requests.Session, session: str, account_id: str, base_url: Optional[str] = None):
     base = base_url or getattr(settings, 'MYFXBOOK_BASE_URL', 'https://www.myfxbook.com')
     url = f"{base}/api/get-open-orders.json?session={session}&id={account_id}"
     try:
