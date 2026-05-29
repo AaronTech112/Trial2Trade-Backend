@@ -767,32 +767,28 @@ def update_account_data_from_myfxbook(account, accounts=None):
         except Exception:
              account.recent_trades = []
 
-        # Calculate trading days based on assigned date and activity
-        if account.assigned_date:
-            try:
-                # Calculate days since assignment
-                days_since_assignment = (timezone.now() - account.assigned_date).days
-                
-                # If there are trades, use the trading activity to determine trading days
-                if trades:
-                    # Get unique trading days from trade history
-                    trading_days_set = set()
-                    for trade in trades:
-                        trade_time = _parse_myfxbook_dt(trade.get('closeTime') or trade.get('closeDate') or trade.get('close_time'))
-                        if trade_time:
-                            trading_days_set.add(trade_time.date())
-                    
-                    # Trading days is the number of unique days with trading activity
-                    account.trading_days = len(trading_days_set)
-                else:
-                    # If no trades, trading days is just days since assignment (capped at days passed)
-                    account.trading_days = min(days_since_assignment, (timezone.now() - account.assigned_date).days)
-                    
-            except Exception as e:
-                logger.error(f"Error calculating trading days for {account.login}: {e}")
-                # Fallback: use days since assignment
-                if account.assigned_date:
-                    account.trading_days = (timezone.now() - account.assigned_date).days
+        # Count actual trading days from MyFXBook history after the account was assigned.
+        try:
+            trading_days_set = set()
+            assigned_at = account.assigned_date
+            if assigned_at and timezone.is_naive(assigned_at):
+                assigned_at = timezone.make_aware(assigned_at, timezone.get_current_timezone())
+
+            for trade in trades:
+                trade_time = (
+                    _parse_myfxbook_dt(trade.get('openTime') or trade.get('openDate') or trade.get('open_time')) or
+                    _parse_myfxbook_dt(trade.get('closeTime') or trade.get('closeDate') or trade.get('close_time'))
+                )
+                if not trade_time:
+                    continue
+                if assigned_at and trade_time < assigned_at:
+                    continue
+                trading_days_set.add(trade_time.date())
+
+            account.trading_days = len(trading_days_set)
+            account.save(update_fields=['trading_days'])
+        except Exception as e:
+            logger.error(f"Error calculating trading days for {account.login}: {e}")
         
         try:
             account.check_breach_status()
@@ -1574,7 +1570,7 @@ def dashboard_accounts(request):
 
 @login_required(login_url='/login_user')
 def dashboard_next_phase(request):
-    user_accounts = MT5Account.objects.filter(user=request.user)
+    user_accounts = MT5Account.objects.filter(user=request.user, assigned=True).order_by('-assigned_date', '-id')
 
     if request.method == 'POST':
         request_type = request.POST.get('request_type')
@@ -1617,6 +1613,22 @@ def dashboard_next_phase(request):
 
         messages.success(request, f'Your {request_type} request has been submitted and is pending approval')
         return redirect('dashboard_next_phase')
+
+    if user_accounts.exists():
+        accounts_list = []
+        try:
+            accounts_list = myfxbook_fetch_accounts_with_retry()
+        except Exception as e:
+            logger.exception('Error fetching MyFXBook accounts list: %s', e)
+            messages.error(request, f"Error fetching MyFXBook accounts: {str(e)}")
+            accounts_list = []
+
+        for account in user_accounts:
+            try:
+                update_account_data_from_myfxbook(account, accounts=accounts_list)
+            except Exception as e:
+                logger.exception('Error fetching MyFXBook data in next phase for login %s: %s', account.login, e)
+                messages.error(request, f"Error fetching account data: {str(e)}")
 
     # Get existing requests
     prop_requests = RealPropRequest.objects.filter(user=request.user).order_by('-created_at')

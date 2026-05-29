@@ -173,14 +173,12 @@
                             <div class="progress-item">
                                 <span>Trading Days (20)</span>
                                 <div class="progress-bar">
-                                    {% with days_passed=account.assigned_date|timesince|split:" "|first|add:0 %}
-                                    {% with progress=days_passed|div:20|mul:100 %}
-                                    <div class="progress" style="width: {% if progress > 100 %}100{% else %}{{ progress|floatformat:0 }}{% endif %}%"></div>
-                                    {% endwith %}
+                                    {% with trading_days=account.trading_days|default:0 %}
+                                    <div class="progress" style="width: {% if trading_days > 20 %}100{% else %}{{ trading_days|mul:5 }}{% endif %}%"></div>
                                     {% endwith %}
                                 </div>
-                                <span>{% with days_passed=account.assigned_date|timesince|split:" "|first|add:0 %}
-                                    {% if days_passed > 20 %}20{% else %}{{ days_passed }}{% endif %}/20 Days
+                                <span>{% with trading_days=account.trading_days|default:0 %}
+                                    {% if trading_days > 20 %}20{% else %}{{ trading_days }}{% endif %}/20 Days
                                     {% endwith %}</span>
                             </div>
                         </div>
